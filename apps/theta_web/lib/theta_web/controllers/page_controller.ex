@@ -12,7 +12,6 @@ defmodule ThetaWeb.PageController do
   def index(conn, _params) do
     IO.inspect conn
     page = Page.new(conn)
-    #debug(page)
     list_article =
       case CacheDB.get("home") do
         {:ok, var} -> var
@@ -165,13 +164,6 @@ defmodule ThetaWeb.PageController do
           var
       end
     all_tag = PV.list_path_tag()
-    #    page = %{
-    #      page |
-    #      head: %{
-    #        title: var.slug,
-    #        description: var.slug
-    #      }
-    #    }
     page = put_in(page.head.title, var.slug)
     page = put_in(page.head.description, var.slug)
     page = put_in(page.head.canonical, page.head.base <>"/"<> "tag/" <> path.slug)

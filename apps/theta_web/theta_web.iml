@@ -58,5 +58,6 @@
     <orderEntry type="library" name="libsodium" level="project" />
     <orderEntry type="library" name="ojson" level="project" />
     <orderEntry type="library" name="poison" level="project" />
+    <orderEntry type="library" name="oauth2" level="project" />
   </component>
 </module>

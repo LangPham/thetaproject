@@ -49,7 +49,6 @@ defmodule ThetaWeb.MixProject do
       {:phoenix_markdown, "~> 1.0"},
       {:earmark, "~> 1.4.3"},
       {:guardian, "~> 2.1"}
-
     ]
   end
 

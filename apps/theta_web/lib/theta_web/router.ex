@@ -33,14 +33,12 @@ defmodule ThetaWeb.Router do
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
-  end
-
-  scope "/", ThetaWeb do
     get "/", PageController, :index
     get "/sitemap.xml", SitemapController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
   end
+
 
   scope "/user", ThetaWeb do
     pipe_through [:browser, :auth, :ensure_auth]
