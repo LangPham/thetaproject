@@ -1,0 +1,84 @@
+<%# debug(@page) %>
+<section class="section">
+<div class="container is-fullhd ">
+  <div class="columns">
+    <div class="column is-8">
+      <article class="article">
+        <section class="hero">
+          <div class="hero-body">
+            <h1 class="title is-1">
+              <%= @page.body.article.title %>
+            </h1>
+            <div class="subtitle is-6">
+              <div><i class="far fa-user"></i> <%= @page.body.article.author.user.name %>  <i class="far fa-calendar-alt"></i> <%# @page.body.inserted_at %><%= time_translate(@page.body.article.inserted_at, "vi") %></div>
+
+              <%= if length(@page.body.article.tag) > 0 do %>
+              <i class="fas fa-tags"></i>
+              <%= for tag <- @page.body.article.tag do %>
+                <span class="tag is-light is-rounded">
+                  <%= link(tag.slug, to: linktag(tag.slug)) %> <%= " " %>
+                </span>
+              <% end %>
+              <% end %>
+            </div>
+          </div>
+        </section>
+        <div class="content">
+          <div><%= @page.body.article.summary %></div>
+          <div><%= img_tag Routes.static_path(@conn, @page.body.article.photo), alt: @page.body.article.title  %></div>
+          <div><%= markdown @page.body.article.body %></div>
+        </div>
+      </article>
+    </div>
+    <div class="column">
+				<div class="card">
+		      <div class="card-content">
+	          <div class="content">
+	            <script async src="https://cse.google.com/cse.js?cx=000634605700554394801:kzpflttpyeo"></script>
+	            <div class="gcse-search"></div>
+						</div>
+	        </div>
+	      </div>
+	      <hr/>
+      <%= if length(@page.body.serial) > 0 do %>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+             Bài viết trong serial
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <ul>
+              <%= for section <- @page.body.serial do %>
+                <%= if @page.body.article.id == section.id do %>
+                  <li><%= section.title %></li>
+                <% else %>
+                  <li><%= link(section.title, to: webroot(section.slug)) %></li>
+                <% end %>
+              <% end %>
+             </ul>
+           </div>
+        </div>
+    </div>
+    <hr/>
+		<% end %>
+
+		<div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                 Bài viết mới
+              </p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <ul>
+
+                 </ul>
+               </div>
+            </div>
+        </div>
+  </div>
+  </div>
+</div>
+</section>

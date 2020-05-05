@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title><%= @title %> | Theta.vn</title>
+	<link rel="stylesheet" href='<%= Routes.static_path(@conn, "/css/app.css") %>'/>
+	<%= csrf_meta_tag() %>
+</head>
+<body>
+<section class="hero is-fullheight">
+	<!-- Hero head: will stick at the top -->
+	<div class="hero-head">
+		<header class="layout">
+			<div class="container is-fullhd ">
+				<nav class="navbar" role="navigation" aria-label="main navigation">
+					<div class="navbar-brand">
+						<a href="/" class="navbar-item-brand">
+							<img src='<%= Routes.static_path(@conn, "/images/logo.svg") %>' alt="Theta Logo" />
+						</a>
+						<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+						   data-target="navbarMenu">
+							<span aria-hidden="true"></span>
+							<span aria-hidden="true"></span>
+							<span aria-hidden="true"></span>
+						</a>
+					</div>
+					<div id="navbarMenu" class="navbar-menu">
+						<div class="navbar-end">
+							<%= render(ThetaWeb.MenuView, "menu.html", conn: @conn ) %>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+	</div>
+	<!-- Hero content: will be in the middle -->
+	<div class="hero-body">
+		<div class="container has-text-centered">
+			<h1 class="title is-1">
+				Not found
+			</h1>
+			<h2 class="subtitle">
+				Sorry, the page you are looking for does not exist.
+			</h2>
+		</div>
+	</div>
+	<!-- Hero footer: will stick at the bottom -->
+	<div class="hero-foot">
+		<%= render(ThetaWeb.FooterView, "footer.html", conn: @conn ) %>
+	</div>
+</section>
+<script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>
+</body>
+</html>

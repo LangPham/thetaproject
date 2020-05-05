@@ -1,0 +1,26 @@
+<h1 class="title is-1">Listing Taxonomy</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for taxonomy <- @taxonomy do %>
+    <tr>
+      <td><%= taxonomy.title %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.cms_taxonomy_path(@conn, :show, taxonomy) %></span>
+        <span><%= link "Edit", to: Routes.cms_taxonomy_path(@conn, :edit, taxonomy) %></span>
+        <span><%= link "Delete", to: Routes.cms_taxonomy_path(@conn, :delete, taxonomy), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Taxonomy", to: Routes.cms_taxonomy_path(@conn, :new) %></span>

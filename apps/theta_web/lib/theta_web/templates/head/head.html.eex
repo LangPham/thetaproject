@@ -1,0 +1,6 @@
+<%= for meta <- get_meta_tag_html(@head) do %>
+  <meta name="<%= meta.name %>" content="<%= meta.content %>">
+<% end %>
+<%= for meta <- get_og_tag_html(@head) do %>
+  <meta property="<%= meta.property %>" content="<%= meta.content %>">
+<% end %>

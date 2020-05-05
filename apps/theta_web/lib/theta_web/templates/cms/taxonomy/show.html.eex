@@ -1,0 +1,13 @@
+<h1 class="title is-1">Show Taxonomy</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @taxonomy.title %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.cms_taxonomy_path(@conn, :edit, @taxonomy) %></span>
+<span><%= link "Back", to: Routes.cms_taxonomy_path(@conn, :index) %></span>

@@ -1,0 +1,18 @@
+<h1 class="title is-1">Show Config</h1>
+
+<ul>
+
+  <li>
+    <strong>Key:</strong>
+    <%= @config.key %>
+  </li>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @config.value %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.config_path(@conn, :edit, @config) %></span>
+<span><%= link "Back", to: Routes.config_path(@conn, :index) %></span>

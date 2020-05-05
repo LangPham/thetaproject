@@ -1,0 +1,5 @@
+<h1 class="title is-1">Edit Taxonomy</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.cms_taxonomy_path(@conn, :update, @taxonomy)) %>
+
+<span><%= link "Back", to: Routes.cms_taxonomy_path(@conn, :index) %></span>

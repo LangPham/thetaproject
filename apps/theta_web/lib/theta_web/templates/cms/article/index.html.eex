@@ -1,0 +1,32 @@
+<h1 class="title is-1">Listing Article</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Summary</th>
+
+
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for article <- @article do %>
+    <tr>
+      <td><%= article.id %></td>
+      <td><%= article.title %></td>
+      <td><%= article.summary %></td>
+
+
+      <td>
+        <span><%= link "Show", to: Routes.cms_article_path(@conn, :show, article) %></span>
+        <span><%= link "Edit", to: Routes.cms_article_path(@conn, :edit, article) %></span>
+        <span><%= link "Delete", to: Routes.cms_article_path(@conn, :delete, article), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Article", to: Routes.cms_article_path(@conn, :new) %></span>

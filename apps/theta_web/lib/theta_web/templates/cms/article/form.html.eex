@@ -1,0 +1,62 @@
+<%= form_for @changeset, @action, [multipart: true ], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="has-text-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= text_input_bulma f, :title %>
+  <div class="control">
+    <label class="radio">
+      <%= radio_button(f, :is_serial, "false") %>
+      Is normal
+    </label>
+    <label class="radio">
+      <%= radio_button(f, :is_serial, "true") %>
+      Is serial
+    </label>
+    <label class="radio">
+      <input type="radio" id="article_is_section" name="article[is_serial]" value="" <%= if @changeset.data.serial_id != nil, do: "checked"%>>
+          Is section
+          <div class="field" id="serial_select">
+          			<div class="control">
+          				<div class="select">
+          					<%= select(f, :serial_id, Enum.map(@serial, &{&1.title, &1.id}), prompt: "--Choose serial--", selected: @changeset.data.serial_id) %>
+          				</div>
+          			</div>
+          		</div>
+        </label>
+  </div>
+
+	<%# checkbox_bulma f, :is_serial %>
+	<%# checkbox_bulma f, :is_section %>
+
+	<div class="field">
+  <%= label f, :photo , class: "label" %>
+  <%= img_tag(@changeset.data.photo, style: "width:100px;height:auto") %>
+  <%= file_input_bulma f, :photo, false  %>
+
+  <%= error_tag f, :photo %>
+	</div>
+
+  <%= text_input_bulma f, :summary %>
+
+	<div class="field">
+	  <%= label f, :body , class: "label"%>
+	  <div class="control">
+	    <%= simplemde f, :body %>
+	  </div>
+	  <%= error_tag f, :body %>
+	</div>
+
+
+  <%= select_bulma(f, :menu_id, Enum.map(@menu, &{&1.title, &1.id}), prompt: "--Choose menu--", selected: @changeset.data.menu_id) %>
+
+
+  <%= text_input_bulma f, :tags, [value: List.to_string(for x <- @changeset.data.tag, do: x.slug<>" "), class: "input"]  %>
+
+
+  <%= submit("Save", class: "button is-link") %>
+
+
+<% end %>

@@ -1,0 +1,28 @@
+<h1 class="title is-1">Listing Term</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+       <th>ID</th>
+      <th>Title</th>
+			<th>Taxonomy</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for term <- @term do %>
+    <tr>
+      <td><%= term.id %></td>
+      <td><%= term.title %></td>
+			<td><%= term.taxonomy.title %></td>
+      <td>
+        <span><%= link "Show", to: Routes.cms_term_path(@conn, :show, term) %></span>
+        <span><%= link "Edit", to: Routes.cms_term_path(@conn, :edit, term) %></span>
+        <span><%= link "Delete", to: Routes.cms_term_path(@conn, :delete, term), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Term", to: Routes.cms_term_path(@conn, :new) %></span>

@@ -1,0 +1,27 @@
+<h1 class="title is-1">Show Article</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @article.title %>
+  </li>
+
+  <li>
+    <strong>Summary:</strong>
+    <%= @article.summary %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @article.body %>
+  </li>
+  <li>
+    <strong>Menu:</strong>
+    <%= @article.menu.title %>
+   </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.cms_article_path(@conn, :edit, @article) %></span>
+<span><%= link "Back", to: Routes.cms_article_path(@conn, :index) %></span>

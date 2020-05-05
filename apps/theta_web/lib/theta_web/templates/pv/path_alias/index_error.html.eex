@@ -1,0 +1,28 @@
+<h1>Listing Path alias</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Count</th>
+      <th>Redirect</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for path_alias <- @path_alias do %>
+<tr>
+      <td><%= path_alias.path %></td>
+      <td><%= path_alias.count %></td>
+      <td><%= show_slug(path_alias.path_alias) %></td>
+      <td>
+        <span><%# link "Show", to: Routes.pv_path_alias_path(@conn, :show, path_alias) %></span>
+        <span><%= link "Edit", to: Routes.path_alias_path(@conn, :edit, path_alias) %></span>
+        <span><%= link "Delete", to: Routes.path_alias_path(@conn, :delete, path_alias), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%# link "New Path alias", to: Routes.pv_path_alias_path(@conn, :new) %></span>

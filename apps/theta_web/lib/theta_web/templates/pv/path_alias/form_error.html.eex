@@ -1,0 +1,71 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <fieldset disabled class="field">
+  <div class="field is-horizontal">
+    <div class="field-label is-nomarl"><label class="label">Path Error</label></div>
+    <div class="field-body">
+      <div class="field is-expanded">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              <%= @changeset.data.count %>
+            </a>
+          </p>
+          <p class="control is-expanded">
+            <input class="input" type="text" placeholder="<%= @changeset.data.path %>">
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </fieldset>
+  <%= filter_input("myTable", 1, "Search for slug..") %>
+  <div class="field" >
+   <table id="myTable" class="table">
+       <thead>
+         <tr>
+           <th>ID</th>
+           <th>Slug</th>
+           <th>Type</th>
+           <th>Inserted at</th>
+         </tr>
+       </thead>
+
+       <tbody>
+         <%= for path_in_serial <- @serial do  %>
+           <tr <%# if path_in_serial.id = @changeset.data.path_alias_id ,do: "class=has-background-success" %>>
+
+             <td><%= path_in_serial.id %></td>
+             <td><%= path_in_serial.slug %></td>
+             <td><%= path_in_serial.type_model%></td>
+             <td><%= path_in_serial.inserted_at %></td>
+             <td><%= radio_button(f, :path_alias_id, path_in_serial.id, checked: path_in_serial.id == @changeset.data.path_alias_id ) %></td>
+
+           </tr>
+         <% end %>
+         </tbody>
+
+       </table>
+  </div>
+
+
+	<div class="field is-horizontal">
+	  <div class="field-label">
+	    <!-- Left empty for spacing -->
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <div class="control">
+	        <%= submit "Save", class: "button is-link" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>

@@ -1,0 +1,28 @@
+<h1 class="title is-1">Listing Config</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for config <- @config do %>
+    <tr>
+      <td><%= config.key %></td>
+      <td><%= config.value %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.config_path(@conn, :show, config) %></span>
+        <span><%= link "Edit", to: Routes.config_path(@conn, :edit, config) %></span>
+        <span><%= link "Delete", to: Routes.config_path(@conn, :delete, config), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Config", to: Routes.config_path(@conn, :new) %></span>

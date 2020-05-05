@@ -1,0 +1,29 @@
+<%= for m <- get_menu(@conn) do %>
+  <a href="<%= m.slug %>" class="navbar-item" ><%= m.label %></a>
+<% end %>
+<%= if get_menu_user(@conn) != nil do %>
+<div class=" navbar-item dropdown is-hoverable is-right">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-user">
+      <span>Menu</span>
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+
+  <div class="dropdown-menu" id="dropdown-user" role="menu">
+      <div class="dropdown-content">
+	      <%= for m <- get_menu_cms(@conn) do %>
+	        <a href="<%= m.slug %>" class="dropdown-item"><%= m.label %></a>
+	      <% end %>
+
+        <hr class="dropdown-divider">
+        <%= for m <- get_menu_user(@conn) do %>
+					<a href="<%= m.slug %>" class="dropdown-item"><%= m.label %></a>
+				<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

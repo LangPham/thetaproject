@@ -1,0 +1,28 @@
+<h1 class="title is-1">Admin Dashboard</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Manager</th>
+      <th>Summary</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Taxonomy</td>
+      <td>Taxonomy</td>
+      <td><%= link "View", to: Routes.cms_taxonomy_path(@conn, :index) %></td>
+    </tr>
+    <tr>
+          <td>Term</td>
+          <td>Term</td>
+          <td><%= link "View", to: Routes.cms_term_path(@conn, :index) %></td>
+        </tr>
+		<tr>
+          <td>Article</td>
+          <td>Article</td>
+          <td><%= link "View", to: Routes.cms_article_path(@conn, :index) %></td>
+        </tr>
+  </tbody>
+</table>

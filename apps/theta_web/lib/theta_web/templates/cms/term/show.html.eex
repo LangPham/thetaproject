@@ -1,0 +1,13 @@
+<h1 class="title is-1">Show Term</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @term.title %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.cms_term_path(@conn, :edit, @term) %></span>
+<span><%= link "Back", to: Routes.cms_term_path(@conn, :index) %></span>

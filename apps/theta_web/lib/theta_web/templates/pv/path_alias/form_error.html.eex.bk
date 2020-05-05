@@ -1,0 +1,56 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <fieldset disabled class="field">
+  <div class="field is-horizontal">
+    <div class="field-label is-nomarl"><label class="label">Path Error</label></div>
+    <div class="field-body">
+      <div class="field is-expanded">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              <%= @changeset.data.count %>
+            </a>
+          </p>
+          <p class="control is-expanded">
+            <input class="input" type="text" placeholder="<%= @changeset.data.path %>">
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </fieldset>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Redirect to</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control">
+          <div class="select is-fullwidth">
+            <%= select(f, :path_alias_id, Enum.map(@serial, &{&1.slug, &1.id}), prompt: "--Choose path--", selected: @changeset.data.path_alias_id) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<div class="field is-horizontal">
+	  <div class="field-label">
+	    <!-- Left empty for spacing -->
+	  </div>
+	  <div class="field-body">
+	    <div class="field">
+	      <div class="control">
+	        <%= submit "Save", class: "button is-link" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>

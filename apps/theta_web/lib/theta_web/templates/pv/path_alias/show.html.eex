@@ -1,0 +1,16 @@
+<h1>Show Path alias</h1>
+
+<ul>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @path_alias.slug %>
+  </li>
+
+  <li>
+    <strong>Type model:</strong>
+    <%= @path_alias.type_model %>
+  </li>
+
+</ul>
+
