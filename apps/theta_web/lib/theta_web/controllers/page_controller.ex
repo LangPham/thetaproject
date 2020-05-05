@@ -9,6 +9,11 @@ defmodule ThetaWeb.PageController do
   alias ThetaWeb.Page
   plug :put_layout, "layout.html"
 
+  def policy(conn, _params) do
+    page = Page.new(conn)
+    render(conn, "policy.html", page: page)
+  end
+
   def index(conn, _params) do
     IO.inspect conn
     page = Page.new(conn)

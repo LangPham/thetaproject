@@ -8,6 +8,7 @@ defmodule Theta.Account.User do
     field :name, :string
     field :username, :string
     field :role, :string, default: 'USER'
+    field :avatar, :string
     has_one :credential, Credential
     has_one :author, Theta.CMS.Author
     timestamps()

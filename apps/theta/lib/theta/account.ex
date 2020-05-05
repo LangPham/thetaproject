@@ -139,6 +139,8 @@ defmodule Theta.Account do
   """
   def get_credential!(id), do: Repo.get!(Credential, id)
 
+  def get_credential_by_google_email(google_email), do: Repo.get_by(Credential, email: google_email)
+
   @doc """
   Creates a credential.
 

@@ -4,11 +4,11 @@ defmodule Theta.Repo.Migrations.EditUser do
 
   def up do
     alter table(:user) do
-      add :role, :string
+      add :avatar, :string
     end
-    flush()
-    from(u in Theta.Account.User, update: [set: [role: "ROOT"]])
-    |> Theta.Repo.update_all([])
+#    flush()
+#    from(u in Theta.Account.User, update: [set: [avatar: "ROOT"]])
+#    |> Theta.Repo.update_all([])
   end
   def down do
 
