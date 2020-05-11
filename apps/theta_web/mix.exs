@@ -48,8 +48,8 @@ defmodule ThetaWeb.MixProject do
       {:plug_cowboy, "~> 2.2"},
       {:phoenix_markdown, "~> 1.0"},
       {:earmark, "~> 1.4.3"},
-      {:guardian, "~> 2.1"}
-
+      {:guardian, "~> 2.1"},
+      {:oauth2, "~> 2.0"}
     ]
   end
 

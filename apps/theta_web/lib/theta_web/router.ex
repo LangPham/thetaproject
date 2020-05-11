@@ -33,13 +33,19 @@ defmodule ThetaWeb.Router do
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
-  end
-
-  scope "/", ThetaWeb do
     get "/", PageController, :index
+    get "/policy", PageController, :policy
     get "/sitemap.xml", SitemapController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
+  end
+
+  scope "/auth", ThetaWeb do
+    pipe_through :browser
+    get "/:provider", OauthController, :index
+    get "/:provider/callback", OauthController, :callback
+#    delete "/logout", OauthController, :delete
+
   end
 
   scope "/user", ThetaWeb do
@@ -48,7 +54,6 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/admin", ThetaWeb do
-    #    pipe_through [:browser, :authenticate_user]
     pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
@@ -56,7 +61,6 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/cms", ThetaWeb.CMS, as: :cms do
-    #    pipe_through [:browser, :authenticate_user]
     pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
     get "/admin", AdminController, :index
     resources "/taxonomy", TaxonomyController
@@ -65,7 +69,6 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/api", ThetaWeb.CMS do
-#    pipe_through [:api, :auth, :ensure_auth, :ensure_root]
     pipe_through [:api, :auth]
     post "/upload", UploadController, :index
   end

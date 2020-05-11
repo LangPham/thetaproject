@@ -1,8 +1,6 @@
 defmodule ThetaWeb.SitemapController do
   use ThetaWeb, :controller
 
-  alias Theta.Account
-  alias Theta.Account.User
   alias ThetaWeb.Page
 
   def index(conn, _params) do

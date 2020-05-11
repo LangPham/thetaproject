@@ -3,7 +3,6 @@ defmodule Theta.Account.Credential do
   import Ecto.Changeset
 
   alias Theta.Account.User
-  alias Bcrypt
 
   schema "credential" do
     field :email, :string

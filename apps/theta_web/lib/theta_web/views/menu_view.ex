@@ -8,16 +8,19 @@ defmodule ThetaWeb.MenuView do
     end
   end
   def get_menu_user(conn) do
-    user_id = conn.private[:plug_session]["user_id"]
-    if user_id do
-      [%{slug: Routes.session_path(conn, :delete), label: "Logout"}]
+    user = Guardian.Plug.current_resource(conn)
+    if user do
+      [
+        %{slug: Routes.profile_path(conn, :index), label: "Profile"},
+        %{slug: Routes.session_path(conn, :delete), label: "Logout"}
+      ]
     else
       nil
     end
   end
   def get_menu_cms(conn) do
-    user_id = conn.private[:plug_session]["user_id"]
-    if user_id == 1 do
+    user = Guardian.Plug.current_resource(conn)
+    if user.role == "ROOT" do
       [
         %{slug: Routes.user_path(conn, :index), label: "Admin User"},
         %{slug: Routes.cms_admin_path(conn, :index), label: "Admin CMS"},
@@ -28,4 +31,5 @@ defmodule ThetaWeb.MenuView do
       []
     end
   end
+
 end

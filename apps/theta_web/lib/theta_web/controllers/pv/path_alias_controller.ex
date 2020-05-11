@@ -1,13 +1,8 @@
 defmodule ThetaWeb.PV.PathAliasController do
 	use ThetaWeb, :controller
-
 	alias Theta.PV
-	#alias Theta.PV.{PathAlias, PathError}
 
 	def router_path_error(conn, path_error) do
-#		IO.inspect "path_error =========================================================================="
-#		IO.inspect path_error
-
 		case PV.get_path_error_path(path_error) do
 			nil -> PV.create_path_error(%{path: path_error})
 			       conn
@@ -17,8 +12,6 @@ defmodule ThetaWeb.PV.PathAliasController do
 			       |> put_view(ThetaWeb.ErrorView)
 			       |> render("404.html")
 			result ->
-#				IO.inspect "result =========================================================================="
-#				IO.inspect result
 				if result.path_alias_id == nil do
 					PV.update_path_error(result, %{count: result.count + 1})
 					conn
@@ -29,14 +22,10 @@ defmodule ThetaWeb.PV.PathAliasController do
 					|> render("404.html")
 				else
 					path = PV.get_path_alias!(result.path_alias_id)
-#					IO.inspect "path =========================================================================="
-#					IO.inspect path
 					path_redirect =
 						if path.type_model == "tags" do
-							IO.inspect "tags =========================================================================="
 							"/tag/#{path.slug}"
 							else
-								IO.inspect "non tags =========================================================================="
 								"/#{path.slug}"
 						end
 					conn
@@ -44,24 +33,13 @@ defmodule ThetaWeb.PV.PathAliasController do
 					|> redirect(to: path_redirect)
 					|> halt()
 				end
-
 		end
-
 	end
-
 
 	def index(conn, _params) do
-		#IO.inspect conn
-		#  send_resp(conn, 404, "cai gi day")
 		path_alias = PV.list_path_error()
-#		IO.inspect path_alias
 		render(conn, "index_error.html", path_alias: path_alias)
 	end
-
-	#    def new(conn, _params) do
-	#      changeset = PV.change_path_alias(%PathAlias{})
-	#      render(conn, "new.html", changeset: changeset)
-	#    end
 
 	def create(conn, %{"path_alias" => path_alias_params}) do
 		case PV.create_path_alias(path_alias_params) do
@@ -74,19 +52,18 @@ defmodule ThetaWeb.PV.PathAliasController do
 				render(conn, "new.html", changeset: changeset)
 		end
 	end
-	#
+
 	def show(conn, %{"id" => id}) do
 		path_alias = PV.get_path_alias!(id)
 		render(conn, "show.html", path_alias: path_alias)
 	end
-	#
+
 	def edit(conn, %{"id" => id}) do
 		path_all = PV.list_path_alias()
 		path_alias = PV.get_path_error!(id)
 		changeset = PV.change_path_error(path_alias)
 		render(conn, "edit_error.html", path_alias: path_alias, changeset: changeset, serial: path_all)
 	end
-
 
 	def update(conn, %{"id" => id, "path_error" => path_error_params}) do
 

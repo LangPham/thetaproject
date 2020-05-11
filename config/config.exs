@@ -59,4 +59,9 @@ config :theta_web, ThetaWeb.Guardian,
        issuer: "theta_web",
        secret_key: "liowth" # put the result of the mix command above here
 
+config :theta, Google,
+       client_id: "81646655246-m93r94b1gso6u70ifruqgv08h6vh575h.apps.googleusercontent.com",
+       client_secret: "XRDWhB6wp_E-wDilmdgn7W_q",
+       redirect_uri: "http://127.0.0.1:4000/auth/google/callback"
+
 import_config "#{Mix.env()}.exs"
