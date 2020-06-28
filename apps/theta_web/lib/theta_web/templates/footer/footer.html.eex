@@ -8,9 +8,9 @@
           </div>
           <div class="level-item has-text-centered">
             <p>
-              <a href="https://<%= get_config("contact_youtube") %>" target="_blank" rel="nofollow"><i class="fab fa-facebook"></i> <%= get_config("contact_youtube") %></a><br/>
-              <a href="https://<%= get_config("contact_facebook") %>" target="_blank" rel="nofollow"><i class="fab fa-facebook"></i> <%= get_config("contact_facebook") %></a><br/>
-              <a href="mailto:<%= get_config("contact_email") %>" target="_blank" rel="nofollow"><i class="fas fa-envelope"></i> <%= get_config("contact_email") %></a>
+              <a href="https://<%= get_config("contact_youtube") %>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook"></i> <%= get_config("contact_youtube") %></a><br/>
+              <a href="https://<%= get_config("contact_facebook") %>" target="_blank" rel="nofollow noopener"><i class="fab fa-facebook"></i> <%= get_config("contact_facebook") %></a><br/>
+              <a href="mailto:<%= get_config("contact_email") %>" target="_blank" rel="nofollow noopener"><i class="fas fa-envelope"></i> <%= get_config("contact_email") %></a>
             </p>
           </div>
         </div>
