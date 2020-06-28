@@ -72,6 +72,7 @@ defmodule ThetaWeb.PageController do
           CacheDB.set("path-alias-#{path.id}", var)
           var
       end
+
     cache_serial =
       case {var.article.is_serial, var.article.serial_id} do
         {true, _} ->
@@ -97,23 +98,56 @@ defmodule ThetaWeb.PageController do
 
     page = put_in(page.head.title, var.article.title)
     page = put_in(page.head.description, var.article.summary)
-    page = put_in(page.head.canonical, page.head.base <>"/"<> path.slug)
+    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
     page = put_in(
       page.head.og,
-      [%{property: "og:image:secure_url", content: page.head.base <> var.article.photo},
+      [
+        %{property: "og:image:secure_url", content: page.head.base <> var.article.photo},
         %{property: "og:image", content: page.head.base <> var.article.photo},
         %{property: "og:type", content: "article"}
       ]
     )
-    page = Map.put(page, :body, %{article: var.article, serial: cache_serial})
+
+    menu =
+      case CacheDB.get("menu-id-#{var.article.menu_id}") do
+        {:ok, menu} -> menu
+        {:error, _} ->
+          article_query =
+            from a in Article,
+                 order_by: [
+                   desc: a.inserted_at
+                 ]
+          menu = Repo.preload(
+            path,
+            [
+              article: [
+                menu: [
+                  article: {article_query, [author: [:user], path_alias: []]}
+                ]
+              ]
+            ]
+          )
+
+          CacheDB.set("menu-id-#{var.article.menu_id}", menu.article.menu)
+          menu.article.menu
+      end
+
+    list_serial = for article <- cache_serial, article.id != var.article.id, do: article.id
+    new_exclude_article = for article <- menu.article, article.id != var.article.id, do: article
+    new_exclude_serial = for article <- new_exclude_article, article.id not in list_serial, do: article
+    new = Enum.take(new_exclude_serial, 5)
+    #    new = []
+    page = Map.put(page, :body, %{article: var.article, serial: cache_serial, new: new})
     conn
     |> render("article.html", page: page)
   end
 
   defp render_content(conn, %PathAlias{type_model: type_model} = path) when type_model == "main_menu" do
     page = Page.new(conn)
+    get_term = Repo.preload(path, :term)
+
     var =
-      case CacheDB.get("menu-id-#{path.id}") do
+      case CacheDB.get("menu-id-#{get_term.term.id}") do
         {:ok, var} -> var
         {:error, _} ->
           article_query =
@@ -129,19 +163,19 @@ defmodule ThetaWeb.PageController do
               ]
             ]
           )
-          CacheDB.set("menu-id-#{path.id}", var)
-          var
+          CacheDB.set("menu-id-#{get_term.term.id}", var.term)
+          var.term
       end
 
     serial_of_menu =
-      for art <- var.term.article, art.is_serial do
+      for art <- var.article, art.is_serial do
         %{title: art.title, id: art.id, slug: art.path_alias.slug}
       end
 
-    page = put_in(page.head.title, var.term.title)
-    page = put_in(page.head.description, var.term.title)
-    page = put_in(page.head.canonical, page.head.base <>"/"<> path.slug)
-    page = Map.put(page, :body, %{list_article: var.term.article, serial_menu: serial_of_menu})
+    page = put_in(page.head.title, var.title)
+    page = put_in(page.head.description, var.title)
+    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
+    page = Map.put(page, :body, %{list_article: var.article, serial_menu: serial_of_menu})
     conn
     |> render("main_menu.html", page: page)
   end
@@ -171,9 +205,9 @@ defmodule ThetaWeb.PageController do
     all_tag = PV.list_path_tag()
     page = put_in(page.head.title, var.slug)
     page = put_in(page.head.description, var.slug)
-    page = put_in(page.head.canonical, page.head.base <>"/"<> "tag/" <> path.slug)
+    page = put_in(page.head.canonical, page.head.base <> "/" <> "tag/" <> path.slug)
     page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag})
-    IO.inspect page
+
     conn
     |> render("tag.html", page: page)
   end

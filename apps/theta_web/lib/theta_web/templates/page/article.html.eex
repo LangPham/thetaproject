@@ -65,19 +65,25 @@
 		<% end %>
 
 		<div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                 Bài viết mới
-              </p>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                <ul>
-
-                 </ul>
-               </div>
-            </div>
+      <header class="card-header">
+        <p class="card-header-title">
+	        Bài viết mới
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <ul>
+						<%= for article <- @page.body.new do %>
+							<%= if @page.body.article.id == article.id do %>
+                <li><%= article.title %></li>
+              <% else %>
+                <li><%= link(article.title, to: webroot(article.path_alias.slug)) %></li>
+              <% end %>
+            <% end %>
+          </ul>
         </div>
+      </div>
+    </div>
   </div>
   </div>
 </div>
