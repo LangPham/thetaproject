@@ -59,7 +59,7 @@ defmodule ThetaWeb.Router do
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
-    live_dashboard "/dashboard"
+    live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
   end
 
   scope "/cms", ThetaWeb.CMS, as: :cms do

@@ -15,7 +15,7 @@ defmodule ThetaWeb.PageController do
   end
 
   def index(conn, _params) do
-    IO.inspect conn
+#    IO.inspect conn
     page = Page.new(conn)
     list_article =
       case CacheDB.get("home") do
