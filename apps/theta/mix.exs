@@ -36,6 +36,7 @@ defmodule Theta.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:phoenix_pubsub, "~> 2.0"},
       {:ecto_sql, "~> 3.3"},
       {:postgrex, ">= 0.15.3"},
       {:jason, "~> 1.1"},

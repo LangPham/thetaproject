@@ -3,6 +3,8 @@ defmodule ThetaWeb.Router do
   # Todo: enable Plug.ErrorHandler
   use Plug.ErrorHandler
 
+  import Phoenix.LiveDashboard.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -29,7 +31,6 @@ defmodule ThetaWeb.Router do
 
   scope "/", ThetaWeb do
     pipe_through [:browser, :auth]
-
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
@@ -58,6 +59,7 @@ defmodule ThetaWeb.Router do
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
+    live_dashboard "/dashboard"
   end
 
   scope "/cms", ThetaWeb.CMS, as: :cms do
@@ -89,4 +91,20 @@ defmodule ThetaWeb.Router do
     path_error = reason.conn.request_path
     ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)
   end
+
+  # Enables LiveDashboard only for development
+  #
+  # If you want to use the LiveDashboard in production, you should put
+  # it behind authentication and allow only admins to access it.
+  # If your application does not have an admins-only section yet,
+  # you can use Plug.BasicAuth to set up some basic authentication
+  # as long as you are also using SSL (which you should anyway).
+#  if Mix.env() in [:dev, :test] do
+#    import Phoenix.LiveDashboard.Router
+#
+#    scope "/" do
+#      pipe_through :browser
+#      live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
+#    end
+#  end
 end

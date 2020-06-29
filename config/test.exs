@@ -4,7 +4,7 @@ use Mix.Config
 config :theta, Theta.Repo,
   username: "postgres",
   password: "postgres",
-  database: "theta_test",
+  database: "theta_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

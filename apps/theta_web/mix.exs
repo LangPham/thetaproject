@@ -9,7 +9,7 @@ defmodule ThetaWeb.MixProject do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.5",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -37,17 +37,19 @@ defmodule ThetaWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.1"},
-      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.2.0"},
+      {:telemetry_metrics, "~> 0.4"},
+      {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:theta, in_umbrella: true},
       {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.2"},
-      {:phoenix_markdown, "~> 1.0"},
-      {:earmark, "~> 1.4.3"},
+      {:plug_cowboy, "~> 2.3"},
+#      {:phoenix_markdown, "~> 1.0"},
+      {:earmark, "~> 1.4.6"},
       {:guardian, "~> 2.1"},
       {:oauth2, "~> 2.0"}
     ]

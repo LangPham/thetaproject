@@ -8,7 +8,9 @@ defmodule Theta.Application do
   def start(_type, _args) do
     children = [
       Theta.Repo,
-      Theta.CacheDB
+      Theta.CacheDB,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Theta.PubSub}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Theta.Supervisor)

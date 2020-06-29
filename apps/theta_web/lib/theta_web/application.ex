@@ -8,9 +8,9 @@ defmodule ThetaWeb.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-     # Start the PubSub system
-     {Phoenix.PubSub, name: ThetaWeb.PubSub},
-      # Start the endpoint when the application starts
+      # Start the Telemetry supervisor
+      ThetaWeb.Telemetry,
+      # Start the Endpoint (http/https)
       ThetaWeb.Endpoint
       # Starts a worker by calling: ThetaWeb.Worker.start_link(arg)
       # {ThetaWeb.Worker, arg},

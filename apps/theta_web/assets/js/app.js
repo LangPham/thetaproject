@@ -1,29 +1,19 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import css from "../css/app.css"
+import "../css/app.scss"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
 // in "webpack.config.js".
 //
-// Import dependencies
+// Import deps with the dep name or local files with a relative path, for example:
 //
-
+//     import {Socket} from "phoenix"
+//     import socket from "./socket"
+//
 import "phoenix_html"
 import "../css/custom_bulma.scss";
-
-
-// import { library, dom } from "@fortawesome/fontawesome-svg-core";
-// import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
-//
-// library.add(faCheck);
-// dom.watch();
-
-// Import local files
-//
-// Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
 
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ($navbarBurgers.length > 0) {
 
         // Add a click event on each of them
-        $navbarBurgers.forEach( el => {
+        $navbarBurgers.forEach(el => {
             el.addEventListener('click', () => {
 
                 // Get the target from the "data-target" attribute
