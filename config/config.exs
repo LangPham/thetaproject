@@ -67,4 +67,8 @@ config :theta,
        client_secret: "XRDWhB6wp_E-wDilmdgn7W_q",
        redirect_uri: "http://127.0.0.1:4000/auth/google/callback"
 
+# Configure Mix tasks and generators
+config :theta_media,
+       storage: Path.join([Path.dirname(__DIR__), "uploads"])
+
 import_config "#{Mix.env()}.exs"
