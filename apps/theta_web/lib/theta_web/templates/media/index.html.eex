@@ -1,0 +1,73 @@
+<section class="section">
+  <div class="container is-fullhd upload">
+    <nav class="level has-background-primary">
+      <div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-home"></i> Home
+        </div>
+      </div>
+			<div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-chevron-left"></i> Back
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-sync"></i> Refresh
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-folder-plus"></i> NewFolder
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-upload"></i> Upload
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <i class="fas fa-check"></i> Select
+        </div>
+      </div>
+    </nav>
+    <div class="columns">
+      <div class="column is-3">
+        <div class="box">
+	        <%= for dir <- @dir.dirs do %>
+		        <h3 class="title is-3"><%= dir %></h3>
+	        <% end %>
+        </div>
+      </div>
+      <div class="column">
+        <table id="myTable" class="table is-striped is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <%= for dir <- @dir.dirs do %>
+          	  <tr>
+          	    <td><i class="far fa-folder"></i></td>
+          	    <td><%= dir %></td>
+          	  </tr>
+          	<% end %>
+          	<%= for file <- @dir.files do %>
+							<tr>
+          	    <td><i class="far fa-file"></i></td>
+          	    <td><%= file %></td>
+          	  </tr>
+          	<% end %>
+          </tbody>
+				</table>
+
+	    </div>
+    </div>
+  </div>
+</section>
+
+

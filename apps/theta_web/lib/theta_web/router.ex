@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-  use Plug.ErrorHandler
+  # use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
@@ -37,8 +37,10 @@ defmodule ThetaWeb.Router do
     get "/", PageController, :index
     get "/policy", PageController, :policy
     get "/sitemap.xml", SitemapController, :index
+    get "/media", MediaController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
+
   end
 
   scope "/auth", ThetaWeb do

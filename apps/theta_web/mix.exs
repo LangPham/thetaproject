@@ -42,7 +42,7 @@ defmodule ThetaWeb.MixProject do
 			{:phoenix_html, "~> 2.14"},
 			{:phoenix_live_reload, "~> 1.2", only: :dev},
 			{:phoenix_live_dashboard, "~> 0.2.0"},
-			{:phoenix_live_view, "~> 0.13.3"},
+#			{:phoenix_live_view, "~> 0.13.3"},
 			{:telemetry_metrics, "~> 0.4"},
 			{:telemetry_poller, "~> 0.4"},
 			{:gettext, "~> 0.11"},
@@ -52,7 +52,10 @@ defmodule ThetaWeb.MixProject do
 			#      {:phoenix_markdown, "~> 1.0"},
 			{:earmark, "~> 1.4.6"},
 			{:guardian, "~> 2.1"},
-			{:oauth2, "~> 2.0"}
+			{:oauth2, "~> 2.0"},
+			{:waffle, "~> 1.1.0"},
+			{:mogrify, "~> 0.7.4"},
+			{:theta_media, "~>0.1.0", git: "https://github.com/LangPham/theta_media.git"}
 		]
 	end
 
