@@ -8,7 +8,8 @@ defmodule ThetaWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+#    plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -37,6 +38,7 @@ defmodule ThetaWeb.Router do
     get "/", PageController, :index
     get "/policy", PageController, :policy
     get "/sitemap.xml", SitemapController, :index
+    live "/live", PageLive, :index , layout: {ThetaWeb.LayoutView, "layoutlive.html"}
     get "/media", MediaController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
