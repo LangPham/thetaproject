@@ -18,7 +18,29 @@ import NProgress from "nprogress"
 import LiveSocket from "phoenix_live_view"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let Hooks = {}
+Hooks.Dir = {
+	mounted() {
+		this.el.addEventListener("dblclick", e => {
+			let data = this.el.dataset.dir;
+			console.log(data);
+			this.pushEvent("into", {dir: data})
+		})
+	}
+}
+let liveSocket = new LiveSocket("/live", Socket, {
+	hooks: Hooks,
+	params: {_csrf_token: csrfToken},
+	// metadata: {
+	// 	click: (e, el) => {
+	// 		return {
+	// 			altKey: e.altKey,
+	// 			clientX: e.clientX,
+	// 			clientY: e.clientY
+	// 		}
+	// 	}
+	// }
+})
 import "../css/custom_bulma.scss";
 
 // Show progress bar on live navigation and form submits
@@ -36,27 +58,27 @@ window.liveSocket = liveSocket
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+	// Get all "navbar-burger" elements
+	const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
+	// Check if there are any navbar burgers
+	if ($navbarBurgers.length > 0) {
 
-        // Add a click event on each of them
-        $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
+		// Add a click event on each of them
+		$navbarBurgers.forEach(el => {
+			el.addEventListener('click', () => {
 
-                // Get the target from the "data-target" attribute
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
+				// Get the target from the "data-target" attribute
+				const target = el.dataset.target;
+				const $target = document.getElementById(target);
 
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
+				// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+				el.classList.toggle('is-active');
+				$target.classList.toggle('is-active');
 
-            });
-        });
-    }
+			});
+		});
+	}
 
 });
 

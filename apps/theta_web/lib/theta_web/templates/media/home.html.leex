@@ -1,0 +1,35 @@
+<div class="columns">
+	<div class="column is-3">
+		<div class="box">
+			<%= for dir <- assigns.dir.dirs do %>
+			<h3 class="title is-3"><%= dir %></h3>
+			<% end %>
+		</div>
+	</div>
+	<div class="column">
+		<table id="myTable" class="table is-striped is-fullwidth is-hoverable">
+			<thead>
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+			</tr>
+
+			</thead>
+			<tbody>
+			<%= for dir <- assigns.dir.dirs do %>
+			<tr phx-hook="Dir" data-dir="<%= dir %>" class="dir">
+				<td><i class="far fa-folder"></i></td>
+				<td ><%= dir %></td>
+			</tr>
+			<% end %>
+			<%= for file <- assigns.dir.files do %>
+			<tr>
+				<td><i class="far fa-file"></i></td>
+				<td><%= file %></td>
+			</tr>
+			<% end %>
+			</tbody>
+		</table>
+
+	</div>
+</div>

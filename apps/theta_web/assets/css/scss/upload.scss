@@ -1,7 +1,21 @@
 .upload {
   border: 1px solid blue;
   nav {
-    padding: 1rem 0;
-    color: white;
+    .button {
+      background: none;
+      display: block;
+      color: white;
+      border: none;
+      padding: 1rem;
+      font-size: 1.6rem;
+      &:hover {
+        color: #0000cc;
+      }
+    }
+  }
+  .dir {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
