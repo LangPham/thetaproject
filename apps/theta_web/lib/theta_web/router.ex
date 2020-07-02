@@ -38,7 +38,7 @@ defmodule ThetaWeb.Router do
     get "/", PageController, :index
     get "/policy", PageController, :policy
     get "/sitemap.xml", SitemapController, :index
-    live "/live", PageLive, :index , layout: {ThetaWeb.LayoutView, "layoutlive.html"}
+    live "/live", PageLive, layout: {ThetaWeb.LayoutView, "layoutlive.html"}
     get "/media", MediaController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
