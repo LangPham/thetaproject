@@ -54,7 +54,7 @@ defmodule ThetaWeb.MixProject do
 			{:oauth2, "~> 2.0"},
 			{:waffle, "~> 1.1.0"},
 			{:mogrify, "~> 0.7.4"},
-			{:theta_media, "~>0.1.0", git: "https://github.com/LangPham/theta_media.git"}
+			{:theta_media, git: "https://github.com/LangPham/theta_media.git"}
 		]
 	end
 

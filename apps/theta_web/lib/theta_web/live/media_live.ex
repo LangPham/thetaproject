@@ -9,7 +9,7 @@ defmodule ThetaWeb.MediaLive do
 	@impl true
 	def mount(_params, _session, socket) do
 		base = Base.new()
-		dir = Dir.list(base)
+		dir = Dir.ls(base)
 		pages = %{layout: "home.html", pwd: dir}
 		IO.inspect pages, label: "PAGE===============\n"
 
@@ -25,15 +25,19 @@ defmodule ThetaWeb.MediaLive do
 				"back" ->
 					pwd = socket.assigns.page.pwd
 					base = Base.outgo(pwd)
-					dir = Dir.list(base)
+					dir = Dir.ls(base)
 					%{layout: "home.html", pwd: dir}
 				"refresh" ->
 					pwd = socket.assigns.page.pwd
-					dir = Dir.list(pwd)
+					dir = Dir.ls(pwd)
 					%{layout: "home.html", pwd: dir}
+				"new" ->
+					pwd = socket.assigns.page.pwd
+					dir = Dir.ls(pwd)
+					%{layout: "new.html", pwd: dir}
 				_ ->
 					base = Base.new()
-					dir = Dir.list(base)
+					dir = Dir.ls(base)
 					%{layout: "home.html", pwd: dir}
 			end
 
@@ -53,11 +57,21 @@ defmodule ThetaWeb.MediaLive do
 		base = Base.into(pwd, dir_change)
 
 		IO.inspect base
-		dir = Dir.list(base)
+		dir = Dir.ls(base)
 		IO.inspect dir, label: "DIR========================\n"
 		pages = %{layout: "home.html", pwd: dir}
 
 		{:noreply, assign(socket, :page, pages)}
 	end
 
+	@impl true
+	def handle_event("create", %{"q" => query}, socket) do
+		IO.inspect query, label: "Query"
+		IO.inspect socket, label: "SOCKET===============\n"
+		pwd = socket.assigns.page.pwd
+		Dir.mkdir(pwd,query)
+		dir = Dir.ls(pwd)
+		pages = %{layout: "home.html", pwd: dir}
+		{:noreply, assign(socket, :page, pages)}
+	end
 end

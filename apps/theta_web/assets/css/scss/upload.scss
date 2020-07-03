@@ -1,6 +1,7 @@
 .upload {
   border: 1px solid blue;
   nav {
+    background: #0000cc;
     .button {
       background: none;
       display: block;
@@ -9,7 +10,7 @@
       padding: 1rem;
       font-size: 1.6rem;
       &:hover {
-        color: #0000cc;
+        color: #474747;
       }
     }
   }
@@ -18,4 +19,9 @@
       cursor: pointer;
     }
   }
+  //form {
+  //  background: white;
+  //  border-radius: 1rem;
+  //  padding: 1rem;
+  //}
 }
