@@ -21,6 +21,8 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 let Hooks = {}
 Hooks.Dir = {
 	mounted() {
+		let datatest = this.el.dataset.dir;
+		console.log(datatest);
 		this.el.addEventListener("dblclick", e => {
 			let data = this.el.dataset.dir;
 			console.log(data);

@@ -1,6 +1,8 @@
 <section class="section">
 	<div class="container is-fullhd upload">
 		<%= render "menu.html", assigns %>
-		<%= render assigns.page, assigns %>
+		<div id="chat-messages" phx-update="replace">
+		<%= render assigns.page.layout, assigns %>
+		</div>
 	</div>
 </section>

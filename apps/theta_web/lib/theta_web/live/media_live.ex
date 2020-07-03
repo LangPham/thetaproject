@@ -10,40 +10,54 @@ defmodule ThetaWeb.MediaLive do
 	def mount(_params, _session, socket) do
 		base = Base.new()
 		dir = Dir.list(base)
-		IO.inspect dir, label: "DIR===============\n"
-		{:ok, assign(socket, page: "home.html", dir: dir, base: base)}
+		pages = %{layout: "home.html", pwd: dir}
+		IO.inspect pages, label: "PAGE===============\n"
+
+		{:ok, assign(socket, page: pages)}
 	end
 
 	@impl true
 	def handle_event("change", %{"page" => page}, socket) do
-		IO.inspect page
-		template =
-				if page == "home" do
-					"home.html"
-				else
-					"new.html"
-				end
-		{:noreply, assign(socket, :page, template)}
+		IO.inspect page, label: "Layout========================\n"
+		IO.inspect socket, label: "SOCKET========================\n"
+		pages =
+			case page do
+				"back" ->
+					pwd = socket.assigns.page.pwd
+					base = Base.outgo(pwd)
+					dir = Dir.list(base)
+					%{layout: "home.html", pwd: dir}
+				"refresh" ->
+					pwd = socket.assigns.page.pwd
+					dir = Dir.list(pwd)
+					%{layout: "home.html", pwd: dir}
+				_ ->
+					base = Base.new()
+					dir = Dir.list(base)
+					%{layout: "home.html", pwd: dir}
+			end
+
+		IO.inspect pages, label: "PAGE UPDATE========================\n"
+		{:noreply, assign(socket, :page, pages)}
 	end
 
 	@impl true
 	def handle_event("into", data, socket) do
-		IO.inspect socket.assigns.base, lable: "Socket:"
-		IO.inspect data["dir"], lable: "Run into data:"
-		base = socket.assigns.base
-		dir = data["dir"]
-		base = Base.into(base,dir)
+		IO.inspect "====================INTO=======================\n"
+		IO.inspect socket, label: "SOCKET========================\n"
+		pwd = socket.assigns.page.pwd
+		dir_change = data["dir"]
+		IO.inspect pwd, label: "PWD========================\n"
+		IO.inspect dir_change, label: "DIR========================\n"
+
+		base = Base.into(pwd, dir_change)
 
 		IO.inspect base
 		dir = Dir.list(base)
-#		template =
-#			if dir == "home" do
-#				"home.html"
-#			else
-#				"new.html"
-#			end
-#		{:noreply, assign(socket, :page, "home.html")}
-		{:noreply, assign(socket, page: "home.html", dir: dir, base: base)}
+		IO.inspect dir, label: "DIR========================\n"
+		pages = %{layout: "home.html", pwd: dir}
+
+		{:noreply, assign(socket, :page, pages)}
 	end
 
 end
