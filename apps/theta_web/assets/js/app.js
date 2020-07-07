@@ -30,6 +30,45 @@ Hooks.Dir = {
 		})
 	}
 }
+Hooks.File = {
+	mounted() {
+		let datatest = this.el.dataset.file;
+		console.log(datatest);
+		this.el.addEventListener("dblclick", e => {
+			let data = this.el.dataset.file;
+			let url = this.el.dataset.url;
+			console.log(data);
+			console.log(url);
+			window.opener.document.getElementById('imgSelect').value = '/' + url + '/' + data;
+			// this.pushEvent("select", {file: data})
+			window.close();
+		})
+	}
+}
+Hooks.Upload = {
+	mounted() {
+
+		this.el.addEventListener("reset", e => {
+			let data = this.el;
+			console.log(data.q.files[0]);
+			var formData = new FormData();
+			let fileData = data.q.files[0];
+			formData.append('fileUpload', fileData);
+			fetch("/api/upload",
+					{
+						method: "POST",
+						body: formData,
+					})
+					.then(function (res) {
+						let re = res.json()
+						return re;
+					})
+			this.pushEvent("into", {dir: "2020"})
+			this.pushEvent("into", {dir: "7"})
+			this.pushEvent("change", {page: "refresh"})
+		})
+	}
+}
 let liveSocket = new LiveSocket("/live", Socket, {
 	hooks: Hooks,
 	params: {_csrf_token: csrfToken},

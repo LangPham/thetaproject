@@ -1,0 +1,56 @@
+<div class="columns">
+	<div class="column is-3">
+		<div class="box">
+			<%= for dir <- @page.pwd.dirs do %>
+			<h3 class="title is-3"><%= dir %></h3>
+			<% end %>
+		</div>
+	</div>
+	<div class="column">
+		<table id="myTable" class="table is-striped is-fullwidth is-hoverable">
+			<thead>
+			<tr>
+				<th>Type</th>
+				<th>Name</th>
+			</tr>
+
+			</thead>
+			<tbody>
+			<%= for dir <- @page.pwd.dirs do %>
+			<tr phx-hook="Dir" data-dir="<%= dir %>" class="dir" id="dir-<%= dir %>">
+				<td><i class="far fa-folder"></i></td>
+				<td><%= dir %></td>
+			</tr>
+			<% end %>
+			<%= for file <-@page.pwd.files do %>
+			<tr>
+				<td><i class="far fa-file"></i></td>
+				<td><%= file %></td>
+			</tr>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal is-active">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+		<form phx-hook="Upload">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Make dir</p>
+				<button class="delete" aria-label="close" phx-click="change" phx-value-page="refresh"></button>
+			</header>
+			<section class="modal-card-body">
+				<div class="field">
+					<div class="control">
+						<input id="upload" type="file" name="q" placeholder="Folder name" autocomplete="off" class="input" accept='image/gif,image/jpeg,image/jpg,image/png'/>
+					</div>
+				</div>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button is-success"  type="reset">Create</button>
+			</footer>
+		</form>
+	</div>
+</div>

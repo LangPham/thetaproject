@@ -23,7 +23,7 @@
 			</tr>
 			<% end %>
 			<%= for file <-@page.pwd.files do %>
-			<tr>
+			<tr phx-hook="File" data-file="<%= file %>" class="files" id="file-<%= file %>" data-url="<%= @page.pwd.url %>">
 				<td><i class="far fa-file"></i></td>
 				<td><%= file %></td>
 			</tr>

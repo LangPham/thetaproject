@@ -8,14 +8,18 @@ defmodule ThetaWeb.EditorHelpers do
     text = Phoenix.HTML.Form.textarea(form, field)
     element = input_id(form, field)
 
-    content_tag :div do
+    content_tag :div, class: "easy-mde" do
       style = raw("<link rel=\"stylesheet\" href=\"/css/editor.css\")>")
       script = raw("<script type=\"text/javascript\" src=\"/js/editor.js\")></script>")
       script_inline = raw("<script type=\"text/javascript\">editor.create_editor(\"" <> element <> "\")</script>")
+#      "<input style='display:none'  accept='image/gif,image/jpeg,image/jpg,image/png' type='file' id='upInput'>"
       file_hidden = raw(
-        "<input style='display:none'  accept='image/gif,image/jpeg,image/jpg,image/png' type='file' id='upInput'>"
+        "<input style='display:none' accept='image/gif,image/jpeg,image/jpg,image/png' type='file' id='upInput'>"
       )
-      [style, text, script, script_inline, file_hidden]
+      img_select = raw(
+        "<input style='display:none' type='text' id='imgSelect' >"
+      )
+      [style, text, script, script_inline, file_hidden, img_select]
     end
   end
 

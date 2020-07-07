@@ -38,7 +38,8 @@ defmodule Theta.Umbrella.MixProject do
 
   defp aliases do
     [
-#      thetainstall: "cmd --app theta mix ecto.setup",
+      theta_install: "cmd --app theta mix ecto.setup",
+      theta_digest: "cmd --app theta_web mix phx.digest",
 #      thetareset: "cmd --app theta mix ecto.reset",
 #      test: ["ecto.create --quiet", "ecto.migrate", "test"],
 #      test1: "cmd --app theta mix ecto.setup"

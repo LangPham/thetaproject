@@ -7,7 +7,10 @@ defmodule ThetaWeb.Endpoint do
 	@session_options [
 		store: :cookie,
 		key: "_theta_web_key",
-		signing_salt: "rNtzvw1j"
+		encryption_salt: "cookie store encryption salt",
+		signing_salt: "cookie store signing salt",
+		key_length: 64,
+		log: :debug
 	]
 
 	socket "/socket",
@@ -15,7 +18,13 @@ defmodule ThetaWeb.Endpoint do
 	       websocket: true,
 	       longpoll: false
 
-	socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+	socket "/live",
+	       Phoenix.LiveView.Socket,
+	       websocket: [
+		       connect_info: [
+			       session: @session_options
+		       ]
+	       ]
 
 	# Serve at "/" the static files from "priv/static" directory.
 	#

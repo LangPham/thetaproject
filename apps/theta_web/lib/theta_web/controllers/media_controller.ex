@@ -4,7 +4,7 @@ defmodule ThetaWeb.MediaController do
 	use ThetaMedia
 	def index(conn, _params) do
 		base = Base.new()
-		dir = Dir.list(base)
+		dir = Dir.ls(base)
 		IO.inspect dir, label: "DIR===============\n"
 		render(conn, "index.html", dir: dir)
 	end

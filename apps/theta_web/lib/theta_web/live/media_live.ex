@@ -35,6 +35,10 @@ defmodule ThetaWeb.MediaLive do
 					pwd = socket.assigns.page.pwd
 					dir = Dir.ls(pwd)
 					%{layout: "new.html", pwd: dir}
+				"upload" ->
+					pwd = socket.assigns.page.pwd
+					dir = Dir.ls(pwd)
+					%{layout: "upload.html", pwd: dir}
 				_ ->
 					base = Base.new()
 					dir = Dir.ls(base)
@@ -74,4 +78,23 @@ defmodule ThetaWeb.MediaLive do
 		pages = %{layout: "home.html", pwd: dir}
 		{:noreply, assign(socket, :page, pages)}
 	end
+
+	@impl true
+	def handle_event("upload", %{"q" => query}, socket) do
+		IO.inspect query, label: "Query"
+		IO.inspect File.stat(query)
+		IO.inspect socket, label: "SOCKET===============\n"
+		pwd = socket.assigns.page.pwd
+		dir = Dir.ls(pwd)
+
+		pages = %{layout: "home.html", pwd: dir}
+		{:noreply, assign(socket, :page, pages)}
+	end
+	@impl true
+	def terminate(reason, socket) do
+		:kill
+	end
+
+
+
 end

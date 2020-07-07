@@ -63,6 +63,9 @@ defmodule ThetaWeb.MixProject do
 	#
 	# See the documentation for `Mix` for more info on aliases.
 	defp aliases do
-		[test: ["ecto.create --quiet", "ecto.migrate", "test"]]
+		[
+			setup: ["deps.get", "cmd npm install --prefix assets"],
+			test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+		]
 	end
 end
