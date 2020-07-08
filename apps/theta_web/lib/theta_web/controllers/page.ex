@@ -39,11 +39,7 @@ defmodule ThetaWeb.Page do
     else
       ":#{conn.port}"
     end
-    scheme = if Application.get_env(:theta_web, :env) == :dev do
-      "http://"
-    else
-      "https://"
-    end
+    scheme =  Application.get_env(:theta_web, ThetaWeb.Endpoint)[:scheme] <> "://"
     domain = scheme <> host <> port
     #Debug.debug(domain, __MODULE__)
     # put_in(p.head.title, "aaaaa")

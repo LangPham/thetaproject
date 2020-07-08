@@ -28,7 +28,8 @@ config :theta_web, ThetaWeb.Endpoint,
       "--watch-stdin",
       cd: Path.expand("../apps/theta_web/assets", __DIR__)
     ]
-  ]
+  ],
+  scheme: "http"
 
 # ## SSL Support
 #
