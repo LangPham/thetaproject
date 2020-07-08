@@ -49,7 +49,7 @@ config :phoenix_markdown, :earmark, %{
 	gfm: true,
 	breaks: true
 }
-#config :phoenix_markdown, :server_tags, :all
+config :phoenix_markdown, :server_tags, :all
 
 config :mime, :types, %{
 	"application/xml" => ["xml"]
