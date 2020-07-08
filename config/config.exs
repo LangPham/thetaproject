@@ -43,13 +43,13 @@ config :logger,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-#config :phoenix, :template_engines,
-#       md: PhoenixMarkdown.Engine
-#config :phoenix_markdown, :earmark, %{
-#config :phoenix_markdown, :earmark, %{
-#	gfm: true,
-#	breaks: true
-#}
+config :phoenix, :template_engines,
+       md: PhoenixMarkdown.Engine
+config :phoenix_markdown, :earmark, %{
+config :phoenix_markdown, :earmark, %{
+	gfm: true,
+	breaks: true
+}
 #config :phoenix_markdown, :server_tags, :all
 
 config :mime, :types, %{

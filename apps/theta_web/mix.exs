@@ -49,6 +49,7 @@ defmodule ThetaWeb.MixProject do
 			{:theta, in_umbrella: true},
 			{:jason, "~> 1.1"},
 			{:plug_cowboy, "~> 2.3"},
+			{:phoenix_markdown, "~> 1.0"},
 			{:earmark, "~> 1.4.6"},
 			{:guardian, "~> 2.1"},
 			{:oauth2, "~> 2.0"},
