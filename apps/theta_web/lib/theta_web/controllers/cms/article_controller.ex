@@ -36,7 +36,7 @@ defmodule ThetaWeb.CMS.ArticleController do
         end
         conn
         |> put_flash(:info, "Article created successfully.")
-        |> redirect(to: Routes.cms_article_path(conn, :show, article))
+        |> redirect(to: Routes.article_path(conn, :show, article))
 
       {:error, %Ecto.Changeset{} = changeset} ->
 
@@ -83,7 +83,7 @@ defmodule ThetaWeb.CMS.ArticleController do
         #PV.update_path_alias(article.path_alias, %{update_at: article.updated_at})
         conn
         |> put_flash(:info, "Article updated successfully.")
-        |> redirect(to: Routes.cms_article_path(conn, :show, article))
+        |> redirect(to: Routes.article_path(conn, :show, article))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         menu = CMS.list_term_menu()
@@ -98,7 +98,7 @@ defmodule ThetaWeb.CMS.ArticleController do
 
     conn
     |> put_flash(:info, "Article deleted successfully.")
-    |> redirect(to: Routes.cms_article_path(conn, :index))
+    |> redirect(to: Routes.article_path(conn, :index))
   end
 
   defp require_existing_author(conn, _) do
@@ -115,7 +115,7 @@ defmodule ThetaWeb.CMS.ArticleController do
     else
       conn
       |> put_flash(:error, "You can't modify that page")
-      |> redirect(to: Routes.cms_article_path(conn, :index))
+      |> redirect(to: Routes.article_path(conn, :index))
       |> halt()
     end
   end

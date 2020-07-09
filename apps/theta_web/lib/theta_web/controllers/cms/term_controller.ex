@@ -21,7 +21,7 @@ defmodule ThetaWeb.CMS.TermController do
         if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
         conn
         |> put_flash(:info, "Term created successfully.")
-        |> redirect(to: Routes.cms_term_path(conn, :show, term))
+        |> redirect(to: Routes.term_path(conn, :show, term))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         taxonomy = CMS.list_taxonomy()
@@ -71,7 +71,7 @@ defmodule ThetaWeb.CMS.TermController do
         if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
         conn
         |> put_flash(:info, "Term updated successfully.")
-        |> redirect(to: Routes.cms_term_path(conn, :show, term))
+        |> redirect(to: Routes.term_path(conn, :show, term))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", term: term, changeset: changeset)
@@ -84,6 +84,6 @@ defmodule ThetaWeb.CMS.TermController do
     if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
     conn
     |> put_flash(:info, "Term deleted successfully.")
-    |> redirect(to: Routes.cms_term_path(conn, :index))
+    |> redirect(to: Routes.term_path(conn, :index))
   end
 end

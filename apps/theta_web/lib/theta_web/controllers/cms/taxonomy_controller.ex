@@ -19,7 +19,7 @@ defmodule ThetaWeb.CMS.TaxonomyController do
       {:ok, taxonomy} ->
         conn
         |> put_flash(:info, "Taxonomy created successfully.")
-        |> redirect(to: Routes.cms_taxonomy_path(conn, :show, taxonomy))
+        |> redirect(to: Routes.taxonomy_path(conn, :show, taxonomy))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -44,7 +44,7 @@ defmodule ThetaWeb.CMS.TaxonomyController do
       {:ok, taxonomy} ->
         conn
         |> put_flash(:info, "Taxonomy updated successfully.")
-        |> redirect(to: Routes.cms_taxonomy_path(conn, :show, taxonomy))
+        |> redirect(to: Routes.taxonomy_path(conn, :show, taxonomy))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", taxonomy: taxonomy, changeset: changeset)
@@ -57,6 +57,6 @@ defmodule ThetaWeb.CMS.TaxonomyController do
 
     conn
     |> put_flash(:info, "Taxonomy deleted successfully.")
-    |> redirect(to: Routes.cms_taxonomy_path(conn, :index))
+    |> redirect(to: Routes.taxonomy_path(conn, :index))
   end
 end
