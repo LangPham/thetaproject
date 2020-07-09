@@ -49,11 +49,11 @@ defmodule ThetaWeb.MixProject do
 			{:theta, in_umbrella: true},
 			{:jason, "~> 1.1"},
 			{:plug_cowboy, "~> 2.3"},
-#			{:phoenix_markdown, "~> 1.0"},
+
 			{:earmark, "~> 1.4.9"},
 			{:guardian, "~> 2.1"},
 			{:oauth2, "~> 2.0"},
-			{:theta_media, git: "https://github.com/LangPham/theta_media.git"}
+			{:theta_media, "~>0.1.0"}
 		]
 	end
 

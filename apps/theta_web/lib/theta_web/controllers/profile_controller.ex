@@ -1,8 +1,8 @@
 defmodule ThetaWeb.ProfileController do
   use ThetaWeb, :controller
 
-  alias Theta.Account
-  alias Theta.Account.User
+#  alias Theta.Account
+#  alias Theta.Account.User
 
   def index(conn, _params) do
 #    IO.inspect conn

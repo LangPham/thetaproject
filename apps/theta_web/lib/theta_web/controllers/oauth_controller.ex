@@ -49,7 +49,7 @@ defmodule ThetaWeb.OauthController do
 
 	defp get_user!("google", client) do
 		#		IO.inspect is_binary("https://www.googleapis.com/userinfo/v2/me")
-		%{body: user, status_code: status} = OAuth2.Client.get!(
+		%{body: user, status_code: _status} = OAuth2.Client.get!(
 			client,
 			"https://www.googleapis.com/userinfo/v2/me"
 		)
@@ -86,5 +86,5 @@ defmodule ThetaWeb.OauthController do
 			credential -> credential
 		end
 	end
-	defp check_exit_credential(provider, user), do: false
+	defp check_exit_credential(_provider, _user), do: false
 end

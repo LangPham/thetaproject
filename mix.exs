@@ -1,6 +1,7 @@
 defmodule Theta.Umbrella.MixProject do
   use Mix.Project
 
+  @version "0.0.4"
   def project do
     [
       apps_path: "apps",
@@ -9,7 +10,7 @@ defmodule Theta.Umbrella.MixProject do
       aliases: aliases(),
       releases: [
         theta_blog: [
-          version: "0.0.3",
+          version: @version,
           include_executables_for: [:unix],
           applications: [
             theta: :permanent,

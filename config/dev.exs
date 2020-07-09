@@ -74,4 +74,10 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
+
 config :phoenix, :stacktrace_depth, 20
+config :theta,
+       Google,
+       client_id: "81646655246-m93r94b1gso6u70ifruqgv08h6vh575h.apps.googleusercontent.com",
+       client_secret: "XRDWhB6wp_E-wDilmdgn7W_q",
+       redirect_uri: "http://127.0.0.1:4000/auth/google/callback"

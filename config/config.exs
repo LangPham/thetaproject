@@ -45,11 +45,6 @@ config :phoenix, :json_library, Jason
 
 config :phoenix, :template_engines,
        md: PhoenixMarkdown.Engine
-#config :phoenix_markdown, :earmark, %{
-#	gfm: true,
-#	breaks: true
-#}
-#config :phoenix_markdown, :server_tags, :all
 
 config :mime, :types, %{
 	"application/xml" => ["xml"]
@@ -59,12 +54,6 @@ config :theta_web,
        ThetaWeb.Guardian,
        issuer: "theta_web",
        secret_key: "liowth" # put the result of the mix command above here
-
-config :theta,
-       Google,
-       client_id: "81646655246-m93r94b1gso6u70ifruqgv08h6vh575h.apps.googleusercontent.com",
-       client_secret: "XRDWhB6wp_E-wDilmdgn7W_q",
-       redirect_uri: "http://127.0.0.1:4000/auth/google/callback"
 
 # Configure Mix tasks and generators
 config :theta_media,
