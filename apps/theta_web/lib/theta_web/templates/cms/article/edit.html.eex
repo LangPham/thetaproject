@@ -1,5 +1,5 @@
 <h1 class="title is-1">Edit Article</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.cms_article_path(@conn, :update, @article)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.article_path(@conn, :update, @article)) %>
 
-<span><%= link "Back", to: Routes.cms_article_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>

@@ -64,16 +64,20 @@ defmodule ThetaWeb.Router do
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
+    get "/index", CMS.AdminController, :index
+    resources "/taxonomy", CMS.TaxonomyController
+    resources "/term", CMS.TermController
+    resources "/article", CMS.ArticleController
     live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
   end
 
-  scope "/cms", ThetaWeb.CMS, as: :cms do
-    pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
-    get "/admin", AdminController, :index
-    resources "/taxonomy", TaxonomyController
-    resources "/term", TermController
-    resources "/article", ArticleController
-  end
+#  scope "/cms", ThetaWeb.CMS, as: :cms do
+#    pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
+#    get "/admin", AdminController, :index
+#    resources "/taxonomy", TaxonomyController
+#    resources "/term", TermController
+#    resources "/article", ArticleController
+#  end
 
   scope "/api", ThetaWeb.CMS do
     pipe_through [:api, :auth]

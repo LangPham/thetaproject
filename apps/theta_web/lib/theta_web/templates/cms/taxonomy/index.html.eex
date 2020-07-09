@@ -14,13 +14,13 @@
       <td><%= taxonomy.title %></td>
 
       <td>
-        <span><%= link "Show", to: Routes.cms_taxonomy_path(@conn, :show, taxonomy) %></span>
-        <span><%= link "Edit", to: Routes.cms_taxonomy_path(@conn, :edit, taxonomy) %></span>
-        <span><%= link "Delete", to: Routes.cms_taxonomy_path(@conn, :delete, taxonomy), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Show", to: Routes.taxonomy_path(@conn, :show, taxonomy) %></span>
+        <span><%= link "Edit", to: Routes.taxonomy_path(@conn, :edit, taxonomy) %></span>
+        <span><%= link "Delete", to: Routes.taxonomy_path(@conn, :delete, taxonomy), method: :delete, data: [confirm: "Are you sure?"] %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Taxonomy", to: Routes.cms_taxonomy_path(@conn, :new) %></span>
+<span><%= link "New Taxonomy", to: Routes.taxonomy_path(@conn, :new) %></span>

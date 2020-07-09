@@ -173,7 +173,7 @@ export function create_editor(option) {
 						//imgSelect.value = "";
 					}
 				},
-				className: "fas fa-upload",
+				className: "fas fa-images",
 				title: "Select Image",
 			},
 			"|",

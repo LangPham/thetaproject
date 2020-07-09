@@ -38,7 +38,9 @@ $control-border-width: 1px;
 $input-border-color: #dbdbdb;
 //$input-shadow: none;
 $input-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05);
-
+//menu
+$menu-label-color: white;
+$menu-item-color: #000;
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass";
@@ -59,9 +61,11 @@ $input-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05);
 @import "../node_modules/bulma/sass/components/dropdown.sass";
 @import "../node_modules/bulma/sass/components/card.sass";
 @import "../node_modules/bulma/sass/components/modal.sass";
+@import "../node_modules/bulma/sass/components/menu.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/grid/_all.sass";
+@import "../node_modules/bulma/sass/helpers/color.sass";
 @import "./scss/fontawesome";
 @import "./scss/solid";
 @import "./scss/brands";

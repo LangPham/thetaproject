@@ -9,5 +9,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.cms_term_path(@conn, :edit, @term) %></span>
-<span><%= link "Back", to: Routes.cms_term_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.term_path(@conn, :edit, @term) %></span>
+<span><%= link "Back", to: Routes.term_path(@conn, :index) %></span>

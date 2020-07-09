@@ -9,5 +9,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.cms_taxonomy_path(@conn, :edit, @taxonomy) %></span>
-<span><%= link "Back", to: Routes.cms_taxonomy_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.taxonomy_path(@conn, :edit, @taxonomy) %></span>
+<span><%= link "Back", to: Routes.taxonomy_path(@conn, :index) %></span>

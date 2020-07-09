@@ -1,0 +1,26 @@
+<%= if get_menu_user(@conn) != nil do %>
+<aside class="menu is-hidden-mobile">
+	<p class="menu-label">
+		General
+	</p>
+	<ul class="menu-list">
+		<li><a href="<%= Routes.live_dashboard_path(@conn, :home)%>"><i class="fas fa-chart-bar"></i> Dashboard LV</a></li>
+	</ul>
+	<p class="menu-label">
+		Administration
+	</p>
+	<ul class="menu-list">
+		<%= for m <- get_menu_cms(@conn) do %>
+		<li><a href="<%= m.slug %>"><i class="fas fa-minus"></i> <%= m.label %></a></li>
+		<% end %>
+	</ul>
+	<p class="menu-label">
+		User
+	</p>
+	<ul class="menu-list">
+		<%= for m <- get_menu_user(@conn) do %>
+		<li><a href="<%= m.slug %>"><i class="fas fa-user-circle"></i> <%= m.label %></a></li>
+		<% end %>
+	</ul>
+</aside>
+<% end %>

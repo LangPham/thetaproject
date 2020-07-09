@@ -12,17 +12,17 @@
     <tr>
       <td>Taxonomy</td>
       <td>Taxonomy</td>
-      <td><%= link "View", to: Routes.cms_taxonomy_path(@conn, :index) %></td>
+      <td><%= link "View", to: Routes.taxonomy_path(@conn, :index) %></td>
     </tr>
     <tr>
           <td>Term</td>
           <td>Term</td>
-          <td><%= link "View", to: Routes.cms_term_path(@conn, :index) %></td>
+          <td><%= link "View", to: Routes.term_path(@conn, :index) %></td>
         </tr>
 		<tr>
           <td>Article</td>
           <td>Article</td>
-          <td><%= link "View", to: Routes.cms_article_path(@conn, :index) %></td>
+          <td><%= link "View", to: Routes.article_path(@conn, :index) %></td>
         </tr>
   </tbody>
 </table>

@@ -23,10 +23,9 @@ defmodule ThetaWeb.MenuView do
 		if user.role == "ROOT" do
 			[
 				%{slug: Routes.user_path(conn, :index), label: "Admin User"},
-				%{slug: Routes.cms_admin_path(conn, :index), label: "Admin CMS"},
+				%{slug: Routes.admin_path(conn, :index), label: "Admin CMS"},
 				%{slug: Routes.config_path(conn, :index), label: "Config CMS"},
 				%{slug: Routes.path_alias_path(conn, :index), label: "Config alias"},
-				%{slug: Routes.live_dashboard_path(conn, :home), label: "Dashboard"},
 			]
 		else
 			[]

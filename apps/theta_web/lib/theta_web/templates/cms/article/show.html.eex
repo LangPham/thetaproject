@@ -23,5 +23,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.cms_article_path(@conn, :edit, @article) %></span>
-<span><%= link "Back", to: Routes.cms_article_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.article_path(@conn, :edit, @article) %></span>
+<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>
