@@ -18,21 +18,36 @@ defmodule ThetaWeb.PageView do
 		list_path = Path.split(path_storage)
 		{_, list_new} = List.pop_at(list_path, -1)
 		path = Path.join(list_new)
-		#		IO.inspect srcs
+		IO.inspect srcs
 
 		for file <- srcs do
 			files = String.replace(file, ~r/^\/uploads/, "/uploads/lager")
-			IO.inspect  Path.join(path, file)
-			if !File.exists?(Path.join(path, files)) do
+			files_ext = Path.extname(files)
+			files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
+			#			Regex.match?(~r/\.(\w)/, ".foo2")
+			IO.inspect  Path.join(path, files_webp)
+			if !File.exists?(Path.join(path, files_webp)) do
 				images =
 					Mogrify.open(Path.join(path, file))
 					|> Mogrify.verbose
 					|> Mogrify.resize("748x748")
-					|> Mogrify.save(path: Path.join(path, files))
+					|> Mogrify.format("webp")
+					|> IO.inspect
+					|> Mogrify.save(path: Path.join(path, files_webp))
 			end
 		end
-		fh1 = Floki.attr(fh, "img", "src", fn (src) -> String.replace(src, ~r/^\/uploads/, "/uploads/lager/") end)
+		fh1 =
+			Floki.attr(
+				fh,
+				"img",
+				"src",
+				fn (src)
+				-> String.replace(src, ~r/^\/uploads/, "/uploads/lager")
+				   |> String.replace( ~r/(\.)(\w)+/, ".webp")
+				end
+			)
 		html1 = Floki.raw_html(fh1)
+#		IO.inspect html1
 		raw(html1)
 	end
 
