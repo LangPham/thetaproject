@@ -172,5 +172,33 @@ article.article {
   }
 }
 .menu-left {
-  margin-top: 0.75rem;
+  margin: 0.75rem 0;
+}
+#topBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: $primary;
+  color: white;
+  cursor: pointer;
+  border-radius: 1rem;
+  font-size: 3rem;
+  width: 50px;
+  height: 50px;
+}
+.menu-left aside {
+  position: sticky;
+  top: 0;
+}
+.cl-right {
+  position: sticky;
+  top: 0;
+}
+
+#topBtn:hover {
+  background-color: $primary; /* Add a dark-grey background on hover */
 }

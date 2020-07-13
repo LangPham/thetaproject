@@ -1,70 +1,74 @@
 <%# debug(@page) %>
 <section class="hero">
-  <div class="hero-body">
-    <div class="container is-fullhd">
-      <h1 class="title is-1">
-        <%= @page.head.title %>
-      </h1>
-      <h2 class="subtitle">
-        <%= @page.head.description %>
-      </h2>
-    </div>
-  </div>
+	<div class="hero-body">
+		<div class="container is-fullhd">
+			<h1 class="title is-1">
+				<%= @page.head.title %>
+			</h1>
+			<h2 class="subtitle">
+				<%= @page.head.description %>
+			</h2>
+		</div>
+	</div>
 </section>
 
 <section class="section">
-  <div class="container is-fullhd ">
-    <div class="columns">
-      <div class="column is-8">
-        <%= for article <- @page.body.list_article do %>
+	<div class="container is-fullhd ">
+		<div class="columns">
+			<div class="column is-8">
+				<%= for article <- @page.body.list_article do %>
 				<%= link to: webroot(article.path_alias.slug), class: "summary" ,"aria-label": article.title do %>
-        <article class="columns">
-          <div class="column is-3">
-          <figure class="image is-3by2">
-            <%= img_tag Routes.static_path(@conn, article.photo), alt: article.photo %>
-          </figure>
-          </div>
-          <div class="column">
-            <h3 class="title is-3"><%= article.title %></h3>
-            <div class="subtitle is-6"><strong><%= article.author.user.name %> </strong>- <%= article.inserted_at %></div>
-            <div><%= article.summary %></div>
-          </div>
-        </article>
-				<% end %>
-        <% end %>
-      </div>
-      <div class="column">
-				<div class="card">
-		      <div class="card-content">
-	          <div class="content">
-	            <script async src="https://cse.google.com/cse.js?cx=000634605700554394801:kzpflttpyeo"></script>
-	            <div class="gcse-search"></div>
+				<article class="columns">
+					<div class="column is-3">
+						<figure class="image is-3by2">
+							<%= img_tag Routes.static_path(@conn, article.photo), alt: article.photo %>
+							<%= img_mark( Routes.static_path(@conn, article.photo), "thumb", article.title) %>
+						</figure>
+					</div>
+					<div class="column">
+						<h3 class="title is-3"><%= article.title %></h3>
+						<div class="subtitle is-6"><strong><%= article.author.user.name %> </strong>- <%= article.inserted_at %>
 						</div>
-	        </div>
-	      </div>
-	      <hr/>
-				<%= if length(@page.body.serial_menu) > 0 do %>
-				<div class="card">
-					<header class="card-header">
-            <p class="card-header-title">
-              Serial mới
-						</p>
-					</header>
-          <div class="card-content">
-            <div class="content">
-              <ul>
-                <%= for section <- @page.body.serial_menu do %>
-                  <li><%= link(section.title, to: webroot(section.slug)) %></li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <hr/>
-        <% end %>
-      </div>
-    </div>
+						<div><%= article.summary %></div>
+					</div>
+				</article>
+				<% end %>
+				<% end %>
+			</div>
+			<div class="column">
+				<div class="cl-right">
+					<div class="card">
+						<div class="card-content">
+							<div class="content">
+								<script async src="https://cse.google.com/cse.js?cx=000634605700554394801:kzpflttpyeo"></script>
+								<div class="gcse-search"></div>
+							</div>
+						</div>
+					</div>
+					<hr/>
+					<%= if length(@page.body.serial_menu) > 0 do %>
+					<div class="card">
+						<header class="card-header">
+							<p class="card-header-title">
+								Serial mới
+							</p>
+						</header>
+						<div class="card-content">
+							<div class="content">
+								<ul>
+									<%= for section <- @page.body.serial_menu do %>
+									<li><%= link(section.title, to: webroot(section.slug)) %></li>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<hr/>
+					<% end %>
+				</div>
+			</div>
+		</div>
 
-  </div>
+	</div>
 </section>
 
