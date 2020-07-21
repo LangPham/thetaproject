@@ -53,6 +53,7 @@ defmodule ThetaWeb.ShareView do
         Mogrify.open(Path.join(path, link))
         |> Mogrify.verbose
         |> resize_img(filter)
+        |> IO.inspect()
         |> Mogrify.format("webp")
         |> Mogrify.save(path: Path.join(path, files_webp))
     end
@@ -68,10 +69,11 @@ defmodule ThetaWeb.ShareView do
   end
 
   defp resize_img(image, filter) do
+    IO.inspect(filter)
     if elem(filter,0) == "lager" do
       Mogrify.resize(image,"#{elem(filter,1)}")
     else
-      Mogrify.resize_to_limit(image,"#{elem(filter,1)}")
+      Mogrify.resize_to_fill(image,"#{elem(filter,1)}")
       |> Mogrify.gravity("center")
     end
   end

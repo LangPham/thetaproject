@@ -12,6 +12,7 @@ defmodule ThetaWeb.Router do
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :cookie_test
   end
 
   pipeline :auth do
@@ -96,7 +97,10 @@ defmodule ThetaWeb.Router do
         |> halt()
     end
   end
-
+  defp cookie_test(conn, _) do
+    IO.inspect(conn)
+    put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
+  end
   def handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
     path_error = reason.conn.request_path
     ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)

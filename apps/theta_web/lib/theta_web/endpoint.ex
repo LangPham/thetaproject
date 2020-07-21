@@ -10,6 +10,8 @@ defmodule ThetaWeb.Endpoint do
 		encryption_salt: "cookie store encryption salt",
 		signing_salt: "cookie store signing salt",
 		key_length: 64,
+#		same_site: "Strict",
+#		secure: true,
 		log: :debug
 	]
 
