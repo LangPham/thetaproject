@@ -19,20 +19,11 @@ defmodule ThetaWeb.ShareView do
   end
 
   def get_config(key) do
-    var = get_all_config()
+    var = Theta.Configuration.list_config()
     var[key]
   end
 
-  defp get_all_config() do
-    case Theta.CacheDB.get("config") do
-      {:ok, var} -> var
-      {:error, _} ->
-        list = Theta.Configuration.list_config()
-        var = for config <- list, into: %{}, do: {config.key, config.value}
-        Theta.CacheDB.set("config", var)
-        var
-    end
-  end
+
 
   def img_mark(link, filter, alt) do
     filter =

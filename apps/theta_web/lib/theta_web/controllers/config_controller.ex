@@ -5,7 +5,6 @@ defmodule ThetaWeb.ConfigController do
   alias Theta.Configuration.Config
 
   def index(conn, _params) do
-    IO.inspect conn
     config = Configuration.list_config()
     render(conn, "index.html", config: config)
   end

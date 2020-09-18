@@ -47,7 +47,6 @@ Hooks.File = {
 }
 Hooks.Upload = {
 	mounted() {
-
 		this.el.addEventListener("reset", e => {
 			let data = this.el;
 			console.log(data.q.files[0]);

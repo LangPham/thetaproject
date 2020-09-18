@@ -18,7 +18,14 @@ defmodule Theta.Configuration do
 
   """
   def list_config do
-    Repo.all(Config)
+    case Theta.CacheDB.get("config") do
+      {:ok, var} -> var
+      {:error, _} ->
+        list = Repo.all(Config)
+        var = for config <- list, into: %{}, do: {config.key, config.value}
+        Theta.CacheDB.set("config", var)
+        var
+    end
   end
 
   @doc """

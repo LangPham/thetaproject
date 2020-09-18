@@ -131,8 +131,23 @@ header.layout {
 
 /* Footers */
 footer.footer {
-  padding-top: 1rem;
-  border-top: 1px solid $color-boder;
+  .menu-footer {
+    background-color: black;
+    padding: 1rem 0;
+    margin: 1rem 0;
+
+    text-align: center;
+    a {
+      color: white;
+    }
+    .policy {
+      text-transform: uppercase;
+    }
+  }
+  .copyright {
+    text-align: center;
+    padding: 1rem 0;
+  }
 }
 
 /* Article */
