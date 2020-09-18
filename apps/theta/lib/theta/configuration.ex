@@ -43,6 +43,16 @@ defmodule Theta.Configuration do
   """
   def get_config!(id), do: Repo.get!(Config, id)
 
+  def get_config_by_key(key) do
+    var = Theta.Configuration.list_config()
+    config_list = Enum.filter(var, fn x -> x.key == key  end)
+    config = Enum.at(config_list, 0)
+    case config do
+       nil -> ""
+       conf -> conf.value
+    end
+  end
+
   @doc """
   Creates a config.
 

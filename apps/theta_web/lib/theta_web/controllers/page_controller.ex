@@ -172,11 +172,7 @@ defmodule ThetaWeb.PageController do
         %{title: art.title, id: art.id, slug: art.path_alias.slug}
       end
 
-    list_config = Theta.Configuration.list_config()
-    des = case list_config[path.slug] do
-      nil -> var.title
-      text -> text
-    end
+    des = Theta.Configuration.get_config_by_key(path.slug)
 
 
 
