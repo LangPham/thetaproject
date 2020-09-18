@@ -6,6 +6,7 @@ defmodule ThetaWeb.ConfigController do
 
   def index(conn, _params) do
     config = Configuration.list_config()
+
     render(conn, "index.html", config: config)
   end
 

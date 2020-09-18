@@ -22,9 +22,8 @@ defmodule Theta.Configuration do
       {:ok, var} -> var
       {:error, _} ->
         list = Repo.all(Config)
-        var = for config <- list, into: %{}, do: {config.key, config.value}
-        Theta.CacheDB.set("config", var)
-        var
+        Theta.CacheDB.set("config", list)
+        list
     end
   end
 
@@ -60,6 +59,7 @@ defmodule Theta.Configuration do
     %Config{}
     |> Config.changeset(attrs)
     |> Repo.insert()
+    |> update_cache("config")
   end
 
   @doc """
@@ -78,6 +78,7 @@ defmodule Theta.Configuration do
     config
     |> Config.changeset(attrs)
     |> Repo.update()
+    |> update_cache("config")
   end
 
   @doc """
@@ -93,7 +94,10 @@ defmodule Theta.Configuration do
 
   """
   def delete_config(%Config{} = config) do
-    Repo.delete(config)
+    config
+    |> Repo.delete()
+    |> update_cache("config")
+
   end
 
   @doc """
@@ -107,5 +111,14 @@ defmodule Theta.Configuration do
   """
   def change_config(%Config{} = config) do
     Config.changeset(config, %{})
+  end
+
+  defp update_cache(result, key) do
+    case result do
+      {:ok, _} ->
+        Theta.CacheDB.delete(key)
+        result
+      {_, _} -> result
+    end
   end
 end
