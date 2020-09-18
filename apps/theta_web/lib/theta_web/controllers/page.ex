@@ -18,7 +18,7 @@ defmodule ThetaWeb.Page do
               # meta title og:title
               title: "Trang chủ",
               # meta description og:description
-              description: "Trang web chia se kien thuc CNTT",
+              description: "Góc chia sẽ kiến thức công nghệ thông tin, lưu giữ những bài viết hướng dẫn cài đặt cấu hình, sử hiệu quả tài nguyên ngành công nghệ thông tin!",
               # link canonical og:url
               canonical: "https://theta.vn",
               meta: [],
