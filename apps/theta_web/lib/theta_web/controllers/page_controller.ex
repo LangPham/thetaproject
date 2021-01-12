@@ -29,7 +29,7 @@ defmodule ThetaWeb.PageController do
       for art <- list_article, art.is_serial do
         %{title: art.title, id: art.id, slug: art.path_alias.slug}
       end
-
+    page = put_in(page.head.ld_json, %{index: "index"})
     page = Map.put(page, :body, %{list_article: list_article, serial_menu: serial_of_menu})
 
     conn

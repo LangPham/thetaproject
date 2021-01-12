@@ -26,7 +26,8 @@ defmodule ThetaWeb.Page do
                 %{property: "og:image:secure_url", content: "https://theta.vn/images/logo.png"}
               ],
               # html
-              base: ""
+              base: "",
+              ld_json: %{}
             },
             body: %{},
             footer: %{}

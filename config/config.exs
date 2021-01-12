@@ -59,4 +59,7 @@ config :theta_web,
 config :theta_media,
        storage: Path.join([Path.dirname(__DIR__), "uploads"])
 
+config :theta_web, ThetaWeb.Gettext, locales: ~w(en vi), default_locale: "vi"
+
+
 import_config "#{Mix.env()}.exs"

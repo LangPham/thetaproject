@@ -5,7 +5,6 @@ defmodule Theta.Configuration.Config do
   schema "config" do
     field :key, :string
     field :value, :string
-
   end
 
   @doc false
