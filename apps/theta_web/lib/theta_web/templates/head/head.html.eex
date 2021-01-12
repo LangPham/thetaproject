@@ -20,7 +20,7 @@
 		],
 		"logo": {
 			"@type": "ImageObject",
-			"url": "https://theta.vn/static/logo.svg",
+			"url": "https://theta.vn/images/logo.svg",
 			"width": "572",
 			"height": "215"
 		}
