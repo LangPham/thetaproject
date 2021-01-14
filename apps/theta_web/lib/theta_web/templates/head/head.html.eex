@@ -6,17 +6,19 @@
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :index) do %>
 <meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
+<!--
 <script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
 		"@type": "Organization",
-		"@id": "https://theta.vn/#Organization",
 		"name": "THETA.VN",
 		"url": "https://theta.vn",
 		"sameAs": [
 			"https://www.facebook.com/theta.vn",
 			"https://www.youtube.com/c/Thetavn",
-			"https://www.pinterest.com/ThetaVn"
+			"https://www.pinterest.com/ThetaVn",
+			"https://github.com/Theta-vn",
+			"https://www.linkedin.com/company/theta-vn"
 		],
 		"logo": {
 			"@type": "ImageObject",
@@ -26,18 +28,5 @@
 		}
 	}
 </script>
-<script type="application/ld+json">
-	{
-		"@context": "https://schema.org/",
-		"@type": "WebSite",
-    "@id": "https://theta.vn/#Website",
-		"name": "THETA.VN",
-		"url": "https://theta.vn",
-		"potentialAction": {
-			"@type": "SearchAction",
-			"target": "https://theta.vn/search?q={search_term_string}",
-			"query-input": "required name=search_term_string"
-		}
-	}
-</script>
+-->
 <% end %>

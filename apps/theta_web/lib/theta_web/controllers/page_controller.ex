@@ -136,6 +136,8 @@ defmodule ThetaWeb.PageController do
     new_exclude_article = for article <- menu.article, article.id != var.article.id, do: article
     new_exclude_serial = for article <- new_exclude_article, article.id not in list_serial, do: article
     new = Enum.take(new_exclude_serial, 5)
+
+    IO.inspect  var
     #    new = []
     page = Map.put(page, :body, %{article: var.article, serial: cache_serial, new: new})
     conn

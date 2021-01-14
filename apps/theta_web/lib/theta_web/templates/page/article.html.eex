@@ -3,16 +3,30 @@
 	<div class="container is-fullhd ">
 		<div class="columns">
 			<div class="column is-8">
-				<article class="article">
+				<article class="article" itemscope itemtype="https://schema.org/Article">
+					<meta itemprop="mainEntityOfPage" itemscope itemid="#webpage"/>
+					<meta itemprop="publisher" itemscope itemid="#publisher" />
+					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
+					<meta itemprop="image" content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
+					<meta itemprop="inLanguage" content="vi-VN">
+					<meta itemprop="url" content="<%= @page.head.canonical %>"/>
 					<section class="hero">
 						<div class="hero-body">
-							<h1 class="title is-1">
+							<h1 class="title is-1" itemprop="headline">
 								<%= @page.body.article.title %>
 							</h1>
-							<div class="subtitle is-6">
-								<div><i class="far fa-user"></i> <%= @page.body.article.author.user.name %> <i
-											class="far fa-calendar-alt"></i> <%# @page.body.inserted_at %><%=
-									time_translate(@page.body.article.inserted_at, "vi") %>
+
+							<footer class="subtitle is-6">
+								<div>
+									<i class="far fa-user"></i>
+									<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+										<span itemprop="name" class="name">
+											<%=  @page.body.article.author.user.name %>
+										</span>
+									</span>
+									<meta itemprop="datePublished" content="<%= datetime_iso8601 @page.body.article.inserted_at %>"/>
+									<meta itemprop="dateModified" content="<%= datetime_iso8601 @page.body.article.updated_at %>"/>
+									<i class="far fa-calendar-alt"></i> <%=	time_translate(@page.body.article.inserted_at, "vi") %>
 								</div>
 
 								<%= if length(@page.body.article.tag) > 0 do %>
@@ -23,13 +37,12 @@
                 </span>
 								<% end %>
 								<% end %>
-							</div>
+							</footer>
 						</div>
 					</section>
-					<div class="content">
+					<div class="content"  itemprop="articleBody">
 						<div><%= @page.body.article.summary %></div>
 						<div>
-							<%# img_tag( Routes.static_path(@conn, @page.body.article.photo), alt: @page.body.article.title) %>
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						</div>
 						<div><%= markdown @page.body.article.body %></div>
