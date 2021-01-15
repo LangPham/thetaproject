@@ -129,6 +129,15 @@ header.layout {
 
 }
 
+/* Breadcrumb */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: $color-boder;
+  border-left: 2px solid $primary;
+  margin: 1rem 0;
+  text-transform: uppercase;
+}
 /* Footers */
 footer.footer {
   .menu-footer {

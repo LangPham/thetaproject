@@ -39,12 +39,21 @@
 	<div class="hero-body">
 		<div class="container has-text-centered">
 			<h1 class="title is-1">
-				Not found
+				404: Không tìm thấy nội dung bạn cần truy cập!
 			</h1>
 			<h2 class="subtitle">
-				Sorry, the page you are looking for does not exist.
+				Xin lỗi, không thể tìm được nội dung cho trang web này! Bạn có thể nhập nội dung tìm kiếm bên dưới để tìm nội dung.
 			</h2>
+			<div class="card">
+				<div class="card-content">
+					<div class="content">
+						<script async src="https://cse.google.com/cse.js?cx=000634605700554394801:kzpflttpyeo"></script>
+						<div class="gcse-search"></div>
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
 	<!-- Hero footer: will stick at the bottom -->
 	<div class="hero-foot">

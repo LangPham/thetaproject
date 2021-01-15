@@ -64,8 +64,10 @@ defmodule ThetaWeb.PageController do
             [
               term: [],
               article: [
+                menu: [:path_alias],
                 tag: [],
-                author: [:user]
+                author: [:user],
+                serial: []
               ]
             ]
           )

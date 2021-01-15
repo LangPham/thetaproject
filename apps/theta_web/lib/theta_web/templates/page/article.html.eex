@@ -3,13 +3,27 @@
 	<div class="container is-fullhd ">
 		<div class="columns">
 			<div class="column is-8">
-				<article class="article" itemscope itemtype="https://schema.org/Article">
+
+				<ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+					<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+						<a itemprop="item" href="/<%= @page.body.article.menu.path_alias.slug %>">
+							<span itemprop="name"><%= @page.body.article.menu.title %></span>
+						</a>
+						<meta itemprop="position" content="1" />
+					</li>
+				</ul>
+
+				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="#article">
 					<meta itemprop="mainEntityOfPage" itemscope itemid="#webpage"/>
 					<meta itemprop="publisher" itemscope itemid="#publisher" />
 					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
 					<meta itemprop="image" content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
 					<meta itemprop="inLanguage" content="vi-VN">
 					<meta itemprop="url" content="<%= @page.head.canonical %>"/>
+					<meta itemprop="articleSection" content="<%= @page.body.article.menu.title %>">
+					<%= if @page.body.article.serial do %>
+						<meta itemprop="articleSection" content="<%= @page.body.article.serial.title %>">
+					<% end %>
 					<section class="hero">
 						<div class="hero-body">
 							<h1 class="title is-1" itemprop="headline">
