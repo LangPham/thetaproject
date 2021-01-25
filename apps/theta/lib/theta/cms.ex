@@ -408,8 +408,6 @@ defmodule Theta.CMS do
 
   """
   def create_article(%Author{} = author, attrs \\ %{}) do
-    IO.inspect "cms create_article======================================"
-    IO.inspect attrs
 
     attrs = Map.put_new(attrs, "action", "create")
 
@@ -433,9 +431,7 @@ defmodule Theta.CMS do
   end
   def ensure_author_exists(%Account.User{author: _author} = user), do: user.author
   defp handle_existing_author({:ok, author}), do: author
-  #  defp handle_existing_author({:error, changeset}) do
-  #    Repo.get_by!(Author, user_id: changeset.data.user_id)
-  #  end
+
 
   @doc """
   Updates a article.
@@ -494,7 +490,7 @@ defmodule Theta.CMS do
 
   def get_serial(id) do
     article = get_article!(id)
-    #IO.inspect article
+
     serial = Repo.preload(
       article,
       [
@@ -503,12 +499,11 @@ defmodule Theta.CMS do
       ]
     )
     fist = %{id: serial.id, slug: serial.path_alias.slug, title: serial.title}
-    #IO.inspect "def get_serial(id) do===================================================================="
-    #IO.inspect serial
     list =
       for section <- serial.section do
         %{id: section.id, slug: section.path_alias.slug, title: section.title}
       end
+    list = Enum.sort_by(list, &(&1.id))
     [fist | list]
   end
 

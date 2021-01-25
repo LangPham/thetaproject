@@ -15,7 +15,7 @@ defmodule ThetaWeb.PageController do
   end
 
   def index(conn, _params) do
-#    IO.inspect conn
+
     page = Page.new(conn)
     list_article =
       case CacheDB.get("home") do
@@ -139,8 +139,6 @@ defmodule ThetaWeb.PageController do
     new_exclude_serial = for article <- new_exclude_article, article.id not in list_serial, do: article
     new = Enum.take(new_exclude_serial, 5)
 
-    IO.inspect  var
-    #    new = []
     page = Map.put(page, :body, %{article: var.article, serial: cache_serial, new: new})
     conn
     |> render("article.html", page: page)
