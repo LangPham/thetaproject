@@ -6,17 +6,7 @@
 	<%= for menu <- get_menu(@page) do %>
 	<url>
 		<loc><%= @page.head.base<>"/"<>menu.slug %></loc>
-		<lastmod><%= date(menu.updated_at) %></lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<% end %>
-
-	<%= for menu <- get_menu(@page) do %>
-	<url>
-		<loc><%= @page.head.base<>"/"<>"tag/"<>menu.slug %></loc>
-		<lastmod><%= date(menu.updated_at) %></lastmod>
-		<changefreq>weekly</changefreq>
+		<changefreq>always</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<% end %>
