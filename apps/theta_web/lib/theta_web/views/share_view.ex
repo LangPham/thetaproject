@@ -2,6 +2,16 @@ defmodule ThetaWeb.ShareView do
   @moduledoc false
   use Phoenix.HTML
 
+  def add_stt(list) do
+    count = length(list) - 1
+    if count >= 0 do
+      for index <- 0..count do
+        Map.put_new(Enum.at(list, index), :stt, index + 1)
+      end
+    end
+
+  end
+
   def time_translate(time, lang) when lang == "vi" do
     "#{time.day}/#{time.month}/#{time.year}"
   end
