@@ -6,23 +6,31 @@
 
 				<ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 					<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-						<a itemprop="item" href="/<%= @page.body.article.menu.path_alias.slug %>">
+						<a itemscope itemtype="https://schema.org/WebPage"
+						   itemprop="item" itemid="/<%= @page.body.article.menu.path_alias.slug %>"
+						   href="/<%= @page.body.article.menu.path_alias.slug %>">
 							<span itemprop="name"><%= @page.body.article.menu.title %></span>
 						</a>
-						<meta itemprop="position" content="1" />
+						<meta itemprop="position" content="1"/>
 					</li>
+					<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="item" itemscope itemid="#article"/>
+						<meta itemprop="position" content="2"/>
+					</span>
 				</ul>
 
 				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="#article">
 					<meta itemprop="mainEntityOfPage" itemscope itemid="#webpage"/>
-					<meta itemprop="publisher" itemscope itemid="#publisher" />
+					<meta itemprop="publisher" itemscope itemid="#publisher"/>
 					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
-					<meta itemprop="image" content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
+					<meta itemprop="image"
+					      content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
 					<meta itemprop="inLanguage" content="vi-VN">
+					<meta itemprop="name" content="<%= @page.body.article.title %>"/>
 					<meta itemprop="url" content="<%= @page.head.canonical %>"/>
 					<meta itemprop="articleSection" content="<%= @page.body.article.menu.title %>">
 					<%= if @page.body.article.serial do %>
-						<meta itemprop="articleSection" content="<%= @page.body.article.serial.title %>">
+					<meta itemprop="articleSection" content="<%= @page.body.article.serial.title %>">
 					<% end %>
 					<section class="hero">
 						<div class="hero-body">
@@ -54,7 +62,7 @@
 							</footer>
 						</div>
 					</section>
-					<div class="content"  itemprop="articleBody">
+					<div class="content" itemprop="articleBody">
 						<div><%= @page.body.article.summary %></div>
 						<div>
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
