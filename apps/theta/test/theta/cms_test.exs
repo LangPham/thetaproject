@@ -243,4 +243,67 @@ defmodule Theta.CMSTest do
       assert %Ecto.Changeset{} = CMS.change_article(article)
     end
   end
+
+  describe "qa" do
+    alias Theta.Cms.Qa
+
+    @valid_attrs %{answer: "some answer", question: "some question", tag: "some tag"}
+    @update_attrs %{answer: "some updated answer", question: "some updated question", tag: "some updated tag"}
+    @invalid_attrs %{answer: nil, question: nil, tag: nil}
+
+    def qa_fixture(attrs \\ %{}) do
+      {:ok, qa} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Cms.create_qa()
+
+      qa
+    end
+
+    test "list_qa/0 returns all qa" do
+      qa = qa_fixture()
+      assert Cms.list_qa() == [qa]
+    end
+
+    test "get_qa!/1 returns the qa with given id" do
+      qa = qa_fixture()
+      assert Cms.get_qa!(qa.id) == qa
+    end
+
+    test "create_qa/1 with valid data creates a qa" do
+      assert {:ok, %Qa{} = qa} = Cms.create_qa(@valid_attrs)
+      assert qa.answer == "some answer"
+      assert qa.question == "some question"
+      assert qa.tag == "some tag"
+    end
+
+    test "create_qa/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Cms.create_qa(@invalid_attrs)
+    end
+
+    test "update_qa/2 with valid data updates the qa" do
+      qa = qa_fixture()
+      assert {:ok, %Qa{} = qa} = Cms.update_qa(qa, @update_attrs)
+      assert qa.answer == "some updated answer"
+      assert qa.question == "some updated question"
+      assert qa.tag == "some updated tag"
+    end
+
+    test "update_qa/2 with invalid data returns error changeset" do
+      qa = qa_fixture()
+      assert {:error, %Ecto.Changeset{}} = Cms.update_qa(qa, @invalid_attrs)
+      assert qa == Cms.get_qa!(qa.id)
+    end
+
+    test "delete_qa/1 deletes the qa" do
+      qa = qa_fixture()
+      assert {:ok, %Qa{}} = Cms.delete_qa(qa)
+      assert_raise Ecto.NoResultsError, fn -> Cms.get_qa!(qa.id) end
+    end
+
+    test "change_qa/1 returns a qa changeset" do
+      qa = qa_fixture()
+      assert %Ecto.Changeset{} = Cms.change_qa(qa)
+    end
+  end
 end

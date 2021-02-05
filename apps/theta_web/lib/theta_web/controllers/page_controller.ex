@@ -189,6 +189,9 @@ defmodule ThetaWeb.PageController do
   defp render_content(conn, %PathAlias{type_model: type_model} = path) when type_model == "tags" do
     page = Page.new(conn)
 
+    list_qa = CMS.list_qa_by_tag(path.slug)
+
+    IO.inspect list_qa, label: " ==================\n"
     var =
       case CacheDB.get("tag-#{path.slug}") do
         {:ok, var} -> var
@@ -212,7 +215,7 @@ defmodule ThetaWeb.PageController do
     page = put_in(page.head.title, var.slug)
     page = put_in(page.head.description, var.slug)
     page = put_in(page.head.canonical, page.head.base <> "/" <> "tag/" <> path.slug)
-    page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag})
+    page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag, list_qa: list_qa})
 
     conn
     |> render("tag.html", page: page)

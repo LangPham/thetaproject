@@ -11,6 +11,14 @@
 	</url>
 	<% end %>
 
+	<%= for menu <- get_tag(@page) do %>
+	<url>
+		<loc><%= @page.head.base<>"/tag/"<>menu %></loc>
+		<changefreq>always</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<% end %>
+
 	<%= for menu <- get_article(@page) do %>
 	<url>
 		<loc><%= @page.head.base<>"/"<>menu.path_alias.slug %></loc>

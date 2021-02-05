@@ -69,6 +69,7 @@ defmodule ThetaWeb.Router do
     resources "/taxonomy", CMS.TaxonomyController
     resources "/term", CMS.TermController
     resources "/article", CMS.ArticleController
+    resources "/qa", CMS.QaController
     live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
   end
 

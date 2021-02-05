@@ -1,0 +1,30 @@
+<h1 class="title is-1">Listing Qa</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Tag</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for qa <- @qa do %>
+    <tr>
+      <td><%= qa.question %></td>
+      <td><%= qa.answer %></td>
+      <td><%= qa.tag %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.qa_path(@conn, :show, qa) %></span>
+        <span><%= link "Edit", to: Routes.qa_path(@conn, :edit, qa) %></span>
+        <span><%= link "Delete", to: Routes.qa_path(@conn, :delete, qa), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Qa", to: Routes.qa_path(@conn, :new) %></span>

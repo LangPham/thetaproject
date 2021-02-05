@@ -1,0 +1,5 @@
+<h1>Edit Qa</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.qa_path(@conn, :update, @qa)) %>
+
+<span><%= link "Back", to: Routes.qa_path(@conn, :index) %></span>

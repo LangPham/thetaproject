@@ -226,3 +226,17 @@ article.article {
 #topBtn:hover {
   background-color: $primary; /* Add a dark-grey background on hover */
 }
+.faqpage {
+
+  .card-content{
+    .qa:not(:first-child) {
+      border-top: 1px solid $color-boder ;
+      padding-top: 1rem;
+    }
+    .qa {
+      .question {
+        font-weight: bold;
+      }
+    }
+  }
+}

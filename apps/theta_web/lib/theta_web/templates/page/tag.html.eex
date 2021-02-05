@@ -11,10 +11,30 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
 	<div class="container is-fullhd ">
 		<div class="columns">
 			<div class="column is-8">
+				<%= if length(@page.body.list_qa) > 0 do %>
+				<div class="card  faqpage" itemscope itemtype="https://schema.org/FAQPage">
+					<header class="card-header">
+						<h2 class="card-header-title">Câu hỏi thường gặp về <%= @page.head.title %> </h2>
+					</header>
+					<div class="card-content">
+						<%= for qa <- @page.body.list_qa do %>
+						<div class="qa" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+							<h3 class="question" itemprop="name"><%= qa.question %></h3>
+							<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+								<div itemprop="text">
+									<%= markdown qa.answer %>
+								</div>
+							</div>
+						</div>
+						<% end %>
+					</div>
+				</div>
+				<% end %>
 				<%= for article <- @page.body.list_article do %>
 				<%= link to: webroot(article.path_alias.slug), class: "summary" ,"aria-label": article.title do %>
 				<article class="columns">
@@ -49,6 +69,7 @@
 						</div>
 					</div>
 					<hr/>
+
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -67,8 +88,7 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
+	</div>
 </section>
 

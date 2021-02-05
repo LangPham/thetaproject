@@ -507,4 +507,113 @@ defmodule Theta.CMS do
     [fist | list]
   end
 
+
+  alias Theta.CMS.Qa
+
+  @doc """
+  Returns the list of qa.
+
+  ## Examples
+
+      iex> list_qa()
+      [%Qa{}, ...]
+
+  """
+  def list_qa do
+    Repo.all(Qa)
+  end
+
+  def list_qa_by_tag(tag) do
+    Qa
+    |> where([q], q.tag == ^tag)
+    |> Repo.all()
+  end
+
+  def list_tag_have_qa() do
+    query = from(q in Qa,
+      distinct: [q.tag], select: q.tag)
+    Repo.all(query)
+
+  end
+
+  @doc """
+  Gets a single qa.
+
+  Raises `Ecto.NoResultsError` if the Qa does not exist.
+
+  ## Examples
+
+      iex> get_qa!(123)
+      %Qa{}
+
+      iex> get_qa!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_qa!(id), do: Repo.get!(Qa, id)
+
+  @doc """
+  Creates a qa.
+
+  ## Examples
+
+      iex> create_qa(%{field: value})
+      {:ok, %Qa{}}
+
+      iex> create_qa(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_qa(attrs \\ %{}) do
+    %Qa{}
+    |> Qa.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a qa.
+
+  ## Examples
+
+      iex> update_qa(qa, %{field: new_value})
+      {:ok, %Qa{}}
+
+      iex> update_qa(qa, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_qa(%Qa{} = qa, attrs) do
+    qa
+    |> Qa.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a qa.
+
+  ## Examples
+
+      iex> delete_qa(qa)
+      {:ok, %Qa{}}
+
+      iex> delete_qa(qa)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_qa(%Qa{} = qa) do
+    Repo.delete(qa)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking qa changes.
+
+  ## Examples
+
+      iex> change_qa(qa)
+      %Ecto.Changeset{data: %Qa{}}
+
+  """
+  def change_qa(%Qa{} = qa, attrs \\ %{}) do
+    Qa.changeset(qa, attrs)
+  end
 end

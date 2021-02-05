@@ -13,10 +13,11 @@ defmodule ThetaWeb.SitemapView do
   def get_menu(_) do
     Theta.PV.list_path_main_menu()
   end
-  def get_tag(_) do
-    Theta.PV.list_path_tag()
 
+  def get_tag(_) do
+    Theta.CMS.list_tag_have_qa()
   end
+
   def get_article(_) do
 
       case Theta.CacheDB.get("home") do

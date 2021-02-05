@@ -1,0 +1,23 @@
+<h1>Show Qa</h1>
+
+<ul>
+
+  <li>
+    <strong>Question:</strong>
+    <%= @qa.question %>
+  </li>
+
+  <li>
+    <strong>Answer:</strong>
+    <%= @qa.answer %>
+  </li>
+
+  <li>
+    <strong>Tag:</strong>
+    <%= @qa.tag %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.qa_path(@conn, :edit, @qa) %></span>
+<span><%= link "Back", to: Routes.qa_path(@conn, :index) %></span>
