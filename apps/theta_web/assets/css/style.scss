@@ -140,6 +140,7 @@ ul.breadcrumb {
 }
 /* Footers */
 footer.footer {
+  color: white;
   .menu-footer {
     background-color: black;
     padding: 1rem 0;
@@ -156,6 +157,7 @@ footer.footer {
   .copyright {
     text-align: center;
     padding: 1rem 0;
+    color: black;
   }
 }
 
@@ -190,9 +192,9 @@ article.article {
   }
   color: $text ;
   &:hover article {
-    opacity: 0.8;
-    background: $primary;
-    color: $beige-light;
+
+    background: rgba($primary, .3);
+    color: black;
   }
 }
 .menu-left {

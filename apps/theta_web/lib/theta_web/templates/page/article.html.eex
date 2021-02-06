@@ -14,7 +14,7 @@
 						<meta itemprop="position" content="1"/>
 					</li>
 					<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <meta itemprop="item" itemscope itemid="#article"/>
+						<meta itemprop="name" content="<%= @page.body.article.title %>"/>
 						<meta itemprop="position" content="2"/>
 					</span>
 				</ul>
@@ -26,7 +26,6 @@
 					<meta itemprop="image"
 					      content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
 					<meta itemprop="inLanguage" content="vi-VN">
-					<meta itemprop="name" content="<%= @page.body.article.title %>"/>
 					<meta itemprop="url" content="<%= @page.head.canonical %>"/>
 					<meta itemprop="articleSection" content="<%= @page.body.article.menu.title %>">
 					<%= if @page.body.article.serial do %>
