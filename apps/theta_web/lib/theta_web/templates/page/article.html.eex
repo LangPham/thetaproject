@@ -1,4 +1,4 @@
-<%# debug(@page) %>
+<% floki = md_to_floki(@page.body.article.body) %>
 <section class="section">
 	<div class="container is-fullhd ">
 		<div class="columns">
@@ -6,9 +6,7 @@
 
 				<ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 					<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-						<a itemscope itemtype="https://schema.org/WebPage"
-						   itemprop="item" itemid="/<%= @page.body.article.menu.path_alias.slug %>"
-						   href="/<%= @page.body.article.menu.path_alias.slug %>">
+						<a itemprop="item" href="https://theta.vn/<%= @page.body.article.menu.path_alias.slug %>">
 							<span itemprop="name"><%= @page.body.article.menu.title %></span>
 						</a>
 						<meta itemprop="position" content="1"/>
@@ -58,6 +56,18 @@
                 </span>
 								<% end %>
 								<% end %>
+								<nav class="nav-article">
+									<div class="card toc">
+										<header class="card-header">
+											<h2 class="card-header-title">
+												Mục lục
+											</h2>
+										</header>
+										<div class="card-content">
+											<ol><%= toc floki, @page.head.canonical %></ol>
+										</div>
+									</div>
+								</nav>
 							</footer>
 						</div>
 					</section>
@@ -66,7 +76,8 @@
 						<div>
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						</div>
-						<div><%= markdown @page.body.article.body %></div>
+						<div><%= markdown floki %></div>
+
 					</div>
 				</article>
 			</div>
