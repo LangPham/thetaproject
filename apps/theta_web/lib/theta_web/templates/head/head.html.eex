@@ -7,33 +7,9 @@
 
 	<% end %>
 <% end %>
-<%= if Map.has_key?(@head, :img_article) do %>
+<%= if @head.img_article != "" do %>
 	<link rel="preload" href="<%= img_link @head.img_article,"lager" %>" as="image" >
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :index) do %>
 <meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
-
-<!--
-<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Organization",
-		"name": "THETA.VN",
-		"url": "https://theta.vn",
-		"sameAs": [
-			"https://www.facebook.com/theta.vn",
-			"https://www.youtube.com/c/Thetavn",
-			"https://www.pinterest.com/ThetaVn",
-			"https://github.com/Theta-vn",
-			"https://www.linkedin.com/company/theta-vn"
-		],
-		"logo": {
-			"@type": "ImageObject",
-			"url": "https://theta.vn/images/logo.svg",
-			"width": "572",
-			"height": "215"
-		}
-	}
-</script>
--->
 <% end %>
