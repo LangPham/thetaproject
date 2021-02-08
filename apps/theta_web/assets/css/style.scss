@@ -101,7 +101,7 @@ header.layout {
   border-bottom: 1px solid $color-boder;
 
   .navbar-item-brand {
-    max-height: 80px;
+    height: 80px;
     padding: 10px 0;
     margin-left: 0.75rem;
 
@@ -258,3 +258,8 @@ article.article {
     }
   }
  }
+@media (min-width: 769px) { /* Small devices (landscape phones, 576px and up) */
+  .div-search {
+    height: 67px;
+  }
+}

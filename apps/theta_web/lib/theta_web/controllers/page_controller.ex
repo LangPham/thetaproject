@@ -99,6 +99,7 @@ defmodule ThetaWeb.PageController do
       end
 
     page = put_in(page.head.title, var.article.title)
+    page = put_in(page.head.img_article, var.article.photo)
     page = put_in(page.head.description, var.article.summary)
     page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
     page = put_in(

@@ -41,6 +41,7 @@ defmodule ThetaWeb.ShareView do
   end
 
   def img_link(link, filter) do
+    uri = URI.parse(link)
     filter =
       case filter do
         "lager" -> {"lager", "750x750"}
@@ -51,7 +52,15 @@ defmodule ThetaWeb.ShareView do
     {_, list_new} = List.pop_at(list_path, -1)
     path = Path.join(list_new)
     dir_upload = List.last(list_path)
-    files = String.replace(link, ~r/^\/#{dir_upload}/, "/#{dir_upload}/#{elem(filter, 0)}")
+
+    url =
+      if is_nil(uri.authority) do
+        link
+      else
+        uri.path
+      end
+
+    files = String.replace(url, ~r/^\/#{dir_upload}/, "/#{dir_upload}/#{elem(filter, 0)}")
     files_ext = Path.extname(files)
     files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
   end
@@ -75,7 +84,7 @@ defmodule ThetaWeb.ShareView do
         Mogrify.open(Path.join(path, link))
         |> Mogrify.verbose
         |> resize_img(filter)
-        |> IO.inspect()
+          #        |> IO.inspect()
         |> Mogrify.format("webp")
         |> Mogrify.save(path: Path.join(path, files_webp))
     end

@@ -13,7 +13,7 @@ defmodule ThetaWeb.Page do
     <meta property="og:description" content="How much does culture influence creative thinking?" />
     <meta property="og:image" content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
   """
-#  alias ThetaWeb.Debug
+  #  alias ThetaWeb.Debug
   defstruct head: %{
               # meta title og:title
               title: "Trang chủ",
@@ -27,7 +27,9 @@ defmodule ThetaWeb.Page do
               ],
               # html
               base: "",
-              ld_json: %{}
+              ld_json: %{},
+              img_article: ""
+
             },
             body: %{},
             footer: %{}
@@ -40,7 +42,7 @@ defmodule ThetaWeb.Page do
     else
       ":#{conn.port}"
     end
-    scheme =  Application.get_env(:theta_web, ThetaWeb.Endpoint)[:scheme] <> "://"
+    scheme = Application.get_env(:theta_web, ThetaWeb.Endpoint)[:scheme] <> "://"
     domain = scheme <> host <> port
     #Debug.debug(domain, __MODULE__)
     # put_in(p.head.title, "aaaaa")
