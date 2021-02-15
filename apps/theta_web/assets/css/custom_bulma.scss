@@ -67,10 +67,7 @@ $menu-item-color: #000;
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/grid/_all.sass";
 @import "../node_modules/bulma/sass/helpers/color.sass";
-@import "./scss/fontawesome";
-@import "./scss/solid";
-@import "./scss/brands";
-@import "./scss/regular";
-@import "./scss/upload";
+
 
 @import "style";
+@import "fonts-icon";

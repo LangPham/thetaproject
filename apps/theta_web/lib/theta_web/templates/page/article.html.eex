@@ -3,19 +3,22 @@
 	<div class="container is-fullhd ">
 		<div class="columns">
 			<div class="column is-8">
+				<div itemscope itemtype="https://schema.org/BreadcrumbList">
+					<ul class="breadcrumb">
+						<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+							<a itemprop="item" href="https://theta.vn/<%= @page.body.article.menu.path_alias.slug %>">
+								<span itemprop="name"><%= @page.body.article.menu.title %></span>
+							</a>
+							<meta itemprop="position" content="1"/>
+						</li>
 
-				<ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-					<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-						<a itemprop="item" href="https://theta.vn/<%= @page.body.article.menu.path_alias.slug %>">
-							<span itemprop="name"><%= @page.body.article.menu.title %></span>
-						</a>
-						<meta itemprop="position" content="1"/>
-					</li>
+					</ul>
 					<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
 						<meta itemprop="name" content="<%= @page.body.article.title %>"/>
 						<meta itemprop="position" content="2"/>
 					</span>
-				</ul>
+				</div>
+
 
 				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="#article">
 					<meta itemprop="mainEntityOfPage" itemscope itemid="#webpage"/>
@@ -37,7 +40,7 @@
 
 							<footer class="subtitle is-6">
 								<div>
-									<i class="far fa-user"></i>
+									<i class="tti ic-user f1ar f1a-user"></i>
 									<span itemprop="author" itemscope itemtype="https://schema.org/Person">
 										<span itemprop="name" class="name">
 											<%=  @page.body.article.author.user.name %>
@@ -45,7 +48,7 @@
 									</span>
 									<meta itemprop="datePublished" content="<%= datetime_iso8601 @page.body.article.inserted_at %>"/>
 									<meta itemprop="dateModified" content="<%= datetime_iso8601 @page.body.article.updated_at %>"/>
-									<i class="far fa-calendar-alt"></i> <%=	time_translate(@page.body.article.inserted_at, "vi") %>
+									<i class="tti ic-calendar"></i> <%=	time_translate(@page.body.article.inserted_at, "vi") %>
 								</div>
 
 								<%= if length(@page.body.article.tag) > 0 do %>

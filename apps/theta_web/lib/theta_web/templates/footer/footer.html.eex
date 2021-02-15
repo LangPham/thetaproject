@@ -11,19 +11,19 @@
 					<div>
 						<p>
 							Powered by <a href="https://github.com/LangPham/thetaproject" target="_blank" rel="nofollow noopener"><i
-										class="fab fa-github"></i> Thetaproject </a><br/>
+										class="tti ic-github"></i> Thetaproject </a><br/>
 						</p>
 					</div>
 				</div>
 				<div class="level-item has-text-centered">
 					<div>
 						<p>
-							<a href='https://<%= get_config("contact_youtube") %>' target="_blank" rel="nofollow noopener"><i
-										class="fab fa-youtube"></i> <%= get_config("contact_youtube") %></a><br/>
-							<a href='https://<%= get_config("contact_facebook") %>' target="_blank" rel="nofollow noopener"><i
-										class="fab fa-facebook"></i> <%= get_config("contact_facebook") %></a><br/>
-							<a href='mailto:<%= get_config("contact_email") %>' target="_blank" rel="nofollow noopener"><i
-										class="fas fa-envelope"></i> <%= get_config("contact_email") %></a>
+							<a class="link-footer" href='https://<%= get_config("contact_youtube") %>' target="_blank" rel="nofollow noopener"><i
+										class="tti ic-youtube"></i> <%= get_config("contact_youtube") %></a>
+							<a class="link-footer" href='https://<%= get_config("contact_facebook") %>' target="_blank" rel="nofollow noopener"><i
+										class="tti ic-facebook"></i> <%= get_config("contact_facebook") %></a>
+							<a class="link-footer" href='mailto:<%= get_config("contact_email") %>' target="_blank" rel="nofollow noopener"><i
+										class="tti ic-mail"></i> <%= get_config("contact_email") %></a>
 						</p>
 					</div>
 				</div>
@@ -40,9 +40,7 @@
 				</p>
 			</div>
 			<div class="level-item has-text-centered">
-
 					<a href="//www.dmca.com/Protection/Status.aspx?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-11.png?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
-
 
 			</div>
 		</div>

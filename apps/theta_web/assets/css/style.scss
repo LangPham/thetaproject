@@ -59,6 +59,7 @@ main {
     border-bottom: 1px solid $color-boder;
     margin: 1rem 0;
   }
+
   ul, ol {
     display: block;
     list-style-type: disc;
@@ -67,26 +68,31 @@ main {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 2rem;
+
     li {
       display: list-item;
       text-align: -webkit-match-parent;
     }
   }
+
   img {
     display: block;
     margin: 1rem auto;
     max-width: 100%;
   }
+
   iframe {
     display: block;
     padding: 2rem 0;
     margin: 0 auto;
     max-width: 100%;
   }
+
   p {
     margin-top: 0;
     margin-bottom: 1rem;
   }
+
   code, pre {
     background-color: whitesmoke;
     color: #94001d;
@@ -143,22 +149,31 @@ ul.breadcrumb {
   margin: 1rem 0;
   text-transform: uppercase;
 }
+
 /* Footers */
 footer.footer {
   color: white;
+
   .menu-footer {
     background-color: black;
     padding: 1rem 0;
     margin: 1rem 0;
 
     text-align: center;
+
     a {
       color: white;
+      &.link-footer {
+        margin-bottom: 1rem;
+        display: block;
+      }
     }
+
     .policy {
       text-transform: uppercase;
     }
   }
+
   .copyright {
     text-align: center;
     padding: 1rem 0;
@@ -189,22 +204,28 @@ article.article {
     margin-left: 0;
   }
 }
+
 .summary {
   display: block;
   padding: 1rem 0;
+
   + .summary {
     border-top: 1px solid $color-boder;
   }
-  color: $text ;
+
+  color: $text;
+
   &:hover article {
 
     background: rgba($primary, .3);
     color: black;
   }
 }
+
 .menu-left {
   margin: 0.75rem 0;
 }
+
 #topBtn {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
@@ -221,10 +242,12 @@ article.article {
   width: 50px;
   height: 50px;
 }
+
 .menu-left aside {
   position: sticky;
   top: 0;
 }
+
 .cl-right {
   position: sticky;
   top: 0;
@@ -233,13 +256,15 @@ article.article {
 #topBtn:hover {
   background-color: $primary; /* Add a dark-grey background on hover */
 }
+
 .faqpage {
 
-  .card-content{
+  .card-content {
     .qa:not(:first-child) {
-      border-top: 1px solid $color-boder ;
+      border-top: 1px solid $color-boder;
       padding-top: 1rem;
     }
+
     .qa {
       .question {
         font-weight: bold;
@@ -250,14 +275,18 @@ article.article {
 
 .toc {
   margin-top: 1.5rem;
-   font-size: 1.6rem;
+  font-size: 1.6rem;
+
   ol {
     margin-left: 1rem;
+
     li {
-     line-height: 1.5;
+      padding-top: .2rem;
+      line-height: 1.8;
     }
   }
- }
+}
+
 @media (min-width: 769px) { /* Small devices (landscape phones, 576px and up) */
   .div-search {
     height: 67px;
