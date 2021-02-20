@@ -11,11 +11,15 @@ defmodule ThetaWeb.PageView do
   end
 
   def markdown(floki) do
-    # ThetaWeb.Debug.debug(body, __MODULE__)
     floki
     |> Floki.raw_html()
     |> raw
+  end
 
+  def markdown_html(md) do
+    md
+    |> Earmark.as_html!()
+    |> raw
   end
 
   def toc(floki, url) do

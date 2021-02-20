@@ -27,7 +27,7 @@
 							<h3 class="question" itemprop="name"><%= qa.question %></h3>
 							<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
 								<div itemprop="text">
-									<%= markdown qa.answer %>
+									<%= markdown_html qa.answer %>
 								</div>
 							</div>
 						</div>
