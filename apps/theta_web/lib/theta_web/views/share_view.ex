@@ -68,7 +68,7 @@ defmodule ThetaWeb.ShareView do
   def img_mark(link, filter, alt) do
     filter =
       case filter do
-        "lager" -> {"lager", "750x750"}
+        "lager" -> {"lager", "1020x680"}
         _ -> {"thumb", "750x500"}
       end
     path_storage = Application.get_env(:theta_media, :storage)

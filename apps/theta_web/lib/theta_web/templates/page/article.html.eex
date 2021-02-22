@@ -76,7 +76,7 @@
 					</section>
 					<div class="content" itemprop="articleBody">
 						<div><%= @page.body.article.summary %></div>
-						<div style = "--aspect-ratio-w: 3; --aspect-ratio-h: 2; ">
+						<div>
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						</div>
 						<div><%= markdown floki %></div>
