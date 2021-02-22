@@ -38,7 +38,7 @@ defmodule ThetaWeb.Endpoint do
        from: :theta_web,
        gzip: true,
        only: ~w(css fonts images js favicon.ico robots.txt),
-       cache_control_for_etags: "public"
+       cache_control_for_etags: "max-age=315360000, public"
 
   plug Plug.Static,
        at: "/uploads",
