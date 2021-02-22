@@ -13,6 +13,7 @@ module.exports = (options) => ({
     ]
   },
   entry: {
+    front: glob.sync('./vendor/**/*.js').concat(['./js/front.js']),
     app: glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
     editor: glob.sync('./vendor/**/*.js').concat(['./js/editor.js'])
   },

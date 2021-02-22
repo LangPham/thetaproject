@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Theta.vn | Admin</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href='<%= Routes.static_path(@conn, "/css/front.css") %>'/>
     <%= csrf_meta_tag() %>
   </head>
   <body>
@@ -46,6 +47,7 @@
     </main>
 
     <%= render(ThetaWeb.FooterView, "footer.html", conn: @conn ) %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/front.js") %>"></script>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
