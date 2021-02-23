@@ -2,7 +2,7 @@
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
 
-import "../css/custom_bulma.scss";
+import "../css/front.scss";
 
 
 // Bulma navbar
