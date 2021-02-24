@@ -8,6 +8,26 @@ import "../css/front.scss";
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
 
+	function support_format_webp()
+	{
+		var elem = document.createElement('canvas');
+
+		if (!!(elem.getContext && elem.getContext('2d')))
+		{
+			// was able or not to get WebP representation
+			return "webp";
+		}
+		else
+		{
+			// very old browser like IE 8, canvas not supported
+			return "no-webp";
+		}
+	}
+	let body = document.getElementsByTagName("body");
+	console.log(support_format_webp());
+
+	body[0].classList.add(support_format_webp());
+
 	// Get all "navbar-burger" elements
 	const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 

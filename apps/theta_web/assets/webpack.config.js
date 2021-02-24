@@ -63,7 +63,7 @@ module.exports = (options) => ({
         }]
       },
       {
-        test: /\.(png|jpg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(png|jpg|webp)(\?v=\d+\.\d+\.\d+)?$/,
         use: [{
           loader: 'file-loader',
           options: {

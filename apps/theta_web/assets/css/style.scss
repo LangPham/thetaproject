@@ -2,6 +2,9 @@
 main {
   background-image: url("../images/bg.png");
 }
+.webp main {
+  background-image: url("../images/bg.webp");
+}
 
 .content, .editor-preview {
   h1 {
