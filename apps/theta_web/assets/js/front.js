@@ -8,25 +8,31 @@ import "../css/front.scss";
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
 
-	function support_format_webp()
-	{
-		var elem = document.createElement('canvas');
-
-		if (!!(elem.getContext && elem.getContext('2d')))
-		{
-			// was able or not to get WebP representation
-			return "webp";
-		}
-		else
-		{
-			// very old browser like IE 8, canvas not supported
-			return "no-webp";
-		}
+		function check_webp_feature(feature, callback) {
+		var kTestImages = {
+			lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+			lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
+			alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
+			animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
+		};
+		var img = new Image();
+		img.onload = function () {
+			var result = (img.width > 0) && (img.height > 0);
+			callback(feature, result);
+		};
+		img.onerror = function () {
+			callback(feature, false);
+		};
+		img.src = "data:image/webp;base64," + kTestImages[feature];
 	}
-	let body = document.getElementsByTagName("body");
-	console.log(support_format_webp());
-
-	body[0].classList.add(support_format_webp());
+	check_webp_feature('lossy', function (feature, isSupported) {
+		let body = document.getElementsByTagName("body");
+		if (isSupported) {
+			body[0].classList.add("webp");
+		} else {
+			body[0].classList.add("no-webp");
+		}
+	});
 
 	// Get all "navbar-burger" elements
 	const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
