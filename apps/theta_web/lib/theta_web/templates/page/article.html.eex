@@ -76,7 +76,7 @@
 					</section>
 					<div class="content" itemprop="articleBody">
 						<div><%= @page.body.article.summary %></div>
-						<div>
+						<div class="image is-3by2">
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						</div>
 						<div><%= markdown floki %></div>
