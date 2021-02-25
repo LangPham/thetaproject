@@ -105,44 +105,13 @@
 
 }
 
-/* Headers */
-header.layout {
-  border-bottom: 1px solid $color-boder;
-
-  .navbar-item-brand {
-    height: 80px;
-    padding: 10px 0;
-    margin-left: 0.75rem;
-
-    img {
-      max-height: 60px;
-    }
-  }
-
-  .navbar-burger {
-    margin-top: 15px;
-    height: 50px;
-    width: 50px;
-
-    span {
-      height: 2px;
-      width: 20px;
-    }
-  }
-
-  .navbar-menu {
-    .navbar-end {
-      margin-right: 0.75rem;
-
-      .navbar-item {
-        color: $blue;
-        text-transform: uppercase;
-      }
-    }
-  }
-
-}
-
+@import "./scss_milligram/header";
+@import "./scss_milligram/footer";
+@import "./scss_milligram/base";
+@import "./scss_milligram/grid";
+@import "./scss_milligram/image";
+@import "./scss_milligram/typography";
+@import "./scss_milligram/article";
 /* Breadcrumb */
 ul.breadcrumb {
   padding: 10px 16px;
@@ -153,43 +122,6 @@ ul.breadcrumb {
   text-transform: uppercase;
 }
 
-/* Footers */
-footer.footer {
-  color: white;
-
-  .menu-footer {
-    background-color: black;
-    padding: 1rem 1rem;
-    margin: 1rem 0;
-
-    text-align: center;
-
-    a {
-      color: white;
-      &.link-footer {
-        margin-bottom: 1rem;
-        display: block;
-      }
-    }
-
-    .policy {
-      text-transform: uppercase;
-    }
-  }
-
-  .copyright {
-    text-align: center;
-    padding: 1rem 0;
-    color: black;
-  }
-}
-
-/* Article */
-article.article {
-  .hero .hero-body {
-    padding: 3rem 0rem;
-  }
-}
 
 /* Serial select form */
 #serial_select {
@@ -205,23 +137,6 @@ article.article {
 
   + .radio {
     margin-left: 0;
-  }
-}
-
-.summary {
-  display: block;
-  padding: 1rem 0;
-
-  + .summary {
-    border-top: 1px solid $color-boder;
-  }
-
-  color: $text;
-
-  &:hover article {
-
-    background: rgba($primary, .3);
-    color: black;
   }
 }
 
@@ -287,11 +202,5 @@ article.article {
       padding-top: .2rem;
       line-height: 1.8;
     }
-  }
-}
-
-@media (min-width: 769px) { /* Small devices (landscape phones, 576px and up) */
-  .div-search {
-    height: 67px;
   }
 }

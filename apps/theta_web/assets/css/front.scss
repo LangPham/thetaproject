@@ -1,5 +1,16 @@
 @charset "utf-8";
 
+
+// Color
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+$color-initial: #fff;
+$color-primary: #0157b4;
+$color-secondary: #606c76;
+$color-tertiary: #f4f5f6;
+$color-quaternary: #d1d1d1;
+$color-quinary: #e1e1e1;
+
 // Set your brand colors
 $purple: #8A4D76;
 $pink: #FA7C91;
@@ -43,30 +54,20 @@ $input-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05);
 $menu-label-color: white;
 $menu-item-color: #000;
 
-// Import only what you need from Bulma
-@import "../node_modules/bulma/sass/utilities/_all.sass";
-@import "../node_modules/bulma/sass/base/_all.sass";
-@import "../node_modules/bulma/sass/elements/button.sass";
-@import "../node_modules/bulma/sass/elements/container.sass";
-@import "../node_modules/bulma/sass/elements/title.sass";
-@import "../node_modules/bulma/sass/elements/image.sass";
-@import "../node_modules/bulma/sass/elements/tag.sass";
-//@import "../node_modules/bulma/sass/elements/table.sass";
-//@import "../node_modules/bulma/sass/elements/icon.sass";
-//@import "../node_modules/bulma/sass/elements/box.sass";
-//@import "../node_modules/bulma/sass/elements/other.sass";
-@import "../node_modules/bulma/sass/form/_all.sass";
-@import "../node_modules/bulma/sass/components/navbar.sass";
-//@import "../node_modules/bulma/sass/components/level.sass";
-//@import "../node_modules/bulma/sass/components/media.sass";
-//@import "../node_modules/bulma/sass/components/dropdown.sass";
-@import "../node_modules/bulma/sass/components/card.sass";
-//@import "../node_modules/bulma/sass/components/modal.sass";
-//@import "../node_modules/bulma/sass/components/menu.sass";
-@import "../node_modules/bulma/sass/layout/hero.sass";
-@import "../node_modules/bulma/sass/layout/section.sass";
-@import "../node_modules/bulma/sass/grid/columns.sass";
-//@import "../node_modules/bulma/sass/helpers/color.sass";
+// Import only what you need from milligram
+//@import "../node_modules/milligram/src/milligram";
+
+
+// Modules
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+//@import "../node_modules/milligram/src/_Blockquote";
+//@import "../node_modules/milligram/src/_Code";
+//@import "../node_modules/milligram/src/_Form";
+
+//@import "../node_modules/milligram/src/_List";
+//@import "../node_modules/milligram/src/_Spacing";
+//@import "../node_modules/milligram/src/_Table";
+//@import "../node_modules/milligram/src/_Utility";
 
 @import "style";
 @import "fonts-icon";

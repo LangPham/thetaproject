@@ -1,0 +1,36 @@
+/* Headers */
+header.layout {
+  border-bottom: 1px solid $color-boder;
+  .navbar-brand{
+
+    height: 60px;
+    margin: 1rem;
+    .navbar-item-brand {
+        display: block;
+        height: 60px;
+        img {
+          display: block;
+          height: 60px;
+        }
+    }
+  }
+
+
+  .navbar-menu {
+    display: flex;
+    gap: 2rem;
+    //justify-content: flex-end;
+    margin-right: auto;
+    overflow: auto;
+    white-space: nowrap;
+    align-items: center;
+    .navbar-item {
+      color: $blue;
+      text-transform: uppercase;
+      display: block;
+      font-weight: bold;
+      padding: 1rem 0;
+    }
+  }
+
+}
