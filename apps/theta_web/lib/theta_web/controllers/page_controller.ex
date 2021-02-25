@@ -11,11 +11,17 @@ defmodule ThetaWeb.PageController do
 
   def policy(conn, _params) do
     page = Page.new(conn)
+    page = put_in(page.head.title, "Chính sách bảo mật")
+    page = put_in(page.head.description, "Chính sách bảo mật, điều khoản bảo mật của Theta")
+    page = put_in(page.head.canonical, page.head.base <> "/policy" )
     render(conn, "policy.html", page: page)
   end
 
   def google_search(conn, _params) do
     page = Page.new(conn)
+    page = put_in(page.head.title, "Tìm kiếm")
+    page = put_in(page.head.description, "Trang tìm kiếm của Theta")
+    page = put_in(page.head.canonical, page.head.base <> "/search" )
     render(conn, "google_search.html", page: page)
   end
 
@@ -197,7 +203,6 @@ defmodule ThetaWeb.PageController do
 
     list_qa = CMS.list_qa_by_tag(path.slug)
 
-    IO.inspect list_qa, label: " ==================\n"
     var =
       case CacheDB.get("tag-#{path.slug}") do
         {:ok, var} -> var

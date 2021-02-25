@@ -2,14 +2,30 @@
 <meta name="<%= meta.name %>" content="<%= meta.content %>">
 <% end %>
 <%= for meta <- get_og_tag_html(@head) do %>
-	<meta property="<%= meta.property %>" content="<%= meta.content %>">
-	<%= if meta.property == "og:image" do %>
-
+<meta property="<%= meta.property %>" content="<%= meta.content %>">
+<%= if meta.property == "og:image" do %>
 	<% end %>
 <% end %>
 <%= if @head.img_article != "" do %>
-	<link rel="preload" href="<%= img_link @head.img_article,"lager" %>" as="image" >
+<link rel="preload" href="<%= img_link @head.img_article,"lager" %>" as="image">
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :index) do %>
-<meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
+	<meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"url": "https://theta.vn/",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": "https://theta.vn/search?q={search_term_string}",
+				"query-input": "required name=search_term_string"
+			}
+		}
+	</script>
 <% end %>
+
+
+
+
+
