@@ -106,9 +106,9 @@ defmodule ThetaWeb.PageView do
       floki,
       fn
         {"img", attrs, children} ->
-#          IO.inspect attrs, label: "=============UPDATE PICTURE"
-          attrs = attrs ++ [{"loading","lazy"}]
+
           file = elem(List.first(attrs), 1)
+          attrs = attrs ++ [{"loading","lazy"}]
           file_webp =
             file
             |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
