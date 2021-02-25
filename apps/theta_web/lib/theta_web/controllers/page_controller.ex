@@ -14,6 +14,11 @@ defmodule ThetaWeb.PageController do
     render(conn, "policy.html", page: page)
   end
 
+  def google_search(conn, _params) do
+    page = Page.new(conn)
+    render(conn, "google_search.html", page: page)
+  end
+
   def index(conn, _params) do
 
     page = Page.new(conn)

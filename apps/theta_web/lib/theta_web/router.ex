@@ -35,6 +35,7 @@ defmodule ThetaWeb.Router do
     pipe_through [:browser, :auth]
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
+    get "/search", PageController, :google_search
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
     get "/", PageController, :index
     get "/policy", PageController, :policy

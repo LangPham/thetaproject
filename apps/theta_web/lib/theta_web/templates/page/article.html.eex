@@ -89,9 +89,8 @@
 
 					<div class="card">
 						<div class="card-content">
-							<div class="content div-search">
-								<script async src="https://cse.google.com/cse.js?cx=000634605700554394801:kzpflttpyeo"></script>
-								<div class="gcse-search"></div>
+							<div class="content">
+								<%= render(ThetaWeb.Component.SearchView, "search_box.html") %>
 							</div>
 						</div>
 					</div>
