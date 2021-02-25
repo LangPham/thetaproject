@@ -65,11 +65,17 @@ defmodule ThetaWeb.ShareView do
     files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
   end
 
-  def img_mark(link, filter, alt) do
+  def img_mark(link, filter, alt, loading \\ "eager") do
     filter =
       case filter do
         "lager" -> {"lager", "1020x680"}
         _ -> {"thumb", "750x500"}
+      end
+
+    loading =
+      case loading do
+        "lazy" -> "loading=\'lazy\'"
+        _ -> ""
       end
     path_storage = Application.get_env(:theta_media, :storage)
     list_path = Path.split(path_storage)
@@ -93,7 +99,7 @@ defmodule ThetaWeb.ShareView do
         "<source srcset=\"" <> "#{files_webp}" <> "\" type='image/webp'>"
       )
       image = raw(
-        "<img src='#{link}' alt='#{alt}'>"
+        "<img src='#{link}' alt='#{alt}' #{loading}>"
       )
       [source, image]
     end

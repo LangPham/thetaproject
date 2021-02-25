@@ -101,10 +101,13 @@ defmodule ThetaWeb.PageView do
   end
 
   defp update_picture({floki, dir_upload})do
+
     Floki.traverse_and_update(
       floki,
       fn
         {"img", attrs, children} ->
+#          IO.inspect attrs, label: "=============UPDATE PICTURE"
+          attrs = attrs ++ [{"loading","lazy"}]
           file = elem(List.first(attrs), 1)
           file_webp =
             file

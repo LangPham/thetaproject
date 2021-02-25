@@ -32,7 +32,7 @@
 	</div>
 
 
-	<div class="container is-fullhd">
+	<div class="container is-fullhd section">
 		<div class="columns">
 			<div class="column is-6 has-text-centered">
 				<p class="copyright">
@@ -40,7 +40,10 @@
 				</p>
 			</div>
 			<div class="column has-text-centered">
-					<a href="//www.dmca.com/Protection/Status.aspx?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w250-5x1-11.png?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" async> </script>
+					<a href="//www.dmca.com/Protection/Status.aspx?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51" title="DMCA.com Protection Status" class="dmca-badge">
+						<img loading="lazy" src="https://images.dmca.com/Badges/dmca-badge-w250-5x1-11.png?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51"  alt="DMCA.com Protection Status" />
+					</a>
+				<script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" async> </script>
 
 			</div>
 		</div>
