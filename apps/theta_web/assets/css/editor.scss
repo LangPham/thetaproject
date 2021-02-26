@@ -2,3 +2,33 @@
 // Import only what you need from EasyMDE
 @import "../node_modules/easymde/dist/easymde.min.css";
 
+.editor-toolbar .easymde-dropdown, .editor-toolbar button {
+  color: #000000;
+  line-height: 1.5;
+}
+
+/* Serial select form */
+#serial_select {
+  display: none;
+}
+
+#article_is_section:checked ~ #serial_select {
+  display: block;
+}
+
+.radio {
+  display: block;
+
+  + .radio {
+    margin-left: 0;
+  }
+}
+
+.menu-left {
+  margin: 0.75rem 0;
+}
+
+.menu-left aside {
+  position: sticky;
+  top: 0;
+}

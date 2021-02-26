@@ -1,0 +1,84 @@
+// Utility
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// Clear a float with .clearfix
+.clearfix
+
+  &:after
+    clear: both
+    content: ' '
+    // The space content is one way to avoid an Opera bug.
+    display: table
+
+// Float either direction
+.float-left
+  float: left
+
+.float-right
+  float: right
+
+
+ul.breadcrumb
+  padding: 10px 16px
+  list-style: none
+  background-color: $color-boder
+  border-left: 2px solid $color-primary
+  margin: 1rem 0
+  text-transform: uppercase
+  li
+    margin: 0
+
+.card
+  background-color: #fff
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02)
+  color: #333
+  max-width: 100%
+  position: relative
+
+  .card-content
+    display: block
+    padding: 1rem
+
+    form
+      display: block
+      margin-bottom: 0
+
+  .card-header
+    display: flex
+    background-color: transparent
+    align-items: stretch
+    box-shadow: 0 0.125em 0.25em rgba(10, 10, 10, .1)
+
+    .card-header-title
+      align-items: center
+      color: #363636
+      display: block
+      flex-grow: 1
+      font-weight: 700
+      padding: .75rem 1rem
+      margin-block-end: 0
+      margin-block-start: 0
+
+.tag
+  align-items: center
+  background-color: $color-quaternary
+  color: #333
+  display: inline-flex
+  font-size: 1.2rem
+  height: 2.2em
+  margin: 0.3rem
+  justify-content: center
+  line-height: 1.5
+  padding-left: .75em
+  padding-right: .75em
+  white-space: nowrap
+  border-radius: 1rem
+
+.no-webp main
+  background-image: url("../images/bg.png")
+
+.webp main
+  background-image: url("../images/bg.webp")
+.cl-right
+  position: sticky
+  top: 0

@@ -7,9 +7,7 @@
 				<%= link to: webroot(article.path_alias.slug), class: "summary", "aria-label": article.title do %>
 				<article class="row">
 					<div class="column column-25">
-						<figure class="image is-3by2">
-							<%= img_mark( Routes.static_path(@conn, article.photo), "lager", article.title, "lazy") %>
-						</figure>
+						<%= img_amp( Routes.static_path(@conn, article.photo), "lager", article.title, "lazy") %>
 					</div>
 					<div class="column">
 						<h3 class="title is-3"><%= article.title %></h3>
@@ -29,14 +27,14 @@
 			</div>
 			<div class="column ">
 				<div class="cl-right">
-					<div class="card">
+					<!--<div class="card">
 						<div class="card-content">
 							<div class="content">
 								<%= render(ThetaWeb.Component.SearchView, "search_box.html") %>
 							</div>
 						</div>
 					</div>
-					<hr/>
+					<hr/>-->
 
 					<%= if length(@page.body.serial_menu) > 0 do %>
 					<div class="card">

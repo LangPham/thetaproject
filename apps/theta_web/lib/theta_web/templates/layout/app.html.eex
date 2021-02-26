@@ -6,38 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Theta.vn | Admin</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <link rel="stylesheet" href='<%= Routes.static_path(@conn, "/css/front.css") %>'/>
+    <base href="/">
+    <!--<link rel="stylesheet" href='<%= Routes.static_path(@conn, "/css/front.css") %>'/>-->
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <header class="layout">
-      <section class="container is-fullhd ">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a href="/" class="navbar-item-brand" >
-              <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="Theta Logo" />
-        		</a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div id="navbarMenu" class="navbar-menu">
-            <div class="navbar-end">
-              <%= render(ThetaWeb.MenuView, "menu.html", conn: @conn ) %>
-            </div>
-          </div>
-        </nav>
-      </section>
-    </header>
+  <header class="layout">
+    <section class="container">
+      <nav class="row" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand column column-33">
+          <a href="/" class="navbar-item-brand" itemscope itemtype="https://schema.org/Organization" itemid="#publisher">
+            <meta itemprop="url" content="https://theta.vn">
+            <meta itemprop="name" content="THETA.VN">
+            <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+						<img src="https://theta.vn/images/logo.svg" alt="Theta Logo" itemprop="url" content="https://theta.vn/images/logo.svg" />
+					</span>
+            <meta itemprop="sameAs" content="https://www.facebook.com/theta.vn">
+            <meta itemprop="sameAs" content="https://www.youtube.com/c/Thetavn">
+            <meta itemprop="sameAs" content="https://www.pinterest.com/ThetaVn">
+            <meta itemprop="sameAs" content="https://github.com/Theta-vn">
+            <meta itemprop="sameAs" content="https://www.linkedin.com/company/theta-vn">
+          </a>
+        </div>
+        <div id="navbarMenu" class="navbar-menu column">
+          <%= render(ThetaWeb.MenuView, "menu.html", assigns ) %>
+        </div>
+      </nav>
+    </section>
+  </header>
 
-    <main role="main" class="container is-fullhd">
-      <div class="columns">
-        <div class="column is-3 has-background-link-dark menu-left">
+    <main role="main" class="container">
+      <div class="row">
+        <div class="column column-25 has-background-link-dark menu-left">
           <%= render(ThetaWeb.MenuView, "menu_left.html", conn: @conn ) %>
         </div>
-        <div class="column is-9">
+        <div class="column ">
           <p class="has-text-success" role="alert"><%= get_flash(@conn, :info) %></p>
           <p class="has-text-danger" role="alert"><%= get_flash(@conn, :error) %></p>
           <%= @inner_content %>

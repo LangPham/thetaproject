@@ -30,6 +30,14 @@ defmodule ThetaWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+  scope "/amp", ThetaWeb do
+    pipe_through :browser
+    get "/", AmpController, :index
+    get "/policy", AmpController, :policy
+    get "/:slug", AmpController, :show
+    get "/tag/:slug", AmpController, :show
+
+  end
 
   scope "/", ThetaWeb do
     pipe_through [:browser, :auth]
@@ -52,9 +60,9 @@ defmodule ThetaWeb.Router do
     pipe_through :browser
     get "/:provider", OauthController, :index
     get "/:provider/callback", OauthController, :callback
-#    delete "/logout", OauthController, :delete
-
   end
+
+
 
   scope "/user", ThetaWeb do
     pipe_through [:browser, :auth, :ensure_auth]

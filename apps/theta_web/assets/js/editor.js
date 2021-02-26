@@ -14,14 +14,14 @@ export function create_editor(option) {
 		spellChecker: false,
 		promptURLs: true,
 		toolbar: [
-			{name: "bold", action: EasyMDE.toggleBold, className: "fa fa-bold", title: "Bold",},
+			{name: "bold", action: EasyMDE.toggleBold, className: "fas fa-bold", title: "Bold",},
 			{
 				name: "italic",
 				action: EasyMDE.toggleStrikethrough,
 				className: "fa fa-strikethrough",
 				title: "Strikethrough",
 			},
-			{name: "strikethrough", action: EasyMDE.toggleItalic, className: "fa fa-italic", title: "Italic",},
+			{name: "strikethrough", action: EasyMDE.toggleItalic, className: "fas fa-italic", title: "Italic",},
 			{
 				name: "heading-1",
 				action: EasyMDE.toggleHeading1,

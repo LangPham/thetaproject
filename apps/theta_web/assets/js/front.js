@@ -2,7 +2,7 @@
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
 
-import "../css/front.scss";
+import "../css/front.sass";
 
 
 // Bulma navbar
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	// Get all "navbar-burger" elements
-	const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+	const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.hamburger'), 0);
 
 	// Check if there are any navbar burgers
 	if ($navbarBurgers.length > 0) {
