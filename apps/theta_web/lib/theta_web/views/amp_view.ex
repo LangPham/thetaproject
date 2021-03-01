@@ -102,7 +102,10 @@ defmodule ThetaWeb.AmpView do
   end
 
   defp update_picture({floki, dir_upload})do
-
+    path_storage = Application.get_env(:theta_media, :storage)
+    list_path = Path.split(path_storage)
+    {_, list_new} = List.pop_at(list_path, -1)
+    path = Path.join(list_new)
     Floki.traverse_and_update(
       floki,
       fn
@@ -114,13 +117,15 @@ defmodule ThetaWeb.AmpView do
             file
             |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
             |> String.replace(~r/(\.)(\w)+/, ".webp")
+          image = Mogrify.open(Path.join(path, file_webp)) |> Mogrify.verbose
+#          IO.inspect(image.height)
           {
             "amp-img",
             [
               {"alt", alt},
               {"src", file_webp},
-              {"width", "1020"},
-              {"height", "680"},
+              {"width", "#{image.width}"},
+              {"height", "#{image.height}"},
               {'layout','responsive'}
             ],
             [
@@ -130,8 +135,8 @@ defmodule ThetaWeb.AmpView do
                   {"alt", alt},
                   {"fallback", ""},
                   {"src", file},
-                  {"width", "1020"},
-                  {"height", "680"},
+                  {"width", "#{image.width}"},
+                  {"height", "#{image.height}"},
                   {'layout','responsive'}
                 ],
                 []
