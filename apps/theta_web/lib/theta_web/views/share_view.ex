@@ -62,7 +62,7 @@ defmodule ThetaWeb.ShareView do
 
     files = String.replace(url, ~r/^\/#{dir_upload}/, "/#{dir_upload}/#{elem(filter, 0)}")
     files_ext = Path.extname(files)
-    files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
+    String.replace(files, ~r/#{files_ext}/, ".webp")
   end
 
   def img_mark(link, filter, alt, loading \\ "eager") do
@@ -106,7 +106,7 @@ defmodule ThetaWeb.ShareView do
   end
 
   defp resize_img(image, filter) do
-    IO.inspect(filter)
+#    IO.inspect(filter)
     if elem(filter, 0) == "lager" do
       Mogrify.resize(image, "#{elem(filter, 1)}")
     else

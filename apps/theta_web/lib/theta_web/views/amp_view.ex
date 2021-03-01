@@ -25,10 +25,11 @@ defmodule ThetaWeb.AmpView do
   def toc(floki, url) do
     floki
     |> Floki.traverse_and_update(
+
          fn
            {"h2", attrs, children} ->
-             href = "#" <> elem(List.first(attrs), 1)
-             child = {"a", [{"href", url <> href}], children}
+             href = "" <> elem(List.first(attrs), 1)
+             child = {"button", [{"on", "tap:#{href}.scrollTo(duration=200)"}], children}
              {"li", [], child}
            tag -> nil
          end
@@ -66,8 +67,8 @@ defmodule ThetaWeb.AmpView do
   end
 
   def debug(body) do
-    IO.inspect __MODULE__
-    IO.inspect body
+#    IO.inspect __MODULE__
+#    IO.inspect body
   end
 
 
@@ -195,7 +196,7 @@ defmodule ThetaWeb.AmpView do
   end
 
   defp resize_img(image, filter) do
-    IO.inspect(filter)
+#    IO.inspect(filter)
     if elem(filter, 0) == "lager" do
       Mogrify.resize(image, "#{elem(filter, 1)}")
     else

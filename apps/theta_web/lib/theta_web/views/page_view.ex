@@ -65,10 +65,7 @@ defmodule ThetaWeb.PageView do
 
   end
 
-  def debug(body) do
-    IO.inspect __MODULE__
-    IO.inspect body
-  end
+
 
 
   defp create_webp(floki) do

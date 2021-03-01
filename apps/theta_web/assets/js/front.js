@@ -66,9 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	function scrollFunction() {
 		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-			topbutton.style.display = "block";
+			topbutton.style.visibility = "visible";
+			topbutton.style.opacity = "1";
 		} else {
-			topbutton.style.display = "none";
+			topbutton.style.visibility = "hidden";
+			topbutton.style.opacity = "0";
 		}
 	}
 

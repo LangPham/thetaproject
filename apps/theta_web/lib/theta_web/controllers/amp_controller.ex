@@ -40,7 +40,7 @@ defmodule ThetaWeb.AmpController do
       for art <- list_article, art.is_serial do
         %{title: art.title, id: art.id, slug: art.path_alias.slug}
       end
-    page = put_in(page.head.ld_json, %{index: "index"})
+    page = put_in(page.head.ld_json, %{amp_index: "index"})
     page = Map.put(page, :body, %{list_article: list_article, serial_menu: serial_of_menu})
 
     conn
@@ -56,7 +56,7 @@ defmodule ThetaWeb.AmpController do
         nil
       end
     path = PV.get_path_alias_slug!(slug, tags)
-    IO.inspect path
+
     if path == nil do
       ThetaWeb.PV.PathAliasController.router_path_error(conn, conn.request_path)
     else
@@ -114,7 +114,7 @@ defmodule ThetaWeb.AmpController do
     page = put_in(page.head.img_article, var.article.photo)
     page = put_in(page.head.description, var.article.summary)
     page = put_in(page.head.ld_json, %{amp_article: var.article})
-    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
+    page = put_in(page.head.canonical, "#{path.slug}")
     page = put_in(
       page.head.og,
       [
@@ -191,10 +191,10 @@ defmodule ThetaWeb.AmpController do
     des = Theta.Configuration.get_config_by_key(path.slug)
 
 
-
     page = put_in(page.head.title, var.title)
     page = put_in(page.head.description, des)
-    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
+    page = put_in(page.head.canonical, path.slug)
+    page = put_in(page.head.ld_json, %{amp_main_menu: "main_menu"})
     page = Map.put(page, :body, %{list_article: var.article, serial_menu: serial_of_menu})
     conn
     |> render("main_menu.html", page: page)
@@ -227,7 +227,9 @@ defmodule ThetaWeb.AmpController do
     all_tag = PV.list_path_tag()
     page = put_in(page.head.title, var.slug)
     page = put_in(page.head.description, var.slug)
-    page = put_in(page.head.canonical, page.head.base <> "/" <> "tag/" <> path.slug)
+    page = put_in(page.head.canonical, "tag/" <> path.slug)
+    page = put_in(page.head.ld_json, %{amp_tag: "tag"})
+
     page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag, list_qa: list_qa})
 
     conn

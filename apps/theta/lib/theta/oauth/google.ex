@@ -36,10 +36,10 @@ defmodule Google do
   end
 
   def get_token!(params \\ [], headers \\ []) do
-    IO.inspect(params, label: "Params====\n")
-    IO.inspect(headers, label: "Headers====\n")
+#    IO.inspect(params, label: "Params====\n")
+#    IO.inspect(headers, label: "Headers====\n")
     token = OAuth2.Client.get_token!(client(), Keyword.merge(params, client_secret: client().client_secret))
-    IO.inspect(token)
+#    IO.inspect(token)
   end
 
   # Strategy Callbacks

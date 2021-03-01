@@ -44,8 +44,7 @@ defmodule ThetaWeb.Page do
     end
     scheme = Application.get_env(:theta_web, ThetaWeb.Endpoint)[:scheme] <> "://"
     domain = scheme <> host <> port
-    #Debug.debug(domain, __MODULE__)
-    # put_in(p.head.title, "aaaaa")
+
     this = put_in(%__MODULE__{}.head.base, domain)
     this = put_in(
       this.head.og,

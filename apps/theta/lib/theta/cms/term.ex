@@ -41,7 +41,7 @@ defmodule Theta.CMS.Term do
         struct
       else
         path_alias = Repo.get(PathAlias, struct.data.path_alias_id)
-        #        IO.inspect path_alias
+
         type_model =
           if Map.has_key?(struct.changes, :taxonomy_id) do
             taxonomy = Repo.get(Taxonomy, struct.changes.taxonomy_id)

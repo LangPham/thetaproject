@@ -9,23 +9,91 @@
 <%= if @head.img_article != "" do %>
 <link rel="preload" href="<%= img_link @head.img_article,"lager" %>" as="image">
 <% end %>
+
 <%= if Map.has_key?(@head.ld_json, :index) do %>
-	<meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "WebSite",
-			"url": "https://theta.vn/",
-			"potentialAction": {
-				"@type": "SearchAction",
-				"target": "https://theta.vn/search?q={search_term_string}",
-				"query-input": "required name=search_term_string"
-			}
+<meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
+<link rel="canonical" href="<%= '#{@head.base}' %>"/>
+<!--<link rel="amphtml" href="<%= '#{@head.base}/amp/' %>">-->
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		"url": "https://theta.vn/",
+		"potentialAction": {
+			"@type": "SearchAction",
+			"target": "https://theta.vn/search?q={search_term_string}",
+			"query-input": "required name=search_term_string"
 		}
-	</script>
+	}
+</script>
+<% end %>
+<%= if Map.has_key?(@head.ld_json, :amp_index) do %>
+<meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
+<link rel="canonical" href="<%= '#{@head.base}' %>"/>
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		"url": "https://theta.vn/",
+		"potentialAction": {
+			"@type": "SearchAction",
+			"target": "https://theta.vn/search?q={search_term_string}",
+			"query-input": "required name=search_term_string"
+		}
+	}
+</script>
+<% end %>
+
+<%= if Map.has_key?(@head.ld_json, :main_menu) do %>
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<!--<link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">-->
+<% end %>
+<%= if Map.has_key?(@head.ld_json, :amp_main_menu) do %>
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebPage",
+		"@id": "<%= @head.canonical %>/#webpage",
+		"name": "<%= @head.title %>",
+		"description": "<%= @head.description %>",
+		"inLanguage": "vi",
+		"url": "<%= '#{@head.base}/#{@head.canonical}' %>",
+		"publisher": {
+				"@type": "Organization",
+				"logo": {
+					"@type": "ImageObject",
+					"url": "https://theta.vn/images/logo.png",
+					"width": "820",
+					"height": "312"
+				},
+				"name": "THETA.VN",
+				"sameAs": [
+					"https://www.facebook.com/theta.vn",
+					"https://www.youtube.com/c/Thetavn",
+				  "https://www.pinterest.com/ThetaVn",
+				  "https://github.com/Theta-vn",
+				  "https://www.linkedin.com/company/theta-vn"
+				]
+			}
+	}
+</script>
+<% end %>
+
+<%= if Map.has_key?(@head.ld_json, :tag) do %>
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<!--<link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">-->
+<% end %>
+<%= if Map.has_key?(@head.ld_json, :amp_tag) do %>
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<% end %>
+
+<%= if Map.has_key?(@head.ld_json, :article) do %>
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :amp_article) do %>
-
+<link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
 <script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
@@ -33,13 +101,13 @@
 		"@id": "<%= @head.canonical %>/#webpage",
 		"name": "<%= @head.title %>",
 		"inLanguage": "vi",
-		"url": "<%= @head.canonical %>",
+		"url": "<%= '#{@head.base}/#{@head.canonical}' %>",
 		"mainEntity": {
 			"@type": "Article",
-			"mainEntityOfPage": "<%= @head.canonical %>",
+			"mainEntityOfPage": "<%= '#{@head.base}/#{@head.canonical}' %>",
 			"image": [
-				"<%= img_link( @head.ld_json.amp_article.photo, "lager") %>",
-				"<%= @head.ld_json.amp_article.photo %>"
+				"<%= '#{@head.base}#{img_link( @head.ld_json.amp_article.photo, "lager")}' %>",
+				"<%= '#{@head.base}#{@head.ld_json.amp_article.photo}' %>"
 			],
 			"headline": "<%= @head.ld_json.amp_article.title %>",
 			"description": "<%= @head.description %>",
@@ -55,7 +123,14 @@
 					"width": "820",
 					"height": "312"
 				},
-				"name": "THETA.VN"
+				"name": "THETA.VN",
+				"sameAs": [
+					"https://www.facebook.com/theta.vn",
+					"https://www.youtube.com/c/Thetavn",
+				  "https://www.pinterest.com/ThetaVn",
+				  "https://github.com/Theta-vn",
+				  "https://www.linkedin.com/company/theta-vn"
+				]
 			},
 			"author": {
 				"@type": "Person",

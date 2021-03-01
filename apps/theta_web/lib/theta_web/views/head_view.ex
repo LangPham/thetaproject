@@ -21,7 +21,7 @@ defmodule ThetaWeb.HeadView do
     end
   end
   def get_og_tag_html(head) do
-    IO.inspect head
+#    IO.inspect head
     if Map.has_key?(head, :og) do
       for meta <- head.og do
         %{type: "og", property: meta.property, content: meta.content}

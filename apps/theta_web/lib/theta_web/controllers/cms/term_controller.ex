@@ -38,7 +38,7 @@ defmodule ThetaWeb.CMS.TermController do
         # Nếu có ròi thì khỏi cần đọc DB
         {:ok, term} ->
           IO.puts("HIT TERM")
-          IO.inspect term
+#          IO.inspect term
           term
 
         {:error, _} ->

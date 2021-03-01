@@ -108,7 +108,7 @@ defmodule ThetaWeb.Router do
     end
   end
   defp cookie_test(conn, _) do
-    IO.inspect(conn)
+#    IO.inspect(conn)
     put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
   end
   def handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do

@@ -8,7 +8,7 @@ defmodule ThetaWeb.CMS.ArticleController do
   plug :authorize_article when action in [:edit, :update, :delete]
 
   def index(conn, _params) do
-    IO.inspect conn
+
     article = CMS.list_article()
     render(conn, "index.html", article: article)
   end

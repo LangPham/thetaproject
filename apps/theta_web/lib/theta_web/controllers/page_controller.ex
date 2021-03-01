@@ -41,6 +41,8 @@ defmodule ThetaWeb.PageController do
         %{title: art.title, id: art.id, slug: art.path_alias.slug}
       end
     page = put_in(page.head.ld_json, %{index: "index"})
+    page = put_in(page.head.canonical, "")
+
     page = Map.put(page, :body, %{list_article: list_article, serial_menu: serial_of_menu})
 
     conn
@@ -112,7 +114,8 @@ defmodule ThetaWeb.PageController do
     page = put_in(page.head.title, var.article.title)
     page = put_in(page.head.img_article, var.article.photo)
     page = put_in(page.head.description, var.article.summary)
-    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
+    page = put_in(page.head.canonical, path.slug)
+    page = put_in(page.head.ld_json, %{article: "article"})
     page = put_in(
       page.head.og,
       [
@@ -192,7 +195,8 @@ defmodule ThetaWeb.PageController do
 
     page = put_in(page.head.title, var.title)
     page = put_in(page.head.description, des)
-    page = put_in(page.head.canonical, page.head.base <> "/" <> path.slug)
+    page = put_in(page.head.canonical, path.slug)
+    page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
     page = Map.put(page, :body, %{list_article: var.article, serial_menu: serial_of_menu})
     conn
     |> render("main_menu.html", page: page)
@@ -225,7 +229,8 @@ defmodule ThetaWeb.PageController do
     all_tag = PV.list_path_tag()
     page = put_in(page.head.title, var.slug)
     page = put_in(page.head.description, var.slug)
-    page = put_in(page.head.canonical, page.head.base <> "/" <> "tag/" <> path.slug)
+    page = put_in(page.head.canonical, "tag/" <> path.slug)
+    page = put_in(page.head.ld_json, %{tag: "tag"})
     page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag, list_qa: list_qa})
 
     conn

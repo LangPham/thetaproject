@@ -33,7 +33,7 @@ header.layout
         padding: 1rem 0
 
       #sidebar-menu
-        position: absolute
+        position: fixed
         top: 81px
         z-index: 99
         right: -100%
@@ -42,7 +42,6 @@ header.layout
         -moz-transition: .25s ease-in-out
         -o-transition: .25s ease-in-out
         transition: .25s ease-in-out
-
 
         &.is-active
           right: 0
@@ -150,25 +149,26 @@ header.layout
         left: 50%
 @media (min-width: 1020px)
   header.layout
-    .navbar
-      .navbar-menu
-        .hamburger
-          display: none
-        #sidebar-menu.menu-layer
-          position: relative
-          right: 0
-          top: 0
-          background: transparent
-          .sidebar
-            display: flex
-            margin: 0
-            align-items: center
-            border: none
-            gap: 1rem
-            li
-              border-bottom: none
-              display: block
+    &.not-amp
+      .navbar
+        .navbar-menu
+          .hamburger
+            display: none
+          #sidebar-menu.menu-layer
+            position: relative
+            right: 0
+            top: 0
+            background: transparent
+            .sidebar
+              display: flex
               margin: 0
-              padding: 0 1rem
-              &:hover
-                background: rgba($color-quinary,.8)
+              align-items: center
+              border: none
+              gap: 1rem
+              li
+                border-bottom: none
+                display: block
+                margin: 0
+                padding: 0 1rem
+                &:hover
+                  background: rgba($color-quinary,.8)

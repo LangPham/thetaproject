@@ -21,8 +21,8 @@ defmodule ThetaWeb.Debug do
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
   def debug(var, module \\__MODULE__) do
-    IO.inspect "BEGIN #{module} ============================================================================="
-    IO.inspect var
-    IO.inspect "END #{module} ==============================================================================="
+#    IO.inspect "BEGIN #{module} ============================================================================="
+#    IO.inspect var
+#    IO.inspect "END #{module} ==============================================================================="
   end
 end
