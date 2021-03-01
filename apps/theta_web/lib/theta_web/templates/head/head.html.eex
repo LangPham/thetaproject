@@ -13,6 +13,7 @@
 <%= if Map.has_key?(@head.ld_json, :index) do %>
 <meta name="p:domain_verify" content="c29c5b98623854ae1d3f6b2d845c8b97"/>
 <link rel="canonical" href="<%= '#{@head.base}' %>"/>
+<meta property="og:url" content="<%= '#{@head.base}' %>"/>
 <!--<link rel="amphtml" href="<%= '#{@head.base}/amp/' %>">-->
 <script type="application/ld+json">
 	{
@@ -46,6 +47,7 @@
 
 <%= if Map.has_key?(@head.ld_json, :main_menu) do %>
 <link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<meta property="og:url" content="<%= '#{@head.base}/#{@head.canonical}' %>"/>
 <!--<link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">-->
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :amp_main_menu) do %>
@@ -82,6 +84,7 @@
 
 <%= if Map.has_key?(@head.ld_json, :tag) do %>
 <link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<meta property="og:url" content="<%= '#{@head.base}/#{@head.canonical}' %>"/>
 <!--<link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">-->
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :amp_tag) do %>
@@ -90,6 +93,7 @@
 
 <%= if Map.has_key?(@head.ld_json, :article) do %>
 <link rel="canonical" href="<%= '#{@head.base}/#{@head.canonical}' %>">
+<meta property="og:url" content="<%= '#{@head.base}/#{@head.canonical}' %>"/>
 <link rel="amphtml" href="<%= '#{@head.base}/amp/#{@head.canonical}' %>">
 <% end %>
 <%= if Map.has_key?(@head.ld_json, :amp_article) do %>
