@@ -52,7 +52,7 @@
 								</div>
 
 								<%= if length(@page.body.article.tag) > 0 do %>
-								<i class="fas fa-tags"></i>
+								<i class="tti ic-tag"></i>
 								<%= for tag <- @page.body.article.tag do %>
 								<span class="tag is-light is-rounded">
                   <%= link(tag.slug, to: linktag(tag.slug)) %> <%= " " %>
