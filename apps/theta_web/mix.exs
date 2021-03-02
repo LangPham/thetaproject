@@ -54,7 +54,8 @@ defmodule ThetaWeb.MixProject do
 			{:guardian, "~> 2.1"},
 			{:oauth2, "~> 2.0"},
 			{:theta_media, "~>0.1.0"},
-			{:mogrify, "~> 0.7.4"}
+			{:mogrify, "~> 0.7.4"},
+			{:ex_image_info, "~> 0.2.4"}
 		]
 	end
 

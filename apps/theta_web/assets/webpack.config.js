@@ -58,7 +58,7 @@ module.exports = (options) => ({
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: '../fonts/'
+            outputPath: '/fonts/'
           }
         }]
       },
@@ -68,7 +68,7 @@ module.exports = (options) => ({
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: '../images/'
+            outputPath: '/images/'
           }
         }]
       }

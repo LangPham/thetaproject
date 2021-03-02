@@ -7,6 +7,7 @@ defmodule ThetaWeb.AmpView do
     |> Floki.parse_fragment!()
     |> create_webp()
     |> update_picture()
+    |> update_youtube()
     |> add_id_header()
   end
 
@@ -67,8 +68,8 @@ defmodule ThetaWeb.AmpView do
   end
 
   def debug(body) do
-#    IO.inspect __MODULE__
-#    IO.inspect body
+    #    IO.inspect __MODULE__
+    #    IO.inspect body
   end
 
 
@@ -117,16 +118,17 @@ defmodule ThetaWeb.AmpView do
             file
             |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
             |> String.replace(~r/(\.)(\w)+/, ".webp")
-          image = Mogrify.open(Path.join(path, file_webp)) |> Mogrify.verbose
-#          IO.inspect(image.height)
+          img =
+            File.read!(Path.join(path, file_webp))
+            |> ExImageInfo.info
           {
             "amp-img",
             [
               {"alt", alt},
               {"src", file_webp},
-              {"width", "#{image.width}"},
-              {"height", "#{image.height}"},
-              {'layout','responsive'}
+              {"width", "#{elem(img, 1)}"},
+              {"height", "#{elem(img, 2)}"},
+              {'layout', 'responsive'}
             ],
             [
               {
@@ -135,13 +137,38 @@ defmodule ThetaWeb.AmpView do
                   {"alt", alt},
                   {"fallback", ""},
                   {"src", file},
-                  {"width", "#{image.width}"},
-                  {"height", "#{image.height}"},
-                  {'layout','responsive'}
+                  {"width", "#{elem(img, 1)}"},
+                  {"height", "#{elem(img, 2)}"},
+                  {'layout', 'responsive'}
                 ],
                 []
               },
             ]
+          }
+        tag -> tag
+      end
+    )
+  end
+  defp update_youtube(floki)do
+
+    Floki.traverse_and_update(
+      floki,
+      fn
+        {"iframe", attrs, children} ->
+          videoid =
+            Floki.attribute({"iframe", attrs, children}, "src")
+            |> List.first()
+            |> String.split("/")
+            |> List.last()
+          {
+            "amp-youtube",
+            [
+              {"data-videoid", "#{videoid}"},
+              {"width", "560"},
+              {"height", "315"},
+              {'layout', 'responsive'}
+            ],
+            []
           }
         tag -> tag
       end
@@ -201,7 +228,7 @@ defmodule ThetaWeb.AmpView do
   end
 
   defp resize_img(image, filter) do
-#    IO.inspect(filter)
+    #    IO.inspect(filter)
     if elem(filter, 0) == "lager" do
       Mogrify.resize(image, "#{elem(filter, 1)}")
     else
