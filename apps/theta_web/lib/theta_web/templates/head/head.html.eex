@@ -106,10 +106,12 @@
 		"@context": "https://schema.org",
 		"@type": "Article",
 		"mainEntityOfPage": "<%= '#{@head.base}/#{@head.canonical}' %>",
-		"image": [
-			"<%= '#{@head.base}#{img_link( @head.ld_json.amp_article.photo, "lager")}' %>",
-			"<%= '#{@head.base}#{@head.ld_json.amp_article.photo}' %>"
-		],
+		"image": {
+			"@type": "ImageObject",
+				"url": "<%= '#{@head.base}#{img_link( @head.ld_json.amp_article.photo, "lager")}' %>",
+				"width": "1020",
+				"height": "680"
+		},
 		"headline": "<%= @head.ld_json.amp_article.title %>",
 		"description": "<%= @head.description %>",
 		"articleSection": "",
