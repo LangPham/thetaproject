@@ -110,8 +110,7 @@
 			"@type": "Article",
 			"mainEntityOfPage": "<%= '#{@head.base}/#{@head.canonical}' %>",
 			"image": [
-				"<%= '#{@head.base}#{img_link( @head.ld_json.amp_article.photo, "lager")}' %>",
-				"<%= '#{@head.base}#{@head.ld_json.amp_article.photo}' %>"
+				"<%= '#{@head.base}#{img_link( @head.ld_json.amp_article.photo, "lager")}' %>"
 			],
 			"headline": "<%= @head.ld_json.amp_article.title %>",
 			"description": "<%= @head.description %>",
