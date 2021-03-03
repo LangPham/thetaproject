@@ -22,7 +22,7 @@
 
 				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#article">
 					<meta itemprop="mainEntityOfPage" itemscope itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#webpage"/>
-					<meta itemprop="publisher" itemscope itemid="#publisher"/>
+					<meta itemprop="publisher" itemscope itemid="<%= '#{@page.head.base}/#publisher' %>"/>
 					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
 					<meta itemprop="image"
 					      content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
