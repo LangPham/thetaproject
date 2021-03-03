@@ -19,7 +19,7 @@
 	{
 		"@context": "https://schema.org",
 		"@type": "WebSite",
-		"@id": "#webSite",
+		"@id": "<%= '#{@head.base}/#webSite' %>",
 		"url": "https://theta.vn/",
 		"potentialAction": {
 			"@type": "SearchAction",
