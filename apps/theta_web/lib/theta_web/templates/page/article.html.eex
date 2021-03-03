@@ -3,15 +3,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="column column-66">
-				<div itemscope itemtype="https://schema.org/BreadcrumbList">
+				<div itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 					<ul class="breadcrumb">
 						<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-							<a itemprop="item" href="https://theta.vn/<%= @page.body.article.menu.path_alias.slug %>">
-								<span itemprop="name"><%= @page.body.article.menu.title %></span>
-							</a>
+							<span itemprop="item" itemscope itemtype="https://schema.org/WebPage" itemid="<%= '#{@page.head.base}/#{@page.body.article.menu.path_alias.slug}' %>">
+								<a href="<%= '#{@page.head.base}/#{@page.body.article.menu.path_alias.slug}' %>">
+									<span itemprop="name"><%= @page.body.article.menu.title %></span>
+								</a>
+							</span>
 							<meta itemprop="position" content="1"/>
 						</li>
-
 					</ul>
 					<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
 						<meta itemprop="name" content="<%= @page.body.article.title %>"/>
@@ -19,9 +20,8 @@
 					</span>
 				</div>
 
-
-				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="#article">
-					<meta itemprop="mainEntityOfPage" itemscope itemid="#webpage"/>
+				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#article">
+					<meta itemprop="mainEntityOfPage" itemscope itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#webpage"/>
 					<meta itemprop="publisher" itemscope itemid="#publisher"/>
 					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
 					<meta itemprop="image"
