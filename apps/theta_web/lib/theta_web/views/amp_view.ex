@@ -30,7 +30,7 @@ defmodule ThetaWeb.AmpView do
          fn
            {"h2", attrs, children} ->
              href = "" <> elem(List.first(attrs), 1)
-             child = {"button", [{"on", "tap:#{href}.scrollTo(duration=200)"}], children}
+             child = {"span", [{"on", "tap:#{href}.scrollTo(duration=200)"},{"role","button"},{"tabindex","-1"},{"class","link"}], children}
              {"li", [], child}
            tag -> nil
          end

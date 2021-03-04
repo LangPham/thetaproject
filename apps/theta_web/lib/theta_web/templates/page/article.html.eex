@@ -22,12 +22,12 @@
 
 				<article class="article" itemscope itemtype="https://schema.org/Article" itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#article">
 					<meta itemprop="mainEntityOfPage" itemscope itemid="<%= '#{@page.head.base}/#{@page.head.canonical}' %>#webpage"/>
-					<meta itemprop="publisher" itemscope itemid="<%= '#{@page.head.base}/#publisher' %>"/>
+					<meta itemprop="publisher" itemscope itemid="<%= '#{@page.head.base}/#organization' %>"/>
 					<meta itemprop="description" content="<%= @page.body.article.summary %>"/>
 					<meta itemprop="image"
 					      content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
 					<meta itemprop="inLanguage" content="vi-VN">
-					<meta itemprop="url" content="<%= @page.head.canonical %>"/>
+					<meta itemprop="url" content="<%= '#{@page.head.base}/#{@page.head.canonical}' %>"/>
 					<meta itemprop="articleSection" content="<%= @page.body.article.menu.title %>">
 					<%= if @page.body.article.serial do %>
 					<meta itemprop="articleSection" content="<%= @page.body.article.serial.title %>">

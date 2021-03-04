@@ -15,7 +15,7 @@
     <section class="container">
       <nav class="row" role="navigation" aria-label="main navigation">
         <div class="navbar-brand column column-33">
-          <a href="/" class="navbar-item-brand" itemscope itemtype="https://schema.org/Organization" itemid="#publisher">
+          <a href="/" class="navbar-item-brand" itemscope itemtype="https://schema.org/Organization" itemid="#organization">
             <meta itemprop="url" content="https://theta.vn">
             <meta itemprop="name" content="THETA.VN">
             <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
