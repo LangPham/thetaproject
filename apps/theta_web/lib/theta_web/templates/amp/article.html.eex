@@ -69,6 +69,9 @@
 						</div>
 					</div>
 					<hr/>-->
+					<amp-state id="data"
+					           src="/apiv1/article/<%= '#{@page.body.article.menu_id}m-#{@page.body.article.id}a' %>.json">
+					</amp-state>
 					<%= if length(@page.body.serial) > 0 do %>
 					<div class="card">
 						<header class="card-header">
@@ -78,21 +81,26 @@
 						</header>
 						<div class="card-content">
 							<div class="content">
-								<ul>
-									<%= for section <- @page.body.serial do %>
-									<%= if @page.body.article.id == section.id do %>
-									<li><%= section.title %></li>
-									<% else %>
-									<li><%= link(section.title, to: webroot(section.slug)) %></li>
-									<% end %>
-									<% end %>
-								</ul>
+								<amp-list
+												width="auto"
+												height="20"
+												src="amp-state:data.serial"
+								>
+									<div placeholder>Tải dữ liệu ...</div>
+									<div fallback>Không có dữ liệu.</div>
+
+									<template type="amp-mustache">
+										<div class="url-entry">
+											<a href="{{url}}">{{title}}</a>
+										</div>
+									</template>
+								</amp-list>
 							</div>
 						</div>
 					</div>
 					<hr/>
 					<% end %>
-
+					<%= if length(@page.body.new) > 0 do %>
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -101,18 +109,27 @@
 						</header>
 						<div class="card-content">
 							<div class="content">
-								<ul>
-									<%= for article <- @page.body.new do %>
-									<%= if @page.body.article.id == article.id do %>
-									<li><%= article.title %></li>
-									<% else %>
-									<li><%= link(article.title, to: webroot(article.path_alias.slug)) %></li>
-									<% end %>
-									<% end %>
-								</ul>
+
+								<amp-list
+												width="auto"
+												height="20"
+												src="amp-state:data.new"
+								>
+									<div placeholder>Tải dữ liệu ...</div>
+									<div fallback>Không có dữ liệu.</div>
+
+									<template type="amp-mustache">
+
+										<div class="url-entry">
+											<a href="{{url}}">{{title}}</a>
+										</div>
+									</template>
+								</amp-list>
+
 							</div>
 						</div>
 					</div>
+					<% end %>
 				</div>
 			</div>
 		</div>

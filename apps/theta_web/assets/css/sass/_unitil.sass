@@ -75,10 +75,22 @@ ul.breadcrumb
   border-radius: 1rem
 
 .no-webp main
-  background-image: url("../images/bg.png")
+  background-image: url("./images/bg.png")
 
 .webp main
-  background-image: url("../images/bg.webp")
+  background-image: url("./images/bg.webp")
 .cl-right
   position: sticky
   top: 0
+
+amp-list [role='list']
+  display: grid
+  grid-gap: 0.5em
+
+  .url-entry
+    display: block
+    list-style-type: disc
+    a
+      display: list-item
+      margin-left: 2rem
+
