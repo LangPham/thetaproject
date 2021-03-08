@@ -57,7 +57,7 @@
 							</footer>
 						</div>
 					</section>
-					<div class="content">
+					<div class="content amp">
 						<div><%= @page.body.article.summary %></div>
 						<%= img_amp( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						<div><%= markdown floki %></div>
