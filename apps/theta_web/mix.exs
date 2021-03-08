@@ -55,7 +55,8 @@ defmodule ThetaWeb.MixProject do
 			{:oauth2, "~> 2.0"},
 			{:theta_media, "~>0.1.0"},
 			{:mogrify, "~> 0.7.4"},
-			{:ex_image_info, "~> 0.2.4"}
+			{:ex_image_info, "~> 0.2.4"},
+			{:cors_plug, "~> 2.0"}
 		]
 	end
 

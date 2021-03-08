@@ -44,6 +44,7 @@ defmodule ThetaWeb.Endpoint do
        at: "/uploads",
        from: "uploads"
 
+  plug CORSPlug
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

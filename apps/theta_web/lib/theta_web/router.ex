@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-   use Plug.ErrorHandler
+#   use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
@@ -28,6 +28,7 @@ defmodule ThetaWeb.Router do
   #  end
 
   pipeline :api do
+    plug CORSPlug
     plug :accepts, ["json"]
   end
   scope "/amp", ThetaWeb do

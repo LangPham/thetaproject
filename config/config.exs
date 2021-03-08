@@ -61,5 +61,9 @@ config :theta_media,
 
 config :theta_web, ThetaWeb.Gettext, locales: ~w(en vi), default_locale: "vi"
 
+config :cors_plug,
+       origin: ["https://theta-vn.cdn.ampproject.org"],
+       max_age: 86400,
+       methods: ["GET"]
 
 import_config "#{Mix.env()}.exs"

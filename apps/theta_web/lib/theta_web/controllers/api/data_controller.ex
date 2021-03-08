@@ -7,7 +7,7 @@ defmodule ThetaWeb.Api.DataController do
   import Ecto.Query, warn: false
 
   def show(conn, %{"slug" => slug}) do
-    #    IO.inspect slug
+#        IO.inspect conn
     param_am =
       String.split(slug, ".")
       |> List.first()

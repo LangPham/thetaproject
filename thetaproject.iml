@@ -64,6 +64,7 @@
       <excludeFolder url="file://$MODULE_DIR$/doc" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_image_info" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cors_plug" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
