@@ -120,9 +120,9 @@
 			"@type": "Organization",
 			"logo": {
 				"@type": "ImageObject",
-				"url": "https://theta.vn/images/logo.png",
-				"width": "820",
-				"height": "312"
+				"url": "https://theta.vn/images/logo_160x60.png",
+				"width": "160",
+				"height": "60"
 			},
 			"name": "Theta.vn",
 			"sameAs": [

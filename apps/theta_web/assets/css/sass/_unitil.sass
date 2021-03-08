@@ -25,8 +25,13 @@ ul.breadcrumb
   border-left: 2px solid $color-primary
   margin: 1rem 0
   text-transform: uppercase
+  display: flex
   li
     margin: 0
+    + li:before
+      padding-left: 8px
+      color: #000000
+      content: "/"
 
 .card
   background-color: #fff
@@ -75,10 +80,10 @@ ul.breadcrumb
   border-radius: 1rem
 
 .no-webp main
-  background-image: url("./images/bg.png")
+  background-image: url("../images/bg.png")
 
 .webp main
-  background-image: url("./images/bg.webp")
+  background-image: url("../images/bg.webp")
 .cl-right
   position: sticky
   top: 0
