@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-#   use Plug.ErrorHandler
+   use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
