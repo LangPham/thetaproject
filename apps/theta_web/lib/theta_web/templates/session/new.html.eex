@@ -2,35 +2,25 @@
 
 <%= form_for @conn, Routes.session_path(@conn, :create), [method: :post, as: :user], fn f -> %>
 
-  <div class="field">
-    <p class="control has-icons-left has-icons-right">
-      <%= text_input f, :email, placeholder: "Email" , class: "input" %>
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </p>
-  </div>
-  <div class="field">
-    <p class="control has-icons-left">
-      <%= password_input f, :password, placeholder: "Password", class: "input" %>
-      <span class="icon is-small is-left">
-        <i class="fas fa-lock"></i>
-      </span>
-    </p>
-  </div>
+<div class="field">
+	<div class="control">
+		<%= text_input f, :email, placeholder: "Email" , class: "input" %>
+	</div>
+</div>
+<div class="field">
+	<div class="control">
+		<%= password_input f, :password, placeholder: "Password", class: "input" %>
+	</div>
+</div>
 
 
-
-  <div class="field">
-    <p class="control">
-      <%= submit "Login", class: "button is-link"%>
-    </p>
-  </div>
-   <a class="btn btn-primary btn-lg" href="<%= Routes.oauth_path(@conn, :index, "google") %>">
-              <i class="fab fa-google"></i>
-              Sign in with Google
-            </a>
+<div class="field">
+	<p class="control">
+		<%= submit "Login", class: "button is-link"%>
+	</p>
+</div>
+<a class="btn btn-primary btn-lg" href="<%= Routes.oauth_path(@conn, :index, "google") %>">
+	<i class="fab fa-google"></i>
+	Sign in with Google
+</a>
 <% end %>

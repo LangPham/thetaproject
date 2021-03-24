@@ -9,7 +9,10 @@ defmodule ThetaWeb.CMS.ArticleController do
 
   def index(conn, _params) do
 
-    article = CMS.list_article()
+    article =
+      CMS.list_article()
+      |> Enum.sort_by(&(&1.updated_at), :desc)
+
     render(conn, "index.html", article: article)
   end
 

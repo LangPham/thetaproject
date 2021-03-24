@@ -65,6 +65,8 @@
       <excludeFolder url="file://$MODULE_DIR$/logs" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_image_info" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cors_plug" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/rsa_ex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/rsa" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

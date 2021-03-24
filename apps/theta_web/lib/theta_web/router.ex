@@ -23,6 +23,10 @@ defmodule ThetaWeb.Router do
     plug Guardian.Plug.EnsureAuthenticated
   end
 
+  pipeline :admin do
+    plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
+  end
+
   #  pipeline :ensure_root do
   #    plug Guardian.Plug.EnsureAuthenticated
   #  end
@@ -71,7 +75,7 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/admin", ThetaWeb do
-    pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
+    pipe_through [:browser, :auth, :ensure_auth, :ensure_root, :admin]
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
