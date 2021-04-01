@@ -20,11 +20,9 @@ defmodule ThetaWeb.Page do
               # meta description og:description
               description: "Góc chia sẽ kiến thức công nghệ thông tin, lưu giữ những bài viết hướng dẫn cài đặt cấu hình, sử hiệu quả tài nguyên ngành công nghệ thông tin!",
               # link canonical og:url
-              canonical: "https://theta.vn",
+              canonical: "",
               meta: [],
-              og: [
-                %{property: "og:image:secure_url", content: "https://theta.vn/images/logo.png"}
-              ],
+              og: [],
               # html
               base: "",
               ld_json: %{},
@@ -35,15 +33,7 @@ defmodule ThetaWeb.Page do
             footer: %{}
 
   def new(conn) do
-    #Debug.debug(conn, __MODULE__)
-    host = conn.host
-    port = if conn.port == 80 do
-      ""
-    else
-      ":#{conn.port}"
-    end
-    scheme = Application.get_env(:theta_web, ThetaWeb.Endpoint)[:scheme] <> "://"
-    domain = scheme <> host <> port
+    domain = Application.get_env(:theta_web, :root_url)
 
     this = put_in(%__MODULE__{}.head.base, domain)
     this = put_in(

@@ -25,11 +25,10 @@ config :theta_web, ThetaWeb.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       "development",
-      "--watch-stdin",
+      "--watch",
       cd: Path.expand("../apps/theta_web/assets", __DIR__)
     ]
-  ],
-  scheme: "http"
+  ]
 
 # ## SSL Support
 #
@@ -76,6 +75,10 @@ config :phoenix, :plug_init_mode, :runtime
 # in production as building large stacktraces may be expensive.
 
 config :phoenix, :stacktrace_depth, 20
+
+config :theta_web,
+       root_url: "http://localhost:4000"
+
 config :theta,
        Google,
        client_id: "81646655246-m93r94b1gso6u70ifruqgv08h6vh575h.apps.googleusercontent.com",

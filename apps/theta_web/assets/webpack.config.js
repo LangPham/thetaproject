@@ -1,17 +1,12 @@
 const path = require('path');
 const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { merge } = require('webpack-merge')
 
-module.exports = (options) => ({
-  optimization: {
-    minimizer: [
-      new TerserPlugin({ cache: true, parallel: true, sourceMap: false }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  },
+const commonConfig = {
+
   entry: {
     front: glob.sync('./vendor/**/*.js').concat(['./js/front.js']),
     app: glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
@@ -44,11 +39,7 @@ module.exports = (options) => ({
             loader: 'css-loader'
           },
           {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              // options...
-            }
+            loader: 'sass-loader'
           }
         ]
       },
@@ -75,7 +66,53 @@ module.exports = (options) => ({
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
-  ]
-});
+    new MiniCssExtractPlugin({filename: '../css/[name].css'}),
+    new CopyPlugin({
+      patterns: [
+        {from: "static/", to: "../"},
+      ],
+    }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
+  },
+};
+
+const productionConfig = {
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+      }),
+    ],
+  },
+};
+
+const developmentConfig = {};
+
+
+module.exports = (env, argv) => {
+  // console.log(env);
+  // console.log("========");
+  // console.log(argv.mode);
+  switch(argv.mode) {
+    case 'development':
+      return commonConfig;
+    case 'production':
+      return merge(commonConfig, productionConfig);
+    default:
+      throw new Error('No matching configuration was found!');
+  }
+  // return null;
+}
