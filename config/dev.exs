@@ -26,6 +26,7 @@ config :theta_web, ThetaWeb.Endpoint,
       "--mode",
       "development",
       "--watch",
+      "--watch-options-stdin",
       cd: Path.expand("../apps/theta_web/assets", __DIR__)
     ]
   ]
