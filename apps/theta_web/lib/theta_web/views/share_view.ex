@@ -16,12 +16,12 @@ defmodule ThetaWeb.ShareView do
     "#{time.day}/#{time.month}/#{time.year}"
   end
 
-  def datetime_iso8601(time)do
-    NaiveDateTime.to_iso8601(time)
+  def time_translate(time, _lang) do
+    "#{time.day}/#{time.month}/#{time.year}"
   end
 
-  def time_translate(_time, _lang) do
-    nil
+  def datetime_iso8601(time)do
+    NaiveDateTime.to_iso8601(time)
   end
 
   def webroot(string) do
@@ -49,8 +49,8 @@ defmodule ThetaWeb.ShareView do
       end
     path_storage = Application.get_env(:theta_media, :storage)
     list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
+    #    {_, list_new} = List.pop_at(list_path, -1)
+    #    path = Path.join(list_new)
     dir_upload = List.last(list_path)
 
     url =
@@ -86,13 +86,12 @@ defmodule ThetaWeb.ShareView do
     files_ext = Path.extname(files)
     files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
     if !File.exists?(Path.join(path, files_webp)) do
-      images =
-        Mogrify.open(Path.join(path, link))
-        |> Mogrify.verbose
-        |> resize_img(filter)
-          #        |> IO.inspect()
-        |> Mogrify.format("webp")
-        |> Mogrify.save(path: Path.join(path, files_webp))
+      Mogrify.open(Path.join(path, link))
+      |> Mogrify.verbose
+      |> resize_img(filter)
+        #        |> IO.inspect()
+      |> Mogrify.format("webp")
+      |> Mogrify.save(path: Path.join(path, files_webp))
     end
     content_tag :picture do
       source = raw(
@@ -106,7 +105,7 @@ defmodule ThetaWeb.ShareView do
   end
 
   defp resize_img(image, filter) do
-#    IO.inspect(filter)
+    #    IO.inspect(filter)
     if elem(filter, 0) == "lager" do
       Mogrify.resize(image, "#{elem(filter, 1)}")
     else

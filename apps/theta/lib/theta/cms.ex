@@ -485,6 +485,7 @@ defmodule Theta.CMS do
 
   """
   def change_article(%Article{} = article) do
+    IO.inspect article, label: "SDfsdfsdfsdfs"
     Article.changeset(article, %{})
   end
 

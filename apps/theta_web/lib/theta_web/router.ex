@@ -8,11 +8,9 @@ defmodule ThetaWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-#    plug :fetch_flash
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-#    plug :cookie_test
   end
 
   pipeline :auth do
@@ -27,14 +25,11 @@ defmodule ThetaWeb.Router do
     plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
   end
 
-  #  pipeline :ensure_root do
-  #    plug Guardian.Plug.EnsureAuthenticated
-  #  end
-
   pipeline :api do
     plug CORSPlug
     plug :accepts, ["json"]
   end
+
   scope "/amp", ThetaWeb do
     pipe_through :browser
     get "/", AmpController, :index
@@ -54,7 +49,6 @@ defmodule ThetaWeb.Router do
     get "/policy", PageController, :policy
     get "/sitemap.xml", SitemapController, :index
     live "/live", PageLive, layout: {ThetaWeb.LayoutView, "layoutlive.html"}
-    live "/media-live", MediaLive, layout: {ThetaWeb.LayoutView, "layoutlive.html"}
     get "/media", MediaController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
@@ -66,8 +60,6 @@ defmodule ThetaWeb.Router do
     get "/:provider", OauthController, :index
     get "/:provider/callback", OauthController, :callback
   end
-
-
 
   scope "/user", ThetaWeb do
     pipe_through [:browser, :auth, :ensure_auth]
@@ -85,15 +77,8 @@ defmodule ThetaWeb.Router do
     resources "/article", CMS.ArticleController
     resources "/qa", CMS.QaController
     live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
+    live "/media-live", MediaLive, layout: {ThetaWeb.LayoutView, "layoutlive.html"}
   end
-
-#  scope "/cms", ThetaWeb.CMS, as: :cms do
-#    pipe_through [:browser, :auth, :ensure_auth, :ensure_root]
-#    get "/admin", AdminController, :index
-#    resources "/taxonomy", TaxonomyController
-#    resources "/term", TermController
-#    resources "/article", ArticleController
-#  end
 
   scope "/api", ThetaWeb.CMS do
     pipe_through [:api, :auth]
@@ -121,8 +106,8 @@ defmodule ThetaWeb.Router do
 #    put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
 #  end
   def handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
-    path_error = reason.conn.request_path
-    ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)
+#    path_error = reason.conn.request_path
+#    ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)
   end
 
   # Enables LiveDashboard only for development

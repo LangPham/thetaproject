@@ -23,7 +23,7 @@ defmodule Theta.MixProject do
   def application do
     [
       mod: {Theta.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :oauth2]
     ]
   end
 
@@ -37,12 +37,13 @@ defmodule Theta.MixProject do
   defp deps do
     [
       {:phoenix_pubsub, "~> 2.0"},
-      {:ecto_sql, "~> 3.3"},
-      {:postgrex, ">= 0.15.3"},
+      {:ecto_sql, "~> 3.5"},
+      {:postgrex, ">= 0.15.8"},
       {:jason, "~> 1.1"},
       {:bcrypt_elixir, "~> 2.2.0"},
       {:slugify, "~> 1.3"},
-      {:ecto_autoslug_field, "~> 2.0"}
+      {:ecto_autoslug_field, "~> 2.0"},
+      {:oauth2, "~> 2.0"},
     ]
   end
 

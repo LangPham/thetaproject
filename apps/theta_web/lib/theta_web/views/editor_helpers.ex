@@ -4,6 +4,52 @@ defmodule ThetaWeb.EditorHelpers do
 
   import ThetaWeb.ErrorHelpers
 
+  def file_select_bulma(form, field, opt \\ []) do
+    error_html = error_tag(form, field)
+    IO.inspect input_id(form, field)
+    script_inline = raw(
+      "<script>
+        fileInput = document.getElementById('" <> input_id(form, field) <> "');
+        let descriptort = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(fileInput), 'value');
+					Object.defineProperty(fileInput, 'value', {
+						set: function (t) {
+							if (t !== ''){
+								update(t);
+							}
+							return descriptort.set.apply(this, arguments);
+						},
+						get: function () {
+							return descriptort.get.apply(this);
+						}
+					});
+          function update(file) {
+							fileName = document.getElementById('" <> input_id(form, field) <> "_file_name');
+							fileName.innerHTML = file;
+					}
+      </script>"
+    )
+
+    opt_in = check_field_error(error_html, "file has-name is-fullwidth", opt)
+    field_html = Phoenix.HTML.Form.text_input(form, field, [class: "file-input"])
+    label = String.capitalize(to_string(field))
+    content_tag :div, opt_in do
+      label form, field, class: "file-label" do
+        addon = raw "<span class='file-cta'>
+                        <span class='file-icon'>
+                           <i class='fa fa-upload'></i>
+                        </span>
+                        <span class='file-label'>
+                          "<>"#{label}"<>"
+                        </span>
+                    </span>
+                    <span class='file-name' id='" <> input_id(form, field) <> "_file_name'>
+                      No file uploaded
+                    </span>"
+        [field_html, addon, script_inline]
+      end
+    end
+  end
+
   def simplemde(form, field) do
     text = Phoenix.HTML.Form.textarea(form, field)
     element = input_id(form, field)

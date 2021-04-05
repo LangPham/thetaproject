@@ -23,16 +23,25 @@ defmodule ThetaWeb.AmpView do
     |> raw
   end
 
-  def toc(floki, url) do
+  def toc(floki, _url) do
     floki
     |> Floki.traverse_and_update(
 
          fn
            {"h2", attrs, children} ->
              href = "" <> elem(List.first(attrs), 1)
-             child = {"span", [{"on", "tap:#{href}.scrollTo(duration=200)"},{"role","button"},{"tabindex","-1"},{"class","link"}], children}
+             child = {
+               "span",
+               [
+                 {"on", "tap:#{href}.scrollTo(duration=200)"},
+                 {"role", "button"},
+                 {"tabindex", "-1"},
+                 {"class", "link"}
+               ],
+               children
+             }
              {"li", [], child}
-           tag -> nil
+           _ -> nil
          end
        )
     |> Floki.raw_html()
@@ -43,7 +52,7 @@ defmodule ThetaWeb.AmpView do
     floki
     |> Floki.traverse_and_update(
          fn
-           {"h2", attrs, children} ->
+           {"h2", _attrs, children} ->
              text = Floki.text(children)
              {"h2", [{"id", Slug.slugify(text)}], children}
            #           {"h3", attrs, children} ->
@@ -54,23 +63,6 @@ defmodule ThetaWeb.AmpView do
        )
   end
 
-  defp filter_html(floki, list_filter)do
-    count = length(list_filter)
-    case count do
-      0 ->
-        floki
-      x ->
-        {list_split, list_filter} = Enum.split(list_filter, 1)
-        floki = Floki.filter_out(floki, Enum.at(list_split, 0))
-        filter_html(floki, list_filter)
-    end
-
-  end
-
-  def debug(body) do
-    #    IO.inspect __MODULE__
-    #    IO.inspect body
-  end
 
 
   defp create_webp(floki) do
@@ -91,12 +83,11 @@ defmodule ThetaWeb.AmpView do
       files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
 
       if !File.exists?(Path.join(path, files_webp)) do
-        images =
-          Mogrify.open(Path.join(path, file))
-          |> Mogrify.verbose
-          |> Mogrify.resize("750x750")
-          |> Mogrify.format("webp")
-          |> Mogrify.save(path: Path.join(path, files_webp))
+        Mogrify.open(Path.join(path, file))
+        |> Mogrify.verbose
+        |> Mogrify.resize("750x750")
+        |> Mogrify.format("webp")
+        |> Mogrify.save(path: Path.join(path, files_webp))
       end
     end
     {floki, dir_upload}
@@ -110,7 +101,7 @@ defmodule ThetaWeb.AmpView do
     Floki.traverse_and_update(
       floki,
       fn
-        {"img", attrs, children} ->
+        {"img", attrs, _children} ->
 
           file = elem(List.first(attrs), 1)
           alt = elem(List.last(attrs), 1)
@@ -176,18 +167,13 @@ defmodule ThetaWeb.AmpView do
   end
 
 
-  def img_amp(link, filter, alt, loading \\ "eager") do
+  def img_amp(link, filter, alt, _loading \\ "eager") do
     filter =
       case filter do
         "lager" -> {"lager", "1020x680"}
         _ -> {"thumb", "750x500"}
       end
 
-    loading =
-      case loading do
-        "lazy" -> "loading=\'lazy\'"
-        _ -> ""
-      end
     path_storage = Application.get_env(:theta_media, :storage)
     list_path = Path.split(path_storage)
     {_, list_new} = List.pop_at(list_path, -1)
@@ -197,12 +183,11 @@ defmodule ThetaWeb.AmpView do
     files_ext = Path.extname(files)
     files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
     if !File.exists?(Path.join(path, files_webp)) do
-      images =
-        Mogrify.open(Path.join(path, link))
-        |> Mogrify.verbose
-        |> resize_img(filter)
-        |> Mogrify.format("webp")
-        |> Mogrify.save(path: Path.join(path, files_webp))
+      Mogrify.open(Path.join(path, link))
+      |> Mogrify.verbose
+      |> resize_img(filter)
+      |> Mogrify.format("webp")
+      |> Mogrify.save(path: Path.join(path, files_webp))
     end
     content_tag :div do
       source = raw(

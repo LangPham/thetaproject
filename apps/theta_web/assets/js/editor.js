@@ -82,57 +82,57 @@ export function create_editor(option) {
 				title: "Link Image",
 			},
 
-			{
-				name: "imageupload",
-
-				action: function imageupload(editor) {
-
-					let input = document.getElementById("upInput");
-					input.click();
-					input.onchange = updateValue;
-
-					function updateValue(ev) {
-						console.log(ev);
-						console.log(ev.target.files[0]);
-
-						var elements = document.cookie.split('=');
-						console.log(elements);
-
-						var formData = new FormData();
-						let fileData = ev.target.files[0];
-						let token = "sdfsdf";
-
-						formData.append('fileUpload', fileData);
-
-						fetch("/api/upload",
-								{
-									method: "POST",
-									body: formData,
-									// headers: {
-									//     'Accept': 'application/json',
-									//     'Content-Type': 'application/json',
-									//     'Authorization': 'Bearer ' + token,
-									// }
-
-								})
-								.then(function (res) {
-									let re = res.json()
-									return re;
-								})
-								.then((myJson) => {
-									let file_name = myJson.data;
-									var cm = editor.codemirror;
-									let alt = "";
-									let url = file_name;
-									cm.replaceSelection(`![${alt}](${url})`);
-									cm.focus();
-								})
-						input.value = "";
-					}
-				},
-				className: "fas fa-upload",
-				title: "Upload Image",
-			},
+			// {
+			// 	name: "imageupload",
+			//
+			// 	action: function imageupload(editor) {
+			//
+			// 		let input = document.getElementById("upInput");
+			// 		input.click();
+			// 		input.onchange = updateValue;
+			//
+			// 		function updateValue(ev) {
+			// 			console.log(ev);
+			// 			console.log(ev.target.files[0]);
+			//
+			// 			var elements = document.cookie.split('=');
+			// 			console.log(elements);
+			//
+			// 			var formData = new FormData();
+			// 			let fileData = ev.target.files[0];
+			// 			let token = "sdfsdf";
+			//
+			// 			formData.append('fileUpload', fileData);
+			//
+			// 			fetch("/api/upload",
+			// 					{
+			// 						method: "POST",
+			// 						body: formData,
+			// 						// headers: {
+			// 						//     'Accept': 'application/json',
+			// 						//     'Content-Type': 'application/json',
+			// 						//     'Authorization': 'Bearer ' + token,
+			// 						// }
+			//
+			// 					})
+			// 					.then(function (res) {
+			// 						let re = res.json()
+			// 						return re;
+			// 					})
+			// 					.then((myJson) => {
+			// 						let file_name = myJson.data;
+			// 						var cm = editor.codemirror;
+			// 						let alt = "";
+			// 						let url = file_name;
+			// 						cm.replaceSelection(`![${alt}](${url})`);
+			// 						cm.focus();
+			// 					})
+			// 			input.value = "";
+			// 		}
+			// 	},
+			// 	className: "fas fa-upload",
+			// 	title: "Upload Image",
+			// },
 
 			{
 				name: "selectupload",
@@ -142,7 +142,7 @@ export function create_editor(option) {
 					let imgSelect = document.getElementById("imgSelect");
 					let host = window.location.host;
 					let protocol = window.location.protocol;
-					let url = protocol + "//" + host + "/media-live";
+					let url = protocol + "//" + host + "/admin/media-live?id=imgSelect";
 					window.open(
 							url,
 							"DescriptiveWindowName",

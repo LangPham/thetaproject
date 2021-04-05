@@ -15,7 +15,7 @@ defmodule ThetaWeb.AmpCache do
     {:ok, rsa_private_key} = File.read(Path.join(:code.priv_dir(:theta_web),"cert/private-key.pem"))
     {:ok, signature} = RsaEx.sign(url, rsa_private_key)
     {:ok, rsa_public_key} = File.read(Path.join(:code.priv_dir(:theta_web),"cert/apikey.pub"))
-    {:ok, valid} = RsaEx.verify(url, signature, rsa_public_key)
+#    {:ok, valid} = RsaEx.verify(url, signature, rsa_public_key)
 #    IO.inspect valid
     base64 = Base.url_encode64(signature, padding: false)
 #    IO.inspect base64

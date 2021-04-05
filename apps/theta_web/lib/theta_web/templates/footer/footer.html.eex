@@ -39,7 +39,22 @@
 					<a href="//www.dmca.com/Protection/Status.aspx?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51" title="DMCA.com Protection Status" class="dmca-badge">
 						<img loading="lazy" src="https://images.dmca.com/Badges/dmca-badge-w250-5x1-11.png?ID=0340427e-13f5-40bf-a2be-f9b0fef43b51"  alt="DMCA.com Protection Status" />
 					</a>
-				<script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" async> </script>
+				<script>
+          (function () {
+                    document.addEventListener("DOMContentLoaded", function () {
+                      let e = "dmca-badge";
+                      let t = "refurl";
+                      let n = document.querySelectorAll('a.'+e);
+                      if (n[0].getAttribute("href").indexOf("refurl") < 0) {
+                        for (let r = 0; r < n.length; r++) {
+                          let i = n[r];
+                          i.href = i.href + (i.href.indexOf("?") === -1 ? "?" : "&") + t + "=" + document.location
+                        }
+                      }
+                    }, false)
+                  }
+          )()
+				</script>
 			</div>
 		</div>
 	</div>

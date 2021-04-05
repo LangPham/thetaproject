@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Plu", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "Upload Manage" %>
     <link phx-track-static rel="stylesheet" href='<%= Routes.static_path(@conn, "/css/app.css") %>'/>
     <script defer phx-track-static type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>
   </head>
@@ -17,16 +17,6 @@
             <a href="/" class="navbar-item-brand" >
               <img src='<%= Routes.static_path(@conn, "/images/logo.svg") %>' alt="Theta Logo" />
         		</a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div id="navbarMenu" class="navbar-menu">
-            <div class="navbar-end">
-              <%= render(ThetaWeb.MenuView, "menu.html", assigns ) %>
-            </div>
           </div>
         </nav>
       </section>

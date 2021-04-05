@@ -57,9 +57,44 @@ fieldset
   border-width: 0
   padding: 0
 
-input[type='checkbox'],
-input[type='radio']
+input[type='checkbox']
   display: inline
+
+label.radio
+  display: block
+
+label.file-label
+  display: flex
+  -webkit-appearance: none
+  background-color: transparent
+  border: .1rem solid #d1d1d1
+  border-radius: .4rem
+  box-shadow: none
+  box-sizing: inherit
+  height: 3.8rem
+  padding: .6rem 1rem .7rem
+  .file-input
+    display: none
+  .file-name
+    display: inline-block
+  .file-cta
+    display: flex
+    padding-right: .5rem
+    border-right: 1px solid #d1d1d1
+    margin-right: .5rem
+    .file-icon
+      padding-right: 1rem
+
+
+input[type='radio']
+  display: inline-block
+  background-color: initial
+  cursor: default
+  appearance: auto
+  box-sizing: border-box
+  width: 2rem
+  height: auto
+
 
 .label-inline
   display: inline-block

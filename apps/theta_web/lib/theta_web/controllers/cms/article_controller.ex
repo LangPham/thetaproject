@@ -54,10 +54,11 @@ defmodule ThetaWeb.CMS.ArticleController do
     render(conn, "show.html", article: article)
   end
 
-  def edit(conn, _) do
+  def edit(conn, %{"id" => id}) do
     menu = CMS.list_term_menu()
     serial = CMS.list_serial()
-    changeset = CMS.change_article(conn.assigns.article)
+    article = CMS.get_article!(id)
+    changeset = CMS.change_article(article)
     render(conn, "edit.html", changeset: changeset, menu: menu, serial: serial)
   end
 

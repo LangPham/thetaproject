@@ -35,11 +35,8 @@ defmodule Google do
     OAuth2.Client.authorize_url!(client(), params)
   end
 
-  def get_token!(params \\ [], headers \\ []) do
-#    IO.inspect(params, label: "Params====\n")
-#    IO.inspect(headers, label: "Headers====\n")
-    token = OAuth2.Client.get_token!(client(), Keyword.merge(params, client_secret: client().client_secret))
-#    IO.inspect(token)
+  def get_token!(params \\ [], _headers \\ []) do
+    OAuth2.Client.get_token!(client(), Keyword.merge(params, client_secret: client().client_secret))
   end
 
   # Strategy Callbacks

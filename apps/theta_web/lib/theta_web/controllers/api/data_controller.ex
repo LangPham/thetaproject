@@ -1,9 +1,8 @@
 defmodule ThetaWeb.Api.DataController do
   use ThetaWeb, :controller
-  alias Theta.{PV, Repo, CacheDB, CMS}
-  alias Theta.PV.PathAlias
-  alias Theta.CMS.Article
-  alias ThetaWeb.Page
+
+  alias Theta.{CacheDB}
+
   import Ecto.Query, warn: false
 
   def show(conn, %{"slug" => slug}) do

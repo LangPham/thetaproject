@@ -5,13 +5,13 @@ defmodule ThetaWeb.CMS.UploadController do
 
   def index(conn, params) do
     fileUpload = params["fileUpload"]
+    uriUpload = params["uriUpload"]
 
-    IO.inspect "---- fileUpload ----"
-    IO.inspect fileUpload
+    IO.inspect fileUpload, label: "---- fileUpload ----"
 
-    file_params = Upload.file_upload(fileUpload)
+    file_params = Upload.file_upload(fileUpload, uriUpload)
     conn
-    |> render("index.json", %{data: file_params})
+    |> render("index.json", %{data: file_params, uri: uriUpload})
   end
 
   def show(conn, params) do

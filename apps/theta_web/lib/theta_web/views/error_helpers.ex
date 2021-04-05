@@ -14,7 +14,7 @@ defmodule ThetaWeb.ErrorHelpers do
 			fn error ->
 				content_tag(:span, translate_error(error),
 					class: "invalid-feedback",
-					phx_feedback_for: input_id(form, field)
+					phx_feedback_for: input_name(form, field)
 				)
 			end
 		)

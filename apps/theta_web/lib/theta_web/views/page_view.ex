@@ -27,10 +27,10 @@ defmodule ThetaWeb.PageView do
     |> Floki.traverse_and_update(
          fn
            {"h2", attrs, children} ->
-             href = "#"<> elem(List.first( attrs), 1)
+             href = "#" <> elem(List.first(attrs), 1)
              child = {"a", [{"href", url <> href}], children}
              {"li", [], child}
-           tag -> nil
+           _ -> nil
          end
        )
     |> Floki.raw_html()
@@ -41,12 +41,12 @@ defmodule ThetaWeb.PageView do
     floki
     |> Floki.traverse_and_update(
          fn
-           {"h2", attrs, children} ->
+           {"h2", _attrs, children} ->
              text = Floki.text(children)
              {"h2", [{"id", Slug.slugify(text)}], children}
-#           {"h3", attrs, children} ->
-#             text = Floki.text(children)
-#             {"h3", [{"id", Slug.slugify(text)}], children}
+           #           {"h3", attrs, children} ->
+           #             text = Floki.text(children)
+           #             {"h3", [{"id", Slug.slugify(text)}], children}
            tag -> tag
          end
        )
@@ -57,7 +57,7 @@ defmodule ThetaWeb.PageView do
     case count do
       0 ->
         floki
-      x ->
+      _ ->
         {list_split, list_filter} = Enum.split(list_filter, 1)
         floki = Floki.filter_out(floki, Enum.at(list_split, 0))
         filter_html(floki, list_filter)
@@ -86,12 +86,11 @@ defmodule ThetaWeb.PageView do
       files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
 
       if !File.exists?(Path.join(path, files_webp)) do
-        images =
-          Mogrify.open(Path.join(path, file))
-          |> Mogrify.verbose
-          |> Mogrify.resize("750x750")
-          |> Mogrify.format("webp")
-          |> Mogrify.save(path: Path.join(path, files_webp))
+        Mogrify.open(Path.join(path, file))
+        |> Mogrify.verbose
+        |> Mogrify.resize("750x750")
+        |> Mogrify.format("webp")
+        |> Mogrify.save(path: Path.join(path, files_webp))
       end
     end
     {floki, dir_upload}
@@ -102,10 +101,10 @@ defmodule ThetaWeb.PageView do
     Floki.traverse_and_update(
       floki,
       fn
-        {"img", attrs, children} ->
+        {"img", attrs, _children} ->
 
           file = elem(List.first(attrs), 1)
-          attrs = attrs ++ [{"loading","lazy"}]
+          attrs = attrs ++ [{"loading", "lazy"}]
           file_webp =
             file
             |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")

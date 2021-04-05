@@ -34,7 +34,7 @@
 	<div class="field">
   <%= label f, :photo , class: "label" %>
   <%= img_tag(@changeset.data.photo, style: "width:100px;height:auto") %>
-  <%= file_input_bulma f, :photo, false  %>
+		<%= file_select_bulma f, :photo %>
 
   <%= error_tag f, :photo %>
 	</div>

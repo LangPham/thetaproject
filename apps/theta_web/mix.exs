@@ -24,7 +24,7 @@ defmodule ThetaWeb.MixProject do
 	def application do
 		[
 			mod: {ThetaWeb.Application, []},
-			extra_applications: [:logger, :runtime_tools, :os_mon]
+			extra_applications: [:logger, :runtime_tools, :os_mon, :rsa_ex ]
 		]
 	end
 
@@ -37,12 +37,12 @@ defmodule ThetaWeb.MixProject do
 	# Type `mix help deps` for examples and options.
 	defp deps do
 		[
-			{:phoenix, "~> 1.5.3"},
-			{:phoenix_ecto, "~> 4.0"},
+			{:phoenix, "~> 1.5.8"},
+			{:phoenix_ecto, "~> 4.1"},
 			{:phoenix_html, "~> 2.14"},
 			{:phoenix_live_reload, "~> 1.2", only: :dev},
-			{:phoenix_live_dashboard, "~> 0.2.0"},
-			{:phoenix_live_view, "~> 0.13.3"},
+			{:phoenix_live_dashboard, "~> 0.4.0"},
+			{:phoenix_live_view, "~> 0.15.1"},
 			{:telemetry_metrics, "~> 0.4"},
 			{:telemetry_poller, "~> 0.4"},
 			{:gettext, "~> 0.11"},
@@ -50,9 +50,8 @@ defmodule ThetaWeb.MixProject do
 			{:jason, "~> 1.1"},
 			{:plug_cowboy, "~> 2.3"},
 			{:floki, "~> 0.27.0"},
-			{:earmark, "~> 1.4.9"},
+			{:earmark, "~> 1.4.14"},
 			{:guardian, "~> 2.1"},
-			{:oauth2, "~> 2.0"},
 			{:theta_media, "~>0.1.0"},
 			{:mogrify, "~> 0.7.4"},
 			{:ex_image_info, "~> 0.2.4"},

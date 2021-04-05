@@ -54,4 +54,5 @@
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/front.js") %>"></script>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
+  <button id="topBtn" title="Go to top"><i class="tti ic-up"></i></button>
 </html>

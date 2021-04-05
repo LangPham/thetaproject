@@ -11,7 +11,7 @@ defmodule ThetaWeb.HeadView do
     <meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" />
   """
   def get_meta_tag_html(head) do
-    #ThetaWeb.Debug.debug(head)
+
     if Map.has_key?(head, :meta) do
       for meta <- head.meta do
         %{type: "meta", name: meta.name, content: meta.content}

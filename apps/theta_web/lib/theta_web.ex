@@ -22,8 +22,6 @@ defmodule ThetaWeb do
       use Phoenix.Controller, namespace: ThetaWeb
       import Plug.Conn
       import ThetaWeb.Gettext
-      # Todo: disable Debug
-      import ThetaWeb.Debug
       alias ThetaWeb.Router.Helpers, as: Routes
     end
   end

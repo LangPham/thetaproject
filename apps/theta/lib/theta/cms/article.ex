@@ -6,14 +6,14 @@ defmodule Theta.CMS.Article do
 
   alias Theta.CMS.{Author, Term, Article}
   alias Theta.PV.PathAlias
-  alias Theta.{Repo, Upload}
+  alias Theta.Repo
 
   # Todo: add belongs_to :serial, Article
   schema "article" do
     field :body, :string
     field :summary, :string
     field :title, :string
-    field :photo, Theta.Upload.Type
+    field :photo, :string
     field :is_serial, :boolean, default: false
     belongs_to :serial, Article
     has_many :section, Article, foreign_key: :serial_id
@@ -36,7 +36,6 @@ defmodule Theta.CMS.Article do
     Repo.preload(article, [:tag])
     |> cast(attrs, [:title, :summary, :body, :menu_id, :photo, :is_serial, :serial_id])
     |> validate_required([:title, :summary, :body, :menu_id, :is_serial, :photo])
-    |> Upload.file_upload(:photo)
     |> put_path_alias(attrs)
     |> validate_required([:path_alias_id])
     |> put_tags(attrs)

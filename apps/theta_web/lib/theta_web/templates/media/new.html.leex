@@ -1,46 +1,40 @@
-<div class="columns">
-	<div class="column is-3">
-		<div class="box">
-			<%= for dir <- @page.pwd.dirs do %>
-			<h3 class="title is-3"><%= dir %></h3>
-			<% end %>
-		</div>
-	</div>
-	<div class="column">
-		<table id="myTable" class="table is-striped is-fullwidth is-hoverable">
-			<thead>
-			<tr>
-				<th>Type</th>
-				<th>Name</th>
-			</tr>
+<table id="myTable" class="table is-striped is-fullwidth is-hoverable">
+	<thead>
+	<tr>
+		<th>Type</th>
+		<th>Name</th>
+	</tr>
 
-			</thead>
-			<tbody>
-			<%= for dir <- @page.pwd.dirs do %>
-			<tr phx-hook="Dir" data-dir="<%= dir %>" class="dir" id="dir-<%= dir %>">
-				<td><i class="far fa-folder"></i></td>
-				<td><%= dir %></td>
-			</tr>
-			<% end %>
-			<%= for file <-@page.pwd.files do %>
-			<tr>
-				<td><i class="far fa-file"></i></td>
-				<td><%= file %></td>
-			</tr>
-			<% end %>
-			</tbody>
-		</table>
-	</div>
-</div>
+	</thead>
+	<tbody>
+	<%= for dir <- @page.pwd.dirs do %>
+	<tr phx-hook="Dir" data-dir="<%= dir %>" class="dir" id="dir-<%= dir %>">
+		<td><i class="far fa-folder"></i></td>
+		<td><%= dir %></td>
+	</tr>
+	<% end %>
+	<%= for file <-@page.pwd.files do %>
+	<tr>
+		<td><i class="far fa-file"></i></td>
+		<td><%= file %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>
 
 <div class="modal is-active">
 	<div class="modal-background"></div>
 	<div class="modal-card">
 		<form phx-submit="create">
-			<header class="modal-card-head">
-				<p class="modal-card-title">Make dir</p>
-				<button class="delete" aria-label="close" phx-click="change" phx-value-page="refresh"></button>
-			</header>
+			<div class="row">
+				<div class="column">
+					<h2>Make dir</h2>
+				</div>
+				<div class="column">
+					<button class="delete" aria-label="close" phx-click="change" phx-value-page="refresh">Close</button>
+				</div>
+			</div>
+
 			<section class="modal-card-body">
 				<div class="field">
 					<div class="control">
