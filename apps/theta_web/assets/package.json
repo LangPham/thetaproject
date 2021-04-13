@@ -8,7 +8,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "easymde": "^2.10.1",
+    "easymde": "^2.14.1-469.0",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
     "phoenix_live_view": "file:../../../deps/phoenix_live_view",
@@ -25,13 +25,13 @@
     "bulma": "^0.9.0",
     "copy-webpack-plugin": "^8.1.0",
     "css-loader": "^3.4.2",
-    "css-minimizer-webpack-plugin": "^1.3.0",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "file-loader": "^5.1.0",
     "mini-css-extract-plugin": "^1.4.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "4.14.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
-    "webpack": "^5.28.0",
+    "webpack": "^5.32.0",
     "webpack-cli": "4.6.0",
     "webpack-merge": "^5.7.3"
   }
