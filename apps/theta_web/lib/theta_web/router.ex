@@ -81,7 +81,7 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/api", ThetaWeb.CMS do
-    pipe_through [:api, :auth]
+    pipe_through [:api, :auth, :ensure_auth]
     post "/upload", UploadController, :index
     get "/select/:slug", UploadController, :show
   end

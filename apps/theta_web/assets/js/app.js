@@ -23,10 +23,10 @@ let Hooks = {}
 Hooks.Dir = {
   mounted() {
     let datatest = this.el.dataset.dir;
-    console.log(datatest);
+    // console.log(this.el.id);
     this.el.addEventListener("dblclick", e => {
       let data = this.el.dataset.dir;
-      console.log(data);
+      // console.log(data);
       this.pushEvent("into", {dir: data})
     })
   }
@@ -61,14 +61,19 @@ Hooks.Upload = {
       var formData = new FormData();
       let fileData = data.q.files[0];
       let url = data.u.value;
+      let token = this.el.id;
       formData.append('fileUpload', fileData);
       formData.append('uriUpload', url);
-      console.log(data.q.files[0]);
-      console.log(url);
+      // console.log(data.q.files[0]);
+      //  console.log('Bearer ' + token);
       fetch("/api/upload",
               {
+                credentials: 'same-origin', // include, *same-origin, omit
                 method: "POST",
                 body: formData,
+                headers: {
+                  'Authorization': 'Bearer ' + token
+                }
               })
               .then(response => response.json())
               .then(function (_) {

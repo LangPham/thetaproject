@@ -26,7 +26,7 @@
 <div class="modal is-active">
 	<div class="modal-background"></div>
 	<div class="modal-card">
-		<form phx-hook="Upload">
+		<form phx-hook="Upload" id="<%= @page.ss["guardian_default_token"] %>">
 			<div class="row">
 				<div class="column">
 					<h2>Upload file</h2>
@@ -38,6 +38,7 @@
 			<section class="modal-card-body">
 				<div class="field">
 					<div class="control">
+
 						<input id="url" type="hidden" name="u" value="<%= @page.pwd.url %>"/>
 						<input id="upload" type="file" name="q" placeholder="Folder name" autocomplete="off" class="input"
 						       accept='image/gif,image/jpeg,image/jpg,image/png'/>
