@@ -1,6 +1,43 @@
 defmodule ThetaWeb.PageView do
   use ThetaWeb, :view
 
+  def md_to_ast(body) do
+
+    {status, ast, errors} = EarmarkParser.as_ast(body)
+    ast
+        IO.inspect ast
+    ast_tran = Earmark.Transform.map_ast(ast, fn {t, a, child, m} -> cu_chuoi({t, a, child, m}) end, true)
+    IO.inspect ast_tran
+    raw Earmark.Transform.transform( ast_tran)
+
+#    body
+#    |> EarmarkParser.as_ast
+#    |> Earmark.Transform.map_ast(fun)
+#    |> Earmark.Transform.transform
+
+  end
+
+  defp cu_chuoi({t, a, child, m}) do
+#    IO.inspect child
+#    IO.inspect "=============================================="
+    child_child =
+    if length(child) == 1 do
+      IO.inspect "=====LEAF======="
+      str = "Them vai ~doan van~{:.class} cho phong phu them *mot cai1*{:.nhe}"
+#      IO.inspect String.match?(str, ~r/~[[:alnum:][:blank:]]+~{:/)
+#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{0}")
+#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{1}")
+#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, "{'span', [{'\\2',}]\\1}")
+#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, ~s("{'span', [{'\\2', '\\1'}]}) )
+#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\1\\g{1}")
+#      IO.inspect Regex.scan(~r/~[[:alnum:][:blank:]]+~{:/, List.first(chil))
+      {"span" , [{"class", "test"}], "sdfdsfsd" ,m}
+      else
+      nil
+    end
+    {t, a, child_child, m}
+  end
+
   def md_to_floki(body) do
     body
     |> Earmark.as_html!()
@@ -8,6 +45,7 @@ defmodule ThetaWeb.PageView do
     |> create_webp()
     |> update_picture()
     |> add_id_header()
+
   end
 
   def markdown(floki) do
