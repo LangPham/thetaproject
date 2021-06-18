@@ -74,12 +74,12 @@ config :theta_web,
        :rbac,
        effect: :deny,
        policy: %{
-         admin: [
-           show: ThetaWeb.CMS.ArticleController
-         ],
-         mod: [
-           update: ThetaWeb.CMS.ArticleController
-         ]
+         admin: %{
+           ThetaWeb.CMS.ArticleController => :*
+         },
+         mod: %{
+           ThetaWeb.CMS.ArticleController => :update
+         }
        }
 
 

@@ -6,55 +6,63 @@ defmodule ThetaWeb.Plug.Rbac do
   end
 
   def call(conn, opts) do
+    # Todo: get role
     role = :admin
     config = Application.get_env(:theta_web, :rbac)
     IO.inspect config[:effect], label: "Effect==============\n"
     IO.inspect config[:policy], label: "Policy==============\n"
 
+    policy = config[:policy]
     effect = config[:effect] == :allow
-    IO.inspect effect, label: "Effect true false==============\n"
-    info = Phoenix.Router.route_info(ThetaWeb.Router, conn.method, conn.request_path, conn.host)
-    case {effect, Map.has_key?(config[:policy], role)}do
+    req = Phoenix.Router.route_info(ThetaWeb.Router, conn.method, conn.request_path, conn.host)
+    IO.inspect req, label: "Request==============\n"
+
+    case {effect, Map.has_key?(policy, role)} do
       {true, true} ->
         # Allow have policy => check
-        conn
+        matchers(conn, req, policy[role], effect)
       {true, false} ->
         # Allow not policy => not permission
-        conn
+        error_403(conn)
       {false, true} ->
         # Deny have policy => check
-        conn
+        matchers(conn, req, policy[role], effect)
       {_, _} ->
         # Deny not policy => ok
         conn
     end
   end
 
-  defp matchers(conn, info) do
-    # Request definition
-    # [request_definition]
-    # r = sub, obj, act
-    #
-    # # Policy definition
-    # [policy_definition]
-    # p = sub, obj, act
-    #
-    # # Policy effect
-    # [policy_effect]
-    # e = some(where (p.eft == allow))
-    #
-    # # Matchers
-    # [matchers]
-    # m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
-    #    IO.inspect conn, label: "RBAC==============\n"
-    #    IO.inspect conn.request_path, label: "RBAC==============\n"
-    #    info = Phoenix.Router.route_info(ThetaWeb.Router, conn.method, conn.request_path, conn.host)
-    IO.inspect info, label: "INFO==============\n"
-    config = Application.get_env(:theta_web, :rbac)
-    IO.inspect config[:effect], label: "Effect==============\n"
-    IO.inspect config[:policy], label: "Policy==============\n"
-    #    m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
-    role = :admin
-    #    m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+  defp matchers(conn, req, policy, effect) do
+    check =
+      case Map.has_key?(policy, :*) do
+        true -> true
+        _ ->
+          regex = create_regex(policy[req.plug])
+          Regex.match?(regex, "#{req.plug_opts}")
+      end
+
+    case effect == check do
+      true -> conn
+      _ -> error_403(conn)
+    end
   end
+
+  defp error_403(conn) do
+    conn
+    |> put_status(403)
+    |> send_resp(403, "Unauthorized")
+    |> halt
+  end
+
+  defp create_regex(action) when is_list(action) do
+    ~r/#{~s/(#{Enum.join(action, "|")})/}/
+  end
+  defp create_regex(action) when is_atom(action) do
+    case action do
+      :* -> ~r//
+      atom -> ~r/#{atom}/
+    end
+  end
+  defp create_regex(action), do: ~r//
 end

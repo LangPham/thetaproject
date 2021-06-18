@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :theta, Theta.Repo,
   username: "postgres",
-  password: "08635653",
+  password: "postgres",
   database: "thetaproject_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
