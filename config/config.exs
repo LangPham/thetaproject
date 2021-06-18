@@ -16,24 +16,28 @@ config :theta,
 config :theta_web,
        ecto_repos: [Theta.Repo],
        generators: [
-	       context_app: :theta
+         context_app: :theta
        ]
 
 # Configures the endpoint
 config :theta_web,
        ThetaWeb.Endpoint,
        url: [
-	       host: "localhost"
+         host: "localhost"
        ],
        secret_key_base: "AMlTnnYyOp3EWUbwSTawScMyF9IQoVYs/Al8f9dotIWx+eyu7C8SnsNQ5F/wXC7j",
        render_errors: [
-	       view: ThetaWeb.ErrorView,
-	       accepts: ~w(html json), layout: false
+         view: ThetaWeb.ErrorView,
+         accepts: ~w(html json),
+         layout: false
        ],
        pubsub_server: Theta.PubSub,
-       live_view: [signing_salt: "UnOlvZWl"]
+       live_view: [
+         signing_salt: "UnOlvZWl"
+       ]
 
 config :theta_web, env: Mix.env
+
 # Configures Elixir's Logger
 config :logger,
        :console,
@@ -47,7 +51,7 @@ config :phoenix, :template_engines,
        md: PhoenixMarkdown.Engine
 
 config :mime, :types, %{
-	"application/xml" => ["xml"]
+  "application/xml" => ["xml"]
 }
 
 config :theta_web,
@@ -65,5 +69,18 @@ config :cors_plug,
        origin: ["https://theta-vn.cdn.ampproject.org"],
        max_age: 86400,
        methods: ["GET"]
+
+config :theta_web,
+       :rbac,
+       effect: :deny,
+       policy: %{
+         admin: [
+           show: ThetaWeb.CMS.ArticleController
+         ],
+         mod: [
+           update: ThetaWeb.CMS.ArticleController
+         ]
+       }
+
 
 import_config "#{Mix.env()}.exs"

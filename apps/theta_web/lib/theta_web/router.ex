@@ -23,6 +23,7 @@ defmodule ThetaWeb.Router do
 
   pipeline :admin do
     plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
+    plug ThetaWeb.Plug.Rbac
   end
 
   pipeline :api do
