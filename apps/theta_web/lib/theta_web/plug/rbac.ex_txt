@@ -2,20 +2,24 @@ defmodule ThetaWeb.Plug.Rbac do
   use Plug.Builder
 
   def init(opts) do
-    opts
+    #    config = Application.get_all_env(:plug_rbac)
+    #    IO.inspect config, label: "CONFIG INIT====\n"
+    Keyword.merge(Application.get_all_env(:plug_rbac), opts)
   end
 
   def call(conn, opts) do
     # Todo: get role
     role = :admin
-    config = Application.get_env(:theta_web, :rbac)
-    IO.inspect config[:effect], label: "Effect==============\n"
-    IO.inspect config[:policy], label: "Policy==============\n"
+    config = opts
+    IO.inspect config, label: "CONFIG INIT"
 
     policy = config[:policy]
     effect = config[:effect] == :allow
     req = Phoenix.Router.route_info(ThetaWeb.Router, conn.method, conn.request_path, conn.host)
-    IO.inspect req, label: "Request==============\n"
+
+    #    IO.inspect config[:effect], label: "Effect==============\n"
+    #    IO.inspect config[:policy], label: "Policy==============\n"
+    #    IO.inspect req, label: "Request==============\n"
 
     case {effect, Map.has_key?(policy, role)} do
       {true, true} ->

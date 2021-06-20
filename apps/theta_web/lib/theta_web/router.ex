@@ -13,17 +13,17 @@ defmodule ThetaWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :auth do
-    plug ThetaWeb.Pipeline
-  end
+#  pipeline :auth do
+#    plug ThetaWeb.Pipeline
+#  end
 
-  pipeline :ensure_auth do
-    plug Guardian.Plug.EnsureAuthenticated
-  end
+#  pipeline :ensure_auth do
+#    plug Guardian.Plug.EnsureAuthenticated
+#  end
 
   pipeline :admin do
     plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
-    plug ThetaWeb.Plug.Rbac
+    plug Cap
   end
 
   pipeline :api do
@@ -41,7 +41,7 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/", ThetaWeb do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser]
     get "/login", SessionController, :new
     get "/logout", SessionController, :delete
     get "/search", PageController, :google_search
@@ -63,12 +63,12 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/user", ThetaWeb do
-    pipe_through [:browser, :auth, :ensure_auth]
+    pipe_through [:browser]
     get "/me", ProfileController, :index
   end
 
   scope "/admin", ThetaWeb do
-    pipe_through [:browser, :auth, :ensure_auth, :ensure_root, :admin]
+    pipe_through [:browser, :admin]
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
@@ -82,13 +82,13 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/api", ThetaWeb.CMS do
-    pipe_through [:api, :auth, :ensure_auth]
+    pipe_through [:api]
     post "/upload", UploadController, :index
     get "/select/:slug", UploadController, :show
   end
 
   scope "/apiv1", ThetaWeb.Api do
-    pipe_through [:api, :auth]
+    pipe_through [:api]
     get "/article/:slug", DataController, :show
   end
 

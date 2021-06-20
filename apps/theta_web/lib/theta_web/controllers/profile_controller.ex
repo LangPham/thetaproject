@@ -3,7 +3,7 @@ defmodule ThetaWeb.ProfileController do
 
 
   def index(conn, _params) do
-
+    IO.inspect conn, label: "ThetaWeb.ProfileController =====\n"
     render(conn, "index.html")
   end
 

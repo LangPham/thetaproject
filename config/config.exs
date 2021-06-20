@@ -70,17 +70,20 @@ config :cors_plug,
        max_age: 86400,
        methods: ["GET"]
 
-config :theta_web,
-       :rbac,
+config :cap,
        effect: :deny,
        policy: %{
+         nil: %{
+           :* => :*
+         },
          admin: %{
            ThetaWeb.CMS.ArticleController => :*
          },
          mod: %{
            ThetaWeb.CMS.ArticleController => :update
          }
-       }
+       },
+       secret_key: "AMlTnnYyOp3EWUbwSTawScMyF9IQoVYs"
 
 
 import_config "#{Mix.env()}.exs"
