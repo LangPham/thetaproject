@@ -1,13 +1,22 @@
 defmodule ThetaWeb.ErrorHandler do
-  import Plug.Conn
+  defexception [:message]
 
-  @behaviour Guardian.Plug.ErrorHandler
+end
 
-  @impl Guardian.Plug.ErrorHandler
-  def auth_error(conn, {type, _reason}, _opts) do
-    body = to_string(type)
-    conn
-    |> put_resp_content_type("text/plain")
-    |> send_resp(401, body)
+defimpl Plug.Exception, for: ThetaWeb.ErrorHandler do
+  def status(exception) do
+    case Integer.parse(exception.message) do
+      :error -> 404
+      {int, _} -> int
+    end
+  end
+end
+
+defimpl Plug.Exception, for: Cap.ErrorHandler do
+  def status(exception) do
+    case Integer.parse(exception.message) do
+      :error -> 404
+      {int, _} -> 403
+    end
   end
 end

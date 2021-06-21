@@ -72,6 +72,7 @@ config :cors_plug,
 
 config :cap,
        effect: :deny,
+       exception: :root,
        policy: %{
          nil: %{
            :* => :*

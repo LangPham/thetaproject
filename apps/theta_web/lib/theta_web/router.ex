@@ -106,7 +106,8 @@ defmodule ThetaWeb.Router do
 #  defp cookie_test(conn, _) do
 #    put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
 #  end
-  def handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
+  def handle_errors(conn, %{kind: _kind, reason: reason, stack: stack}) do
+#    IO.inspect stack, label: "AAAAAA=======\n"
 #    path_error = reason.conn.request_path
 #    ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)
   end

@@ -86,4 +86,11 @@ defmodule ThetaWeb.CMS.TermController do
     |> put_flash(:info, "Term deleted successfully.")
     |> redirect(to: Routes.term_path(conn, :index))
   end
+
+  def abac(id) do
+    term = CMS.get_term!(id)
+    IO.inspect term, label: "TERM IN ABAC"
+
+    true
+  end
 end

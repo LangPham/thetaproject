@@ -473,6 +473,7 @@ defmodule Theta.CMS do
     CacheDB.delete("menu-id-#{article.menu.path_alias_id}")
     CacheDB.delete("home")
     Repo.delete(path_alias)
+    Repo.delete(article)
   end
 
   @doc """

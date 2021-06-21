@@ -4,8 +4,8 @@ defmodule ThetaWeb.CMS.ArticleController do
   alias Theta.{CMS, Repo, CacheDB}
   alias Theta.CMS.Article
 
-  plug :require_existing_author
-  plug :authorize_article when action in [:edit, :update, :delete]
+  #  plug :require_existing_author
+#  plug :authorize_article when action in [:show, :edit, :update, :delete]
 
   def index(conn, _params) do
 
@@ -50,6 +50,7 @@ defmodule ThetaWeb.CMS.ArticleController do
   end
 
   def show(conn, %{"id" => id}) do
+    IO.inspect conn, label: "SHOW COON"
     article = CMS.get_article!(id)
     render(conn, "show.html", article: article)
   end
@@ -59,14 +60,14 @@ defmodule ThetaWeb.CMS.ArticleController do
     serial = CMS.list_serial()
     article = CMS.get_article!(id)
     changeset = CMS.change_article(article)
-    render(conn, "edit.html", changeset: changeset, menu: menu, serial: serial)
+    render(conn, "edit.html", changeset: changeset, menu: menu, serial: serial, article: article)
   end
 
-  def update(conn, %{"article" => article_params}) do
-    article_old = CMS.get_article!(conn.assigns.article.id)
+  def update(conn, %{"id" => id, "article" => article_params}) do
+    article_old = CMS.get_article!(id)
 
 
-    case CMS.update_article(conn.assigns.article, article_params) do
+    case CMS.update_article(article_old, article_params) do
       {:ok, article} ->
 
         article = Repo.preload(article, :menu)
@@ -96,31 +97,30 @@ defmodule ThetaWeb.CMS.ArticleController do
     end
   end
 
-  def delete(conn, _) do
 
-    {:ok, _article} = CMS.delete_article(conn.assigns.article)
+  def delete(conn, %{"id" => id}) do
+    article = CMS.get_article!(id)
+    {:ok, _article} = CMS.delete_article(article)
 
     conn
     |> put_flash(:info, "Article deleted successfully.")
     |> redirect(to: Routes.article_path(conn, :index))
   end
 
-  defp require_existing_author(conn, _) do
-    user = Guardian.Plug.current_resource(conn)
-    user = Repo.preload(user, :author)
-    author = CMS.ensure_author_exists(user)
-    assign(conn, :current_author, author)
+
+  #  defp require_existing_author(conn, _) do
+
+  #    user = Guardian.Plug.current_resource(conn)
+  #    user = Repo.preload(user, :author)
+  #    author = CMS.ensure_author_exists(user)
+  #    assign(conn, :current_author, author)
+  #  end
+  #
+
+  # Todo: delete
+  def abac(id) do
+    article = CMS.get_article!(id)
+    article.author_id
   end
 
-  defp authorize_article(conn, _) do
-    article = CMS.get_article!(conn.params["id"])
-    if conn.assigns.current_author.id == article.author_id do
-      assign(conn, :article, article)
-    else
-      conn
-      |> put_flash(:error, "You can't modify that page")
-      |> redirect(to: Routes.article_path(conn, :index))
-      |> halt()
-    end
-  end
 end
