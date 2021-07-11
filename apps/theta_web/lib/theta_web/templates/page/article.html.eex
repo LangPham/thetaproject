@@ -88,8 +88,8 @@
 							<%= img_mark( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
 						</div>
 						<div>
-							<%# markdown floki %>
-							<%= md_to_ast(@page.body.article.body) %>
+							<%= markdown floki %>
+							<%# md_to_ast(@page.body.article.body) %>
 						</div>
 
 					</div>
