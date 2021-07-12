@@ -24,7 +24,7 @@ defmodule ThetaWeb.MixProject do
 	def application do
 		[
 			mod: {ThetaWeb.Application, []},
-			extra_applications: [:logger, :runtime_tools, :os_mon, :rsa_ex ]
+			extra_applications: [:logger, :runtime_tools, :os_mon, :rsa_ex]
 		]
 	end
 
@@ -53,11 +53,11 @@ defmodule ThetaWeb.MixProject do
 			{:earmark, "~> 1.4.14"},
 			{:guardian, "~> 2.1"},
 			{:theta_media, "~>0.1.0"},
-			{:mogrify, "~> 0.7.4"},
+			{:gi, "~> 0.1.1"},
 			{:ex_image_info, "~> 0.2.4"},
 			{:cors_plug, "~> 2.0"},
 			{:rsa_ex, "~> 0.4.0"},
-			{:cap, path: "/home/langpham/git/module_elixir/cap"}
+			{:cap,"~> 0.1.0"}
 		]
 	end
 
