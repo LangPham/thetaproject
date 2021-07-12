@@ -3,8 +3,8 @@
 <ul>
 
   <li>
-    <strong>Title:</strong>
-    <%= @term.title %>
+    <strong>Name:</strong>
+    <%= @term.name %>
   </li>
 
 </ul>

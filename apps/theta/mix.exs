@@ -42,7 +42,6 @@ defmodule Theta.MixProject do
       {:jason, "~> 1.1"},
       {:bcrypt_elixir, "~> 2.2.0"},
       {:slugify, "~> 1.3"},
-      {:ecto_autoslug_field, "~> 2.0"},
       {:oauth2, "~> 2.0"},
     ]
   end

@@ -131,7 +131,7 @@ defmodule Theta.CMS do
 
   """
   def list_term_menu do
-    taxonomy_id = 1
+    taxonomy_id = "main-menu"
     Term
     |> where([t], t.taxonomy_id == ^taxonomy_id)
     |> Repo.all()
@@ -389,7 +389,6 @@ defmodule Theta.CMS do
            ],
            tag: [],
            menu: [],
-           path_alias: []
          ]
        )
   end

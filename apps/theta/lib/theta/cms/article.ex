@@ -14,58 +14,46 @@ defmodule Theta.CMS.Article do
     field :summary, :string
     field :title, :string
     field :photo, :string
+    field :slug, :string
     field :is_serial, :boolean, default: false
     belongs_to :serial, Article
     has_many :section, Article, foreign_key: :serial_id
 
     belongs_to :author, Author
-    belongs_to :menu, Term
-    belongs_to :path_alias, PathAlias
-    many_to_many(
-      :tag,
-      PathAlias,
-      join_through: "article_tag",
-      on_replace: :delete
-    )
+    belongs_to :menu, Term, type: :string
+        many_to_many(
+          :tag,
+          Term,
+          join_through: "article_tag",
+          on_replace: :delete
+        )
 
     timestamps()
   end
 
   @doc false
   def changeset(article, attrs) do
-    Repo.preload(article, [:tag])
+    #    Repo.preload(article, [:tag])
+    article
     |> cast(attrs, [:title, :summary, :body, :menu_id, :photo, :is_serial, :serial_id])
     |> validate_required([:title, :summary, :body, :menu_id, :is_serial, :photo])
-    |> put_path_alias(attrs)
-    |> validate_required([:path_alias_id])
-    |> put_tags(attrs)
+    #    |> put_path_alias(attrs)
+    #    |> validate_required([:path_alias_id])
+    #    |> put_tags(attrs)
   end
-
-  defp put_path_alias(%Ecto.Changeset{valid?: true} = struct, attrs) do
-    if attrs["action"] == "create" do
-      type_model = "article"
-      slug = attrs["title"]
-      attrs_path = %{slug: slug, type_model: type_model}
-      path_alias =
-        %PathAlias{}
-        |> PathAlias.changeset(attrs_path)
-        |> Repo.insert!()
-      change(struct, path_alias_id: path_alias.id)
-    else
-      if Map.has_key?(struct.changes, :title) do
-        attrs_path = %{slug: struct.changes.title, type_model: "article"}
-        path_alias = Repo.get(PathAlias, struct.data.path_alias_id)
-        path_alias
-        |> PathAlias.changeset(attrs_path)
-        |> Repo.update!()
-        change(struct, path_alias_id: path_alias.id)
-      else
-        struct
-      end
+  defp put_slug_id(%Ecto.Changeset{valid?: true,changes: %{ title: title } } = changeset, attrs ) do
+    case changeset.data.id do
+      nil ->
+        navDT =
+          NaiveDateTime.local_now()
+          |> NaiveDateTime.to_string
+          |> Slug.slugify(truncate: 14, separator: "")
+        slug = Slug.slugify(String.downcase(title)) <> "-#{navDT}.html"
+        change(changeset, slug: slug)
+      _ -> changeset
     end
   end
-
-  defp put_path_alias(struct, _attrs), do: struct
+  defp put_slug_id(changeset, _), do: changeset
 
   defp put_tags(%Ecto.Changeset{valid?: true} = struct, attrs) when attrs == %{} do
     struct

@@ -54,8 +54,6 @@ defmodule ThetaWeb.CMS.TermController do
     render(conn, "show.html", term: term)
   end
 
-
-
   def edit(conn, %{"id" => id}) do
     taxonomy = CMS.list_taxonomy()
     term = CMS.get_term!(id)

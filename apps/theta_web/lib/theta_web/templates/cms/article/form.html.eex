@@ -50,8 +50,8 @@
 	</div>
 
 
-  <%= select_bulma(f, :menu_id, Enum.map(@menu, &{&1.title, &1.id}), prompt: "--Choose menu--", selected: @changeset.data.menu_id) %>
-  <%= text_input_bulma f, :tags, [value: List.to_string(for x <- @changeset.data.tag, do: x.slug<>" "), class: "input"]  %>
+  <%= select_bulma(f, :menu_id, Enum.map(@menu, &{&1.name, &1.id}), prompt: "--Choose menu--", selected: @changeset.data.menu_id) %>
+  <%# text_input_bulma f, :tags, [value: List.to_string(for x <- @changeset.data.tag, do: x.slug<>" "), class: "input"]  %>
 
   <%= submit("Save", class: "button is-link") %>
 

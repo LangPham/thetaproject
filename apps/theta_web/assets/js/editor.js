@@ -7,8 +7,6 @@ export function create_editor(option) {
 
 		shortcuts: {
 			"imageupload": "Ctrl-Alt-U", // alter the shortcut for toggleOrderedList
-			//"toggleCodeBlock": null, // unbind Ctrl-Alt-C
-			//"drawTable": "Cmd-Alt-T" // bind Cmd-Alt-T to drawTable action, which doesn't come with a default shortcut
 		},
 		autoDownloadFontAwesome: false,
 		spellChecker: false,

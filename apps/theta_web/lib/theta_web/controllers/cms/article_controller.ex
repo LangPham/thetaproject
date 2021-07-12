@@ -60,6 +60,7 @@ defmodule ThetaWeb.CMS.ArticleController do
     serial = CMS.list_serial()
     article = CMS.get_article!(id)
     changeset = CMS.change_article(article)
+    IO.inspect article, label: "ARTICLE ==========\n"
     render(conn, "edit.html", changeset: changeset, menu: menu, serial: serial, article: article)
   end
 

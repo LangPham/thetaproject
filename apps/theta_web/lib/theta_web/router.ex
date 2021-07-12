@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-   use Plug.ErrorHandler
+#   use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
@@ -68,7 +68,7 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/admin", ThetaWeb do
-    pipe_through [:browser, :admin]
+    pipe_through [:browser]
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController

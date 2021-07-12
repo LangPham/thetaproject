@@ -3,6 +3,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Title</th>
 
       <th></th>
@@ -11,7 +12,8 @@
   <tbody>
 <%= for taxonomy <- @taxonomy do %>
     <tr>
-      <td><%= taxonomy.title %></td>
+      <td><%= taxonomy.id %></td>
+      <td><%= taxonomy.name %></td>
 
       <td>
         <span><%= link "Show", to: Routes.taxonomy_path(@conn, :show, taxonomy) %></span>

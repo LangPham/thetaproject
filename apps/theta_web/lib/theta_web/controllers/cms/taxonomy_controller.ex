@@ -6,11 +6,13 @@ defmodule ThetaWeb.CMS.TaxonomyController do
 
   def index(conn, _params) do
     taxonomy = CMS.list_taxonomy()
+
     render(conn, "index.html", taxonomy: taxonomy)
   end
 
   def new(conn, _params) do
     changeset = CMS.change_taxonomy(%Taxonomy{})
+    IO.inspect changeset.data, label: "TAX =============\n"
     render(conn, "new.html", changeset: changeset)
   end
 
