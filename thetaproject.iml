@@ -8,8 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/apps" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/_build" />
-      <excludeFolder url="file://$MODULE_DIR$/uploads" />
       <excludeFolder url="file://$MODULE_DIR$/deps" />
+      <excludeFolder url="file://$MODULE_DIR$/uploads" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

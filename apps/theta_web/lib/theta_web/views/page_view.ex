@@ -4,37 +4,30 @@ defmodule ThetaWeb.PageView do
   def md_to_ast(body) do
 
     {status, ast, errors} = EarmarkParser.as_ast(body)
-    ast
-        IO.inspect ast
+    #    ast
+    #        IO.inspect ast
     ast_tran = Earmark.Transform.map_ast(ast, fn {t, a, child, m} -> cu_chuoi({t, a, child, m}) end, true)
-    IO.inspect ast_tran
-    raw Earmark.Transform.transform( ast_tran)
-
-#    body
-#    |> EarmarkParser.as_ast
-#    |> Earmark.Transform.map_ast(fun)
-#    |> Earmark.Transform.transform
-
+    raw Earmark.Transform.transform(ast_tran)
   end
 
   defp cu_chuoi({t, a, child, m}) do
-#    IO.inspect child
-#    IO.inspect "=============================================="
+    #    IO.inspect child
+    #    IO.inspect "=============================================="
     child_child =
-    if length(child) == 1 do
-      IO.inspect "=====LEAF======="
-      str = "Them vai ~doan van~{:.class} cho phong phu them *mot cai1*{:.nhe}"
-#      IO.inspect String.match?(str, ~r/~[[:alnum:][:blank:]]+~{:/)
-#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{0}")
-#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{1}")
-#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, "{'span', [{'\\2',}]\\1}")
-#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, ~s("{'span', [{'\\2', '\\1'}]}) )
-#      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\1\\g{1}")
-#      IO.inspect Regex.scan(~r/~[[:alnum:][:blank:]]+~{:/, List.first(chil))
-      {"span" , [{"class", "test"}], "sdfdsfsd" ,m}
+      if length(child) == 1 do
+        IO.inspect "=====LEAF======="
+        str = "Them vai ~doan van~{:.class} cho phong phu them *mot cai1*{:.nhe}"
+        #      IO.inspect String.match?(str, ~r/~[[:alnum:][:blank:]]+~{:/)
+        #      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{0}")
+        #      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\0\\g{1}")
+        #      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, "{'span', [{'\\2',}]\\1}")
+        #      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:\.([[:alnum:]]+)}/, ~s("{'span', [{'\\2', '\\1'}]}) )
+        #      IO.inspect String.replace(str, ~r/~([[:alnum:][:blank:]]+)~{:/, "\\1\\g{1}")
+        #      IO.inspect Regex.scan(~r/~[[:alnum:][:blank:]]+~{:/, List.first(chil))
+        {"span", [{"class", "test"}], "sdfdsfsd", m}
       else
-      nil
-    end
+        nil
+      end
     {t, a, child_child, m}
   end
 
@@ -42,7 +35,7 @@ defmodule ThetaWeb.PageView do
     body
     |> Earmark.as_html!()
     |> Floki.parse_fragment!()
-    |> create_webp()
+      #    |> create_webp()
     |> update_picture()
     |> add_id_header()
 
@@ -100,53 +93,57 @@ defmodule ThetaWeb.PageView do
         floki = Floki.filter_out(floki, Enum.at(list_split, 0))
         filter_html(floki, list_filter)
     end
-
   end
 
+  #  defp create_webp(floki) do
+  #    path_storage = Application.get_env(:theta_media, :storage)
+  #    list_path = Path.split(path_storage)
+  #    {_, list_new} = List.pop_at(list_path, -1)
+  #    path = Path.join(list_new)
+  #    dir_upload = List.last(list_path)
+  #
+  #    list =
+  #      floki
+  #      |> Floki.find("img")
+  #      |> Floki.attribute("src")
+  #
+  #    for file <- list do
+  #      files = String.replace(file, ~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
+  #      files_ext = Path.extname(files)
+  #      files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
+  #
+  #      if !File.exists?(Path.join(path, files_webp)) do
+  #        Mogrify.open(Path.join(path, file))
+  #        |> Mogrify.verbose
+  #        |> Mogrify.resize("750x750")
+  #        |> Mogrify.format("webp")
+  #        |> Mogrify.save(path: Path.join(path, files_webp))
+  #      end
+  #    end
+  #    {floki, dir_upload}
+  #  end
 
-
-
-  defp create_webp(floki) do
-    path_storage = Application.get_env(:theta_media, :storage)
-    list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
-    dir_upload = List.last(list_path)
-
-    list =
-      floki
-      |> Floki.find("img")
-      |> Floki.attribute("src")
-
-    for file <- list do
-      files = String.replace(file, ~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
-      files_ext = Path.extname(files)
-      files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
-
-      if !File.exists?(Path.join(path, files_webp)) do
-        Mogrify.open(Path.join(path, file))
-        |> Mogrify.verbose
-        |> Mogrify.resize("750x750")
-        |> Mogrify.format("webp")
-        |> Mogrify.save(path: Path.join(path, files_webp))
-      end
-    end
-    {floki, dir_upload}
-  end
-
-  defp update_picture({floki, dir_upload})do
-
+  defp update_picture(floki)do
+    #    IO.inspect floki
     Floki.traverse_and_update(
       floki,
       fn
         {"img", attrs, _children} ->
-
+          IO.inspect attrs, label: "IMAGE=====\n"
           file = elem(List.first(attrs), 1)
-          attrs = attrs ++ [{"loading", "lazy"}]
-          file_webp =
-            file
-            |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
-            |> String.replace(~r/(\.)(\w)+/, ".webp")
+
+          #          ThetaWeb.ShareView.img_mark(file, "lager", alt, "lazy")
+
+          #          path_storage = Application.get_env(:theta_media, :storage)
+          #
+          #          dir_upload =
+          #            String.split(path_storage, "/")
+          #            |> List.last()
+          #          file_webp =
+          #            file
+          #            |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
+          #            |> String.replace(~r/(\.)(\w)+/, ".webp")
+          file_webp = ThetaWeb.ShareView.check_image(file, {"lager", "1020x680"})
           {
             "picture",
             [],

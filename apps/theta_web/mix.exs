@@ -57,7 +57,7 @@ defmodule ThetaWeb.MixProject do
 			{:ex_image_info, "~> 0.2.4"},
 			{:cors_plug, "~> 2.0"},
 			{:rsa_ex, "~> 0.4.0"},
-			{:cap, path: "/Volumes/Master/Git/cap"}
+			{:cap, path: "/home/langpham/git/module_elixir/cap"}
 		]
 	end
 

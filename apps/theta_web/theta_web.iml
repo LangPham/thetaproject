@@ -74,6 +74,5 @@
     <orderEntry type="library" name="libsodium" level="project" />
     <orderEntry type="library" name="ojson" level="project" />
     <orderEntry type="library" name="cap" level="project" />
-    <orderEntry type="library" name="cap" level="project" />
   </component>
 </module>

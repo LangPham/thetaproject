@@ -77,22 +77,9 @@ defmodule ThetaWeb.ShareView do
         "lazy" -> "loading=\'lazy\'"
         _ -> ""
       end
-    path_storage = Application.get_env(:theta_media, :storage)
-    list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
-    dir_upload = List.last(list_path)
-    files = String.replace(link, ~r/^\/#{dir_upload}/, "/#{dir_upload}/#{elem(filter, 0)}")
-    files_ext = Path.extname(files)
-    files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
-    if !File.exists?(Path.join(path, files_webp)) do
-      Mogrify.open(Path.join(path, link))
-      |> Mogrify.verbose
-      |> resize_img(filter)
-        #        |> IO.inspect()
-      |> Mogrify.format("webp")
-      |> Mogrify.save(path: Path.join(path, files_webp))
-    end
+    #    domain = Application.get_env(:theta_web, :web_url)
+    files_webp = check_image(link, filter)
+
     content_tag :picture do
       source = raw(
         "<source srcset=\"" <> "#{files_webp}" <> "\" type='image/webp'>"
@@ -102,15 +89,39 @@ defmodule ThetaWeb.ShareView do
       )
       [source, image]
     end
+
   end
 
-  defp resize_img(image, filter) do
-    #    IO.inspect(filter)
-    if elem(filter, 0) == "lager" do
-      Mogrify.resize(image, "#{elem(filter, 1)}")
-    else
-      Mogrify.resize_to_fill(image, "#{elem(filter, 1)}")
-      |> Mogrify.gravity("center")
+  def check_image(link, filter) do
+    path_storage = Application.get_env(:theta_media, :storage)
+    upload_dir =
+      String.split(path_storage, "/")
+      |> List.last()
+    abs_link = Path.expand("..#{link}", path_storage)
+    files_webp =
+      link
+      |> String.replace(~r/(\.)(\w)+/, ".webp")
+      |> String.replace(~r/(\/#{upload_dir}\/)/, "/#{upload_dir}/#{elem(filter, 0)}/")
+    abs_webp = Path.expand("..#{files_webp}", path_storage)
+
+    if !File.exists?(abs_webp) do
+      if !File.exists?(abs_link) do
+        copy_old_file(abs_link)
+      end
+      ThetaWeb.Media.create_webp(abs_link,files_webp)
     end
+    files_webp
   end
+
+
+  def copy_old_file(abs_link) do
+    path_dir = Path.dirname(abs_link)
+    File.mkdir_p!(path_dir)
+    file_old =
+      abs_link
+      |> String.replace(~r/(\/uploads\/)/, "/old/")
+
+    File.copy!(file_old, abs_link)
+  end
+
 end
