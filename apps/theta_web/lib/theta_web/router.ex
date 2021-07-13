@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-#   use Plug.ErrorHandler
+   use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
@@ -36,8 +36,6 @@ defmodule ThetaWeb.Router do
     get "/", AmpController, :index
     get "/policy", AmpController, :policy
     get "/:slug", AmpController, :show
-
-
   end
 
   scope "/", ThetaWeb do
@@ -107,9 +105,7 @@ defmodule ThetaWeb.Router do
 #    put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
 #  end
   def handle_errors(conn, %{kind: _kind, reason: reason, stack: stack}) do
-#    IO.inspect stack, label: "AAAAAA=======\n"
-#    path_error = reason.conn.request_path
-#    ThetaWeb.PV.PathAliasController.router_path_error(conn, path_error)
+    ThetaWeb.ErrorHandler.process_error(conn)
   end
 
   # Enables LiveDashboard only for development
