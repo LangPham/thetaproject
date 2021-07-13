@@ -16,8 +16,8 @@
 						</li>
 						
 						<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-							<a itemprop="item" href="<%= '#{@page.head.base}/#{@page.body.article.menu.path_alias.slug}' %>">
-								<span itemprop="name"><%= @page.body.article.menu.title %></span>
+							<a itemprop="item" href="<%= '#{@page.head.base}/#{@page.body.article.menu_id}' %>">
+								<span itemprop="name"><%= @page.body.article.menu.name %></span>
 							</a>
 							<meta itemprop="position" content="2" />
 						</li>
@@ -36,9 +36,9 @@
 					      content="<%= img_link( Routes.static_path(@conn, @page.body.article.photo), "lager") %>"/>
 					<meta itemprop="inLanguage" content="vi-VN">
 					<meta itemprop="url" content="<%= '#{@page.head.base}/#{@page.head.canonical}' %>"/>
-					<meta itemprop="articleSection" content="<%= @page.body.article.menu.title %>">
+					<meta itemprop="articleSection" content="<%= @page.body.article.menu.name %>">
 					<%= if @page.body.article.serial do %>
-					<meta itemprop="articleSection" content="<%= @page.body.article.serial.title %>">
+					<meta itemprop="articleSection" content="<%# @page.body.article.serial.title %>">
 					<% end %>
 					<section class="hero">
 						<div class="hero-body">
@@ -63,7 +63,7 @@
 								<i class="tti ic-tag"></i>
 								<%= for tag <- @page.body.article.tag do %>
 								<span class="tag is-light is-rounded">
-                  <%= link(tag.slug, to: linktag(tag.slug)) %> <%= " " %>
+                  <%= link(tag.name, to: "#{tag.id}.htm") %> <%= " " %>
                 </span>
 								<% end %>
 								<% end %>
@@ -143,7 +143,7 @@
 									<%= if @page.body.article.id == article.id do %>
 									<li><%= article.title %></li>
 									<% else %>
-									<li><%= link(article.title, to: webroot(article.path_alias.slug)) %></li>
+									<li><%= link(article.title, to: webroot(article.slug)) %></li>
 									<% end %>
 									<% end %>
 								</ul>

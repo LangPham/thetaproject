@@ -5,7 +5,6 @@ defmodule ThetaWeb.AmpView do
     body
     |> Earmark.as_html!()
     |> Floki.parse_fragment!()
-    |> create_webp()
     |> update_picture()
     |> update_youtube()
     |> add_id_header()
@@ -93,11 +92,7 @@ defmodule ThetaWeb.AmpView do
     {floki, dir_upload}
   end
 
-  defp update_picture({floki, dir_upload})do
-    path_storage = Application.get_env(:theta_media, :storage)
-    list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
+  defp update_picture(floki)do
     Floki.traverse_and_update(
       floki,
       fn
@@ -105,20 +100,19 @@ defmodule ThetaWeb.AmpView do
 
           file = elem(List.first(attrs), 1)
           alt = elem(List.last(attrs), 1)
-          file_webp =
-            file
-            |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
-            |> String.replace(~r/(\.)(\w)+/, ".webp")
+          file_webp = ThetaWeb.ShareView.check_image(file, {"lager", "1020x680"})
+
           img =
-            File.read!(Path.join(path, file_webp))
-            |> ExImageInfo.info
+            Gi.open(ThetaWeb.Media.fm_rel_to_abs(file_webp))
+            |> Gi.gm_identify
+
           {
             "amp-img",
             [
               {"alt", alt},
               {"src", file_webp},
-              {"width", "#{elem(img, 1)}"},
-              {"height", "#{elem(img, 2)}"},
+              {"width", "#{img.width}"},
+              {"height", "#{img.height}"},
               {'layout', 'responsive'}
             ],
             [
@@ -128,8 +122,8 @@ defmodule ThetaWeb.AmpView do
                   {"alt", alt},
                   {"fallback", ""},
                   {"src", file},
-                  {"width", "#{elem(img, 1)}"},
-                  {"height", "#{elem(img, 2)}"},
+                  {"width", "#{img.width}"},
+                  {"height", "#{img.height}"},
                   {'layout', 'responsive'}
                 ],
                 []

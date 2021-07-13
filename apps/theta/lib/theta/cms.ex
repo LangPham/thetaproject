@@ -5,10 +5,8 @@ defmodule Theta.CMS do
 
   import Ecto.Query, warn: false
 
-  alias Theta.{Account, PV, Repo, Upload, CacheDB}
-  alias Theta.CMS.Taxonomy
-
-
+  alias Theta.{Account, PV, Repo, Upload}
+  alias Theta.CMS.{Taxonomy, Term, Author, Article, Qa, ArticleTag}
 
   @doc """
   Returns the list of taxonomy.
@@ -104,8 +102,6 @@ defmodule Theta.CMS do
     Taxonomy.changeset(taxonomy, %{})
   end
 
-  alias Theta.CMS.Term
-
   @doc """
   Returns the list of term.
 
@@ -119,6 +115,12 @@ defmodule Theta.CMS do
     Term
     |> Repo.all()
     |> Repo.preload(:taxonomy)
+  end
+
+  def list_tag do
+    Term
+    |> where([t], t.taxonomy_id == "tag")
+    |> Repo.all()
   end
 
   @doc """
@@ -137,6 +139,7 @@ defmodule Theta.CMS do
     |> Repo.all()
 
   end
+
   @doc """
   Gets a single term.
 
@@ -166,8 +169,6 @@ defmodule Theta.CMS do
 
   """
   def create_term(attrs \\ %{}) do
-
-    attrs = Map.put_new(attrs, "action", "create")
     %Term{}
     |> Term.changeset(attrs)
     |> Repo.insert()
@@ -206,9 +207,8 @@ defmodule Theta.CMS do
 
   """
   def delete_term(%Term{} = term) do
-    path_alias = PV.get_path_alias!(term.path_alias_id)
-    Repo.delete(path_alias)
 
+    Repo.delete(term)
   end
 
   @doc """
@@ -223,8 +223,6 @@ defmodule Theta.CMS do
   def change_term(%Term{} = term) do
     Term.changeset(term, %{})
   end
-
-  alias Theta.CMS.Author
 
   @doc """
   Returns the list of author.
@@ -324,8 +322,6 @@ defmodule Theta.CMS do
     Author.changeset(author, %{})
   end
 
-  alias Theta.CMS.Article
-
   @doc """
   Returns the list of article.
 
@@ -345,6 +341,30 @@ defmodule Theta.CMS do
        )
   end
 
+  def list_article_menu(slug) do
+    Article
+    |> where([a], a.menu_id == ^slug)
+    |> order_by([a], desc: a.inserted_at)
+    |> Repo.all()
+    |> Repo.preload(
+         author: [
+           user: :credential
+         ]
+       )
+  end
+
+  def list_article_serial_menu(slug) do
+    Article
+    |> where([a], a.menu_id == ^slug and a.is_serial)
+    |> order_by([a], desc: a.inserted_at)
+    |> Repo.all()
+    |> Repo.preload(
+         author: [
+           user: :credential
+         ]
+       )
+  end
+
   def list_article_index do
     Article
     |> order_by([c], desc: c.inserted_at)
@@ -354,7 +374,6 @@ defmodule Theta.CMS do
            author: [
              user: :credential
            ],
-           path_alias: []
          ]
        )
   end
@@ -382,6 +401,12 @@ defmodule Theta.CMS do
   def get_article!(id) do
     Article
     |> Repo.get!(id)
+    |> Repo.preload(:tag)
+  end
+
+  def get_article_by_slug!(slug) do
+    Article
+    |> Repo.get_by!(slug: slug)
     |> Repo.preload(
          [
            author: [
@@ -393,6 +418,15 @@ defmodule Theta.CMS do
        )
   end
 
+  def get_article_serial!(id) do
+    article_main = get_article!(id)
+    article_sub =
+      Article
+      |> where([a], a.serial_id == ^id)
+      |> order_by([a], asc: a.id)
+      |> Repo.all()
+    [article_main | article_sub]
+  end
 
   @doc """
   Creates a article.
@@ -406,13 +440,10 @@ defmodule Theta.CMS do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_article(%Author{} = author, attrs \\ %{}) do
 
-    attrs = Map.put_new(attrs, "action", "create")
-
+  def create_article(attrs \\ %{}) do
     %Article{}
     |> Article.changeset(attrs)
-    |> Ecto.Changeset.put_change(:author_id, author.id)
     |> Repo.insert()
   end
 
@@ -445,7 +476,6 @@ defmodule Theta.CMS do
 
   """
   def update_article(%Article{} = article, attrs) do
-    attrs = Map.put_new(attrs, "action", "update")
     article
     |> Article.changeset(attrs)
     |> Repo.update()
@@ -464,14 +494,6 @@ defmodule Theta.CMS do
 
   """
   def delete_article(%Article{} = article) do
-    path_alias = PV.get_path_alias!(article.path_alias_id)
-    if article.photo != nil do
-      Upload.delete_file(article.photo)
-    end
-    article = Repo.preload(article, :menu)
-    CacheDB.delete("menu-id-#{article.menu.path_alias_id}")
-    CacheDB.delete("home")
-    Repo.delete(path_alias)
     Repo.delete(article)
   end
 
@@ -507,9 +529,6 @@ defmodule Theta.CMS do
     [fist | list]
   end
 
-
-  alias Theta.CMS.Qa
-
   @doc """
   Returns the list of qa.
 
@@ -530,8 +549,11 @@ defmodule Theta.CMS do
   end
 
   def list_tag_have_qa() do
-    query = from(q in Qa,
-      distinct: [q.tag], select: q.tag)
+    query = from(
+      q in Qa,
+      distinct: [q.tag],
+      select: q.tag
+    )
     Repo.all(query)
 
   end
@@ -616,4 +638,21 @@ defmodule Theta.CMS do
   def change_qa(%Qa{} = qa, attrs \\ %{}) do
     Qa.changeset(qa, attrs)
   end
+
+  def list_article_by_tag(tag) do
+    ArticleTag
+    |> order_by([a], desc: a.article_id)
+    |> where([a], a.term_id == ^tag)
+    |> Repo.all()
+    |> Repo.preload(
+         [
+           article: [
+             author: [
+               user: :credential
+             ]
+           ]
+         ]
+       )
+  end
+
 end

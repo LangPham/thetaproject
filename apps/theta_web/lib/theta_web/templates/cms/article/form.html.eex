@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, [multipart: true ], fn f -> %>
+<%= form_for @changeset, @action, [multipart: true, id: "article" ], fn f -> %>
   <%= if @changeset.action do %>
     <div class="has-text-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -53,7 +53,8 @@
   <%= select_bulma(f, :menu_id, Enum.map(@menu, &{&1.name, &1.id}), prompt: "--Choose menu--", selected: @changeset.data.menu_id) %>
   <%# text_input_bulma f, :tags, [value: List.to_string(for x <- @changeset.data.tag, do: x.slug<>" "), class: "input"]  %>
 
-  <%= submit("Save", class: "button is-link") %>
+	<%= live_render(@conn, ThetaWeb.ArticleTaggingLive, session: %{"id" => @changeset.data.id}) %>
+	<%= submit("Save", class: "button is-link") %>
 
 
 <% end %>

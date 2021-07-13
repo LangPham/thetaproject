@@ -9,6 +9,7 @@ defmodule Theta.CMS.Term do
   @primary_key {:id, :string, []}
   schema "term" do
     field :name, :string
+    field :description, :string
     belongs_to :taxonomy, Taxonomy, type: :string
 #    belongs_to :path_alias, PathAlias
     has_many :article, Article, foreign_key: :menu_id
@@ -19,7 +20,7 @@ defmodule Theta.CMS.Term do
   @doc false
   def changeset(term, attrs) do
     term
-    |> cast(attrs, [:name, :taxonomy_id])
+    |> cast(attrs, [:name, :taxonomy_id, :string])
     |> validate_required([:name, :taxonomy_id])
     |> put_slug_id(attrs)
 

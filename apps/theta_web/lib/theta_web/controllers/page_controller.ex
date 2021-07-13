@@ -13,7 +13,7 @@ defmodule ThetaWeb.PageController do
     page = Page.new(conn)
     page = put_in(page.head.title, "Chính sách bảo mật")
     page = put_in(page.head.description, "Chính sách bảo mật, điều khoản bảo mật của Theta")
-    page = put_in(page.head.canonical, page.head.base <> "/policy" )
+    page = put_in(page.head.canonical, page.head.base <> "/policy")
     render(conn, "policy.html", page: page)
   end
 
@@ -21,25 +21,20 @@ defmodule ThetaWeb.PageController do
     page = Page.new(conn)
     page = put_in(page.head.title, "Tìm kiếm")
     page = put_in(page.head.description, "Trang tìm kiếm của Theta")
-    page = put_in(page.head.canonical, page.head.base <> "/search" )
+    page = put_in(page.head.canonical, page.head.base <> "/search")
     render(conn, "google_search.html", page: page)
   end
 
   def index(conn, _params) do
 
     page = Page.new(conn)
-    list_article =
-      case CacheDB.get("home") do
-        {:ok, var} -> var
-        {:error, _} ->
-          var = CMS.list_article_index()
-          CacheDB.set("home", var)
-          var
-      end
+    list_article = CMS.list_article_index()
+
     serial_of_menu =
       for art <- list_article, art.is_serial do
-        %{title: art.title, id: art.id, slug: art.path_alias.slug}
+        %{title: art.title, id: art.id, slug: art.slug}
       end
+
     page = put_in(page.head.ld_json, %{index: "index"})
     page = put_in(page.head.canonical, "")
 
@@ -50,195 +45,85 @@ defmodule ThetaWeb.PageController do
   end
 
   def show(conn, %{"slug" => slug}) do
-    list = conn.path_info
-    tags =
-      if "tag" in list do
-        "tags"
-      else
-        nil
-      end
-    path = PV.get_path_alias_slug!(slug, tags)
-    if path == nil do
-      ThetaWeb.PV.PathAliasController.router_path_error(conn, conn.request_path)
-    else
-      render_content(conn, path)
+
+    cond do
+      Regex.match?(~r/.html/, slug) -> show_article(conn, slug)
+      Regex.match?(~r/.htm/, slug) -> show_tag(conn, slug)
+      true -> show_menu(conn, slug)
     end
   end
 
-  defp render_content(conn, %PathAlias{type_model: type_model} = path) when type_model == "article" do
+  defp show_article(conn, slug) do
     page = Page.new(conn)
-    var =
-      case CacheDB.get("path-alias-#{path.id}", path.updated_at) do
-        {:ok, var} ->
-          var
-        {:error, _} ->
-          var = Repo.preload(
-            path,
-            [
-              term: [],
-              article: [
-                menu: [:path_alias],
-                tag: [],
-                author: [:user],
-                serial: []
-              ]
-            ]
-          )
-          CacheDB.set("path-alias-#{path.id}", var)
-          var
+
+    article = Theta.CMS.get_article_by_slug!(slug)
+    serial_id = article.serial_id || article.id
+    serial_all = Theta.CMS.get_article_serial!(serial_id)
+    serial =
+      if length(serial_all) < 2 do
+        []
+      else
+        serial_all
       end
 
-    cache_serial =
-      case {var.article.is_serial, var.article.serial_id} do
-        {true, _} ->
-          case CacheDB.get("serial-id-#{var.article.id}") do
-            {:ok, serial} -> serial
-            {:error, _} ->
-              serial =
-                CMS.get_serial(var.article.id)
-              CacheDB.set("serial-id-#{var.article.id}", serial)
-              serial
-          end
-        {false, id} when is_number(id) ->
-          case CacheDB.get("serial-id-#{id}") do
-            {:ok, serial} -> serial
-            {:error, _} ->
-              serial =
-                CMS.get_serial(id)
-              CacheDB.set("serial-id-#{id}", serial)
-              serial
-          end
-        {_, _} -> []
-      end
-
-    page = put_in(page.head.title, var.article.title)
-    page = put_in(page.head.img_article, var.article.photo)
-    page = put_in(page.head.description, var.article.summary)
-    page = put_in(page.head.canonical, path.slug)
+    page = put_in(page.head.title, article.title)
+    page = put_in(page.head.img_article, article.photo)
+    page = put_in(page.head.description, article.summary)
+    page = put_in(page.head.canonical, article.slug)
     page = put_in(page.head.ld_json, %{article: "article"})
     page = put_in(
       page.head.og,
       [
-        %{property: "og:image:secure_url", content: page.head.base <> var.article.photo},
-        %{property: "og:image", content: page.head.base <> var.article.photo},
+        %{property: "og:image:secure_url", content: page.head.base <> article.photo},
+        %{property: "og:image", content: page.head.base <> article.photo},
         %{property: "og:type", content: "article"}
       ]
     )
 
-    menu =
-      case CacheDB.get("menu-id-#{var.article.menu_id}") do
-        {:ok, menu} -> menu
-        {:error, _} ->
-          article_query =
-            from a in Article,
-                 order_by: [
-                   desc: a.inserted_at
-                 ]
-          menu = Repo.preload(
-            path,
-            [
-              article: [
-                menu: [
-                  article: {article_query, [author: [:user], path_alias: []]}
-                ]
-              ]
-            ]
-          )
-
-          CacheDB.set("menu-id-#{var.article.menu_id}", menu.article.menu)
-          menu.article.menu
-      end
-
-    list_serial = for article <- cache_serial, article.id != var.article.id, do: article.id
-    new_exclude_article = for article <- menu.article, article.id != var.article.id, do: article
-    new_exclude_serial = for article <- new_exclude_article, article.id not in list_serial, do: article
+    list_article = Theta.CMS.list_article_menu(article.menu_id)
+    list_serial = for article <- serial_all, do: article.id
+    new_exclude_serial = for article <- list_article, article.id not in list_serial, do: article
     new = Enum.take(new_exclude_serial, 5)
 
-    page = Map.put(page, :body, %{article: var.article, serial: cache_serial, new: new})
+    page = Map.put(page, :body, %{article: article, serial: serial, new: new})
     conn
     |> render("article.html", page: page)
   end
 
-  defp render_content(conn, %PathAlias{type_model: type_model} = path) when type_model == "main_menu" do
+  defp show_menu(conn, slug) do
     page = Page.new(conn)
-    get_term = Repo.preload(path, :term)
 
-    var =
-      case CacheDB.get("menu-id-#{get_term.term.id}") do
-        {:ok, var} -> var
-        {:error, _} ->
-          article_query =
-            from a in Article,
-                 order_by: [
-                   desc: a.inserted_at
-                 ]
-          var = Repo.preload(
-            path,
-            [
-              term: [
-                article: {article_query, [author: [:user], path_alias: []]}
-              ]
-            ]
-          )
-          CacheDB.set("menu-id-#{get_term.term.id}", var.term)
-          var.term
-      end
+    list_article = Theta.CMS.list_article_menu(slug)
 
-    serial_of_menu =
-      for art <- var.article, art.is_serial do
-        %{title: art.title, id: art.id, slug: art.path_alias.slug}
-      end
+    serial_menu = Theta.CMS.list_article_serial_menu(slug)
+    term = Theta.CMS.get_term!(slug)
 
-    des = Theta.Configuration.get_config_by_key(path.slug)
-
-
-
-    page = put_in(page.head.title, var.title)
-    page = put_in(page.head.description, des)
-    page = put_in(page.head.canonical, path.slug)
+    page = put_in(page.head.title, term.name)
+    page = put_in(page.head.description, term.description)
+    page = put_in(page.head.canonical, term.id)
     page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
-    page = Map.put(page, :body, %{list_article: var.article, serial_menu: serial_of_menu})
+    page = Map.put(page, :body, %{list_article: list_article, serial_menu: serial_menu})
     conn
     |> render("main_menu.html", page: page)
   end
 
-  defp render_content(conn, %PathAlias{type_model: type_model} = path) when type_model == "tags" do
+  defp show_tag(conn, slug) do
     page = Page.new(conn)
+    tag = String.split(slug, ".") |> List.first
+    list_article = CMS.list_article_by_tag(tag)
 
-    list_qa = CMS.list_qa_by_tag(path.slug)
+    term = CMS.get_term!(tag)
+    all_tag = CMS.list_tag()
+    list_qa = CMS.list_qa_by_tag(tag)
 
-    var =
-      case CacheDB.get("tag-#{path.slug}") do
-        {:ok, var} -> var
-        {:error, _} ->
-          article_query =
-            from a in Article,
-                 order_by: [
-                   desc: a.inserted_at
-                 ]
 
-          var = Repo.preload(
-            path,
-            [
-              art: {article_query, [author: [:user], path_alias: []]}
-            ]
-          )
-          CacheDB.set("tag-#{path.slug}", var)
-          var
-      end
-    all_tag = PV.list_path_tag()
-    page = put_in(page.head.title, var.slug)
-    page = put_in(page.head.description, var.slug)
-    page = put_in(page.head.canonical, "tag/" <> path.slug)
-    page = put_in(page.head.ld_json, %{tag: "tag"})
-    page = Map.put(page, :body, %{list_article: var.art, all_tag: all_tag, list_qa: list_qa})
-
+    page = put_in(page.head.title, term.name)
+    page = put_in(page.head.description, term.description)
+    page = put_in(page.head.canonical, term.id)
+    page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
+    page = Map.put(page, :body, %{list_article: list_article, all_tag: all_tag, list_qa: list_qa})
     conn
     |> render("tag.html", page: page)
   end
 
-  defp render_content(conn, %PathAlias{} = _path) do
-    conn
-    |> render("index.html")
-  end
 end

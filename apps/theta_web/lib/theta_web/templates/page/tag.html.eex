@@ -1,5 +1,3 @@
-
-
 <section class="section">
 	<div class="container">
 		<div class="row">
@@ -32,8 +30,8 @@
 					</div>
 				</div>
 				<% end %>
-				<%= for article <- @page.body.list_article do %>
-					<%= render(ThetaWeb.Component.ArticleView, "article_teaser.html", article: article) %>
+				<%= for tag_article <- @page.body.list_article do %>
+					<%= render(ThetaWeb.Component.ArticleView, "article_teaser.html", article: tag_article.article) %>
 				<% end %>
 			</div>
 			<div class="column">
@@ -57,7 +55,7 @@
 							<div class="content">
 								<%= for tag <- @page.body.all_tag do %>
 								<span class="tag is-light is-rounded">
-                  <%= link(tag.slug, to: linktag(tag.slug)) %>
+                  <%= link(tag.name, to: "#{tag.id}.htm") %>
                 </span>
 								<% end %>
 							</div>

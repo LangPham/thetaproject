@@ -12,8 +12,8 @@
 						</a>
 					</li>
 					<li>
-						<a href="https://theta.vn/<%= @page.body.article.menu.path_alias.slug %>">
-							<span><%= @page.body.article.menu.title %></span>
+						<a href="https://theta.vn/<%= @page.body.article.menu_id %>">
+							<span><%= @page.body.article.menu.name %></span>
 						</a>
 					</li>
 				</ul>
@@ -38,7 +38,7 @@
 								<i class="tti ic-tag"></i>
 								<%= for tag <- @page.body.article.tag do %>
 								<span class="tag is-light is-rounded">
-                  <%= link(tag.slug, to: linktag(tag.slug)) %> <%= " " %>
+                  <%= link(tag.name, to: "/#{tag.id}.htm") %>
                 </span>
 								<% end %>
 								<% end %>
@@ -67,17 +67,8 @@
 			</div>
 			<div class="column">
 				<div class="cl-right">
-					<!--
-					<div class="card">
-						<div class="card-content">
-							<div class="content">
-								<%= render(ThetaWeb.Component.SearchView, "search_box.html") %>
-							</div>
-						</div>
-					</div>
-					<hr/>-->
 					<amp-state id="data"
-					           src="/apiv1/article/<%= '#{@page.body.article.menu_id}m-#{@page.body.article.id}a' %>.json">
+					           src="/apiv1/article/<%= '#{@page.body.article.menu_id}@#{@page.body.article.id}' %>.json">
 					</amp-state>
 					<%= if length(@page.body.serial) > 0 do %>
 					<div class="card">

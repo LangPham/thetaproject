@@ -28,9 +28,6 @@ defmodule ThetaWeb.ShareView do
     ThetaWeb.Endpoint.path("/" <> string)
   end
 
-  def linktag(string) do
-    ThetaWeb.Endpoint.path("/tag/" <> string)
-  end
 
   def get_config(key) do
     var = Theta.Configuration.list_config()

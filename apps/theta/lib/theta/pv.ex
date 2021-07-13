@@ -24,24 +24,6 @@ defmodule Theta.PV do
     |> Repo.preload([:term, :article])
   end
 
-  def list_path_main_menu do
-
-    # lấy nội dung post từ cache
-    case CacheDB.get("menu-main") do
-      {:ok, menu} -> menu
-
-      {:error, _} ->
-        string = "main_menu"
-        menu =
-          PathAlias
-          |> where([m], m.type_model == ^string)
-          |> Repo.all()
-          |> Repo.preload(:term)
-
-        CacheDB.set("menu-main", menu)
-        menu
-    end
-  end
 
   def list_path_tag do
 

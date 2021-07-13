@@ -35,7 +35,6 @@ defmodule ThetaWeb.PageView do
     body
     |> Earmark.as_html!()
     |> Floki.parse_fragment!()
-      #    |> create_webp()
     |> update_picture()
     |> add_id_header()
 
@@ -124,25 +123,12 @@ defmodule ThetaWeb.PageView do
   #  end
 
   defp update_picture(floki)do
-    #    IO.inspect floki
     Floki.traverse_and_update(
       floki,
       fn
         {"img", attrs, _children} ->
-          IO.inspect attrs, label: "IMAGE=====\n"
           file = elem(List.first(attrs), 1)
 
-          #          ThetaWeb.ShareView.img_mark(file, "lager", alt, "lazy")
-
-          #          path_storage = Application.get_env(:theta_media, :storage)
-          #
-          #          dir_upload =
-          #            String.split(path_storage, "/")
-          #            |> List.last()
-          #          file_webp =
-          #            file
-          #            |> String.replace(~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
-          #            |> String.replace(~r/(\.)(\w)+/, ".webp")
           file_webp = ThetaWeb.ShareView.check_image(file, {"lager", "1020x680"})
           {
             "picture",

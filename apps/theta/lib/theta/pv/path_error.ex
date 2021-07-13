@@ -8,7 +8,7 @@ defmodule Theta.PV.PathError do
 
     field :path, :string
     field :count, :integer, default: 1
-    belongs_to :path_alias, PathAlias
+#    belongs_to :path_alias, PathAlias
 
     timestamps()
   end
@@ -16,7 +16,7 @@ defmodule Theta.PV.PathError do
   @doc false
   def changeset(path_error, attrs) do
     path_error
-    |> cast(attrs, [:path, :count, :path_alias_id])
+    |> cast(attrs, [:path, :count])
     |> validate_required([:path])
   end
 end

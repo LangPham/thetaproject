@@ -10,26 +10,8 @@ defmodule ThetaWeb.SitemapView do
    </url>
   "
   end
-  def get_menu(_) do
-    Theta.PV.list_path_main_menu()
-  end
 
-  def get_tag(_) do
-    Theta.CMS.list_tag_have_qa()
-  end
-
-  def get_article(_) do
-
-      case Theta.CacheDB.get("home") do
-        {:ok, var} -> var
-        {:error, _} ->
-          var = Theta.CMS.list_article_index()
-          Theta.CacheDB.set("home", var)
-          var
-      end
-  end
   def date(time) do
-
     NaiveDateTime.to_date time
   end
 

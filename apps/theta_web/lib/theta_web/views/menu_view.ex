@@ -2,9 +2,10 @@ defmodule ThetaWeb.MenuView do
 	use ThetaWeb, :view
 
 	def get_menu(conn) do
-		menu = Theta.PV.list_path_main_menu()
+
+		menu = Theta.CMS.list_term_menu
 		for m <- menu do
-			%{slug: Routes.page_path(conn, :index) <> m.slug, label: m.term.title}
+			%{slug: Routes.page_path(conn, :index) <> m.id, label: m.name}
 		end
 	end
 	def get_menu_user(conn) do

@@ -1,0 +1,52 @@
+<div phx-update="replace" id="a">
+
+
+	<%= for tag <- @taggings do %>
+		<span class="inline-block text-xs bg-green-400 text-white py-1 px-2 mr-1 mb-1 rounded">
+			<span><%= tag.name %></span>
+			<a href="#" class="text-white hover:text-white" phx-click="delete"
+			phx-value-id="<%= tag.id %>">&times
+			</a>
+		</span>
+	<% end %>
+
+	<input class="" type="hidden" name="article[tags]" value="
+		<%= for tag <- @taggings do %>
+		<%= tag.name %>#<%= tag.id %><%= if Map.has_key?(tag, :action), do: "@#{tag.action}" %>,
+		<% end %>">
+
+	<input
+					type="text"
+					class="inline-block text-sm focus:outline-none"
+					name="search_phrase"
+					value="<%= @search_phrase %>"
+					phx-debounce="500"
+					placeholder="Add tag"
+					autocomplete="off"
+					phx-keyup="keyup"
+	>
+
+	<%= if @search_results != [] do %>
+		<div class="relative">
+			<div class="absolute z-50 left-0 right-0 rounded border border-gray-100 shadow py-1 bg-white">
+				<%= for tag <- @search_results do %>
+				<div class="cursor-pointer p-2 hover:bg-gray-200 focus:bg-gray-200"
+				     phx-click="pick" phx-value-id="<%= tag.id %>">
+					<%= tag.name %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	<% else %>
+		<%= if @search_phrase != "" do %>
+			<div class="relative">
+				<span><%= @search_phrase %></span>
+				<a href="#" class="cursor-pointer p-2 hover:bg-gray-200 focus:bg-gray-200"
+				     phx-click="new" phx-value-id="<%= @search_phrase %>">
+					 +
+				</a>
+			</div>
+		<% end %>
+	<% end %>
+
+</div>

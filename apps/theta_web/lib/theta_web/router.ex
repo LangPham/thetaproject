@@ -23,7 +23,7 @@ defmodule ThetaWeb.Router do
 
   pipeline :admin do
     plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
-    plug Cap
+#    plug Cap
   end
 
   pipeline :api do
@@ -36,7 +36,7 @@ defmodule ThetaWeb.Router do
     get "/", AmpController, :index
     get "/policy", AmpController, :policy
     get "/:slug", AmpController, :show
-    get "/tag/:slug", AmpController, :show
+
 
   end
 
@@ -68,7 +68,7 @@ defmodule ThetaWeb.Router do
   end
 
   scope "/admin", ThetaWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :admin]
     resources "/users", UserController
     resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController

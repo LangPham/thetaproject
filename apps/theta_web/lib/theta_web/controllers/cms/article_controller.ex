@@ -5,7 +5,7 @@ defmodule ThetaWeb.CMS.ArticleController do
   alias Theta.CMS.Article
 
   #  plug :require_existing_author
-#  plug :authorize_article when action in [:show, :edit, :update, :delete]
+  #  plug :authorize_article when action in [:show, :edit, :update, :delete]
 
   def index(conn, _params) do
 
@@ -25,18 +25,11 @@ defmodule ThetaWeb.CMS.ArticleController do
 
   def create(conn, %{"article" => article_params}) do
 
-    case CMS.create_article(conn.assigns.current_author, article_params) do
+    #    case CMS.create_article("conn.assigns.current_author", article_params) do
+    case CMS.create_article(article_params) do
       {:ok, article} ->
         article = Repo.preload(article, :menu)
-        # CacheDB
-        CacheDB.delete("menu-id-#{article.menu.path_alias_id}")
-        CacheDB.delete("home")
-        if article.serial_id != nil, do: CacheDB.delete("serial-id-#{article.serial_id}")
-        if length(article.tag) > 0 do
-          for tag <- article.tag do
-            CacheDB.delete("tag-#{tag.slug}")
-          end
-        end
+
         conn
         |> put_flash(:info, "Article created successfully.")
         |> redirect(to: Routes.article_path(conn, :show, article))
@@ -60,33 +53,14 @@ defmodule ThetaWeb.CMS.ArticleController do
     serial = CMS.list_serial()
     article = CMS.get_article!(id)
     changeset = CMS.change_article(article)
-    IO.inspect article, label: "ARTICLE ==========\n"
+    #    IO.inspect article, label: "ARTICLE ==========\n"
     render(conn, "edit.html", changeset: changeset, menu: menu, serial: serial, article: article)
   end
 
   def update(conn, %{"id" => id, "article" => article_params}) do
-    article_old = CMS.get_article!(id)
-
-
-    case CMS.update_article(article_old, article_params) do
+    article = CMS.get_article!(id)
+    case CMS.update_article(article, article_params) do
       {:ok, article} ->
-
-        article = Repo.preload(article, :menu)
-        CacheDB.delete("menu-id-#{article.menu.path_alias_id}")
-        CacheDB.delete("home")
-        change_path = Ecto.Changeset.change article.path_alias, updated_at: article.updated_at
-        Repo.update(change_path)
-
-        tag_add = article.tag -- article_old.tag
-        tag_remove = article_old.tag -- article.tag
-        tag_change = tag_add ++ tag_remove
-
-        if length(tag_change) > 0 do
-          for tag <- tag_change do
-            CacheDB.delete("tag-#{tag.slug}")
-          end
-        end
-        #PV.update_path_alias(article.path_alias, %{update_at: article.updated_at})
         conn
         |> put_flash(:info, "Article updated successfully.")
         |> redirect(to: Routes.article_path(conn, :show, article))

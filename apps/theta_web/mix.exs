@@ -54,7 +54,6 @@ defmodule ThetaWeb.MixProject do
 			{:guardian, "~> 2.1"},
 			{:theta_media, "~>0.1.0"},
 			{:gi, "~> 0.1.1"},
-			{:ex_image_info, "~> 0.2.4"},
 			{:cors_plug, "~> 2.0"},
 			{:rsa_ex, "~> 0.4.0"},
 			{:cap,"~> 0.1.0"}

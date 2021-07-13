@@ -55,16 +55,6 @@
 			</div>
 			<div class="column">
 				<div class="cl-right">
-					<!--
-					<div class="card">
-						<div class="card-content">
-							<div class="content">
-								<%= render(ThetaWeb.Component.SearchView, "search_box.html") %>
-							</div>
-						</div>
-					</div>
-					<hr/>-->
-
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -75,7 +65,7 @@
 							<div class="content">
 								<%= for tag <- @page.body.all_tag do %>
 								<span class="tag is-light is-rounded">
-                  <%= link(tag.slug, to: linktag(tag.slug)) %>
+                  <%= link(tag.name, to: "/#{tag.id}.htm") %>
                 </span>
 								<% end %>
 							</div>
