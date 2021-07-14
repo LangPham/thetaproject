@@ -17,7 +17,6 @@ defmodule ThetaWeb.PageController do
     conn
     |> put_session(:user_id, "kiemtrasession")
     |> configure_session(renew: true)
-    |> IO.inspect
     |> render("policy.html", page: page)
   end
 

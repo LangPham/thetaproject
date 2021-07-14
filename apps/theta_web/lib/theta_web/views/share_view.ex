@@ -102,23 +102,10 @@ defmodule ThetaWeb.ShareView do
     abs_webp = Path.expand("..#{files_webp}", path_storage)
 
     if !File.exists?(abs_webp) do
-      if !File.exists?(abs_link) do
-        copy_old_file(abs_link)
-      end
       ThetaWeb.Media.create_webp(abs_link,files_webp)
     end
     files_webp
   end
 
-
-  def copy_old_file(abs_link) do
-    path_dir = Path.dirname(abs_link)
-    File.mkdir_p!(path_dir)
-    file_old =
-      abs_link
-      |> String.replace(~r/(\/uploads\/)/, "/old/")
-
-    File.copy!(file_old, abs_link)
-  end
 
 end
