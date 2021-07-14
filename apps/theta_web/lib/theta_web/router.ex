@@ -42,7 +42,7 @@ defmodule ThetaWeb.Router do
     live "/live", PageLive, layout: {ThetaWeb.LayoutView, "layoutlive.html"}
     get "/media", MediaController, :index
     get "/:slug", PageController, :show
-    get "/tag/:slug", PageController, :show
+    get "/tag/:slug", PageController, :show_tag_old
   end
 
   scope "/auth", ThetaWeb do

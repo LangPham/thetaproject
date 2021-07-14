@@ -56,6 +56,12 @@ defmodule ThetaWeb.PageController do
     end
   end
 
+  def show_tag_old(conn, %{"slug" => slug}) do
+    conn
+    |> put_status(301)
+    |> redirect(to: "/#{slug}.htm")
+  end
+
   defp show_article(conn, slug) do
     page = Page.new(conn)
 
