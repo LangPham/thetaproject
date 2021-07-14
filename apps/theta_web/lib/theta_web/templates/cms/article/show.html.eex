@@ -29,4 +29,4 @@
 <span><%# link "Link Product", to: "/#{@article.path_alias.slug}" ,class: "button", target: "_blank" %></span>
 <span><%# link "Link AMP", to: "/amp/#{@article.path_alias.slug}" ,class: "button", target: "_blank" %></span>
 <br>
-<span><%# link "Update Cache AMP", to: get_url_cache_amp(@article.path_alias.slug) ,class: "button", target: "_blank" %></span>
+<span><%= link "Update Cache AMP", to: get_url_cache_amp(@article.slug) ,class: "button", target: "_blank" %></span>

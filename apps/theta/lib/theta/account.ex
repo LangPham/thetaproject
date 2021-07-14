@@ -207,20 +207,20 @@ defmodule Theta.Account do
   end
 
   def authenticate_by_email_password(email, password) do
-    # verify_pass(password, stored_hash)
     query =
       from u in User,
            inner_join: c in assoc(u, :credential),
            where: c.email == ^email
 
     case Repo.one(query) do
-      %User{} = user -> us = Repo.preload(user, :credential)
-                        store_hash = us.credential.password
-                        if Bcrypt.verify_pass(password, store_hash) do
-                          {:ok, user}
-                        else
-                          {:error, :unauthorized}
-                        end
+      %User{} = user ->
+        us = Repo.preload(user, :credential)
+        store_hash = us.credential.password
+        if Cap.verify_pwd(password, store_hash) do
+          {:ok, user}
+        else
+          {:error, :unauthorized}
+        end
       nil -> {:error, :unauthorized}
     end
   end

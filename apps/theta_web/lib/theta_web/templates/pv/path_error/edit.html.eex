@@ -1,0 +1,5 @@
+<h1 class="title is-1">Edit Path alias</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.path_error_path(@conn, :update, @path)) %>
+
+<span><%= link "Back", to: Routes.path_error_path(@conn, :index) %></span>

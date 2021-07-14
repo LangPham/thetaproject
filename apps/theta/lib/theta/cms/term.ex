@@ -20,7 +20,7 @@ defmodule Theta.CMS.Term do
   @doc false
   def changeset(term, attrs) do
     term
-    |> cast(attrs, [:name, :taxonomy_id, :string])
+    |> cast(attrs, [:name, :taxonomy_id, :description])
     |> validate_required([:name, :taxonomy_id])
     |> put_slug_id(attrs)
 

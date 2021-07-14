@@ -6,7 +6,7 @@ defmodule ThetaWeb.CMS.AdminController do
 
   def index(conn, _params) do
 #    IO.inspect("ThetaWeb.CMS.AdminController =======================")
-#    IO.inspect(conn)
+    IO.inspect(conn.secret_key_base)
     render(conn, "index.html")
   end
 

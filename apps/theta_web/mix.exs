@@ -51,12 +51,12 @@ defmodule ThetaWeb.MixProject do
 			{:plug_cowboy, "~> 2.3"},
 			{:floki, "~> 0.27.0"},
 			{:earmark, "~> 1.4.14"},
-			{:guardian, "~> 2.1"},
 			{:theta_media, "~>0.1.0"},
 			{:gi, "~> 0.1.1"},
 			{:cors_plug, "~> 2.0"},
 			{:rsa_ex, "~> 0.4.0"},
-			{:cap,"~> 0.1.0"}
+			{:cap, path: "/Volumes/Master/Git/cap"}
+#			{:cap,"~> 0.1.0"}
 		]
 	end
 

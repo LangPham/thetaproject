@@ -9,7 +9,7 @@ defmodule ThetaWeb.MenuView do
 		end
 	end
 	def get_menu_user(conn) do
-		user = Guardian.Plug.current_resource(conn)
+		user = Cap.get_resource(conn)
 		if user do
 			[
 				%{slug: Routes.profile_path(conn, :index), label: "Profile"},
@@ -19,14 +19,16 @@ defmodule ThetaWeb.MenuView do
 			nil
 		end
 	end
+
 	def get_menu_cms(conn) do
-		user = Guardian.Plug.current_resource(conn)
+		user = Cap.get_resource(conn)
+		IO.inspect user
 		if user.role == "ROOT" do
 			[
 				%{slug: Routes.user_path(conn, :index), label: "Admin User"},
 				%{slug: Routes.admin_path(conn, :index), label: "Admin CMS"},
 				%{slug: Routes.config_path(conn, :index), label: "Config CMS"},
-				%{slug: Routes.path_alias_path(conn, :index), label: "Config alias"},
+				%{slug: Routes.path_error_path(conn, :index), label: "Config alias"},
 			]
 		else
 			[]

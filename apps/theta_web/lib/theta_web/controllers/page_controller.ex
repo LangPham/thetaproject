@@ -14,7 +14,11 @@ defmodule ThetaWeb.PageController do
     page = put_in(page.head.title, "Chính sách bảo mật")
     page = put_in(page.head.description, "Chính sách bảo mật, điều khoản bảo mật của Theta")
     page = put_in(page.head.canonical, page.head.base <> "/policy")
-    render(conn, "policy.html", page: page)
+    conn
+    |> put_session(:user_id, "kiemtrasession")
+    |> configure_session(renew: true)
+    |> IO.inspect
+    |> render("policy.html", page: page)
   end
 
   def google_search(conn, _params) do
@@ -119,7 +123,7 @@ defmodule ThetaWeb.PageController do
 
     page = put_in(page.head.title, term.name)
     page = put_in(page.head.description, term.description)
-    page = put_in(page.head.canonical, term.id)
+    page = put_in(page.head.canonical, "#{term.id}.htm")
     page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
     page = Map.put(page, :body, %{list_article: list_article, all_tag: all_tag, list_qa: list_qa})
     conn

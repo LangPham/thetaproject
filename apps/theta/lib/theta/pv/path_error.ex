@@ -2,8 +2,6 @@ defmodule Theta.PV.PathError do
   use Ecto.Schema
   import Ecto.Changeset
 
-
-
   schema "path_error" do
     field :path, :string
     field :count, :integer, default: 1

@@ -29,7 +29,7 @@
 								<div>
 									<i class="tti ic-user f1ar f1a-user"></i>
 									<span>
-											<%=  @page.body.article.author.user.name %>
+											<%=  @page.body.article.user.name %>
 									</span>
 									<i class="tti ic-calendar"></i> <%=	time_translate(@page.body.article.inserted_at, "vi") %>
 								</div>

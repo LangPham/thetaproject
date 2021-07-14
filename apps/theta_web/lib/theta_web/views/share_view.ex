@@ -74,7 +74,7 @@ defmodule ThetaWeb.ShareView do
         "lazy" -> "loading=\'lazy\'"
         _ -> ""
       end
-    #    domain = Application.get_env(:theta_web, :web_url)
+
     files_webp = check_image(link, filter)
 
     content_tag :picture do

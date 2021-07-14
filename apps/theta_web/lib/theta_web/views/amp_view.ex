@@ -62,36 +62,6 @@ defmodule ThetaWeb.AmpView do
        )
   end
 
-
-
-  defp create_webp(floki) do
-    path_storage = Application.get_env(:theta_media, :storage)
-    list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
-    dir_upload = List.last(list_path)
-
-    list =
-      floki
-      |> Floki.find("img")
-      |> Floki.attribute("src")
-
-    for file <- list do
-      files = String.replace(file, ~r/^\/#{dir_upload}/, "/#{dir_upload}/lager")
-      files_ext = Path.extname(files)
-      files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
-
-      if !File.exists?(Path.join(path, files_webp)) do
-        Mogrify.open(Path.join(path, file))
-        |> Mogrify.verbose
-        |> Mogrify.resize("750x750")
-        |> Mogrify.format("webp")
-        |> Mogrify.save(path: Path.join(path, files_webp))
-      end
-    end
-    {floki, dir_upload}
-  end
-
   defp update_picture(floki)do
     Floki.traverse_and_update(
       floki,
@@ -167,22 +137,8 @@ defmodule ThetaWeb.AmpView do
         "lager" -> {"lager", "1020x680"}
         _ -> {"thumb", "750x500"}
       end
+    files_webp = ThetaWeb.ShareView.check_image(link, filter)
 
-    path_storage = Application.get_env(:theta_media, :storage)
-    list_path = Path.split(path_storage)
-    {_, list_new} = List.pop_at(list_path, -1)
-    path = Path.join(list_new)
-    dir_upload = List.last(list_path)
-    files = String.replace(link, ~r/^\/#{dir_upload}/, "/#{dir_upload}/#{elem(filter, 0)}")
-    files_ext = Path.extname(files)
-    files_webp = String.replace(files, ~r/#{files_ext}/, ".webp")
-    if !File.exists?(Path.join(path, files_webp)) do
-      Mogrify.open(Path.join(path, link))
-      |> Mogrify.verbose
-      |> resize_img(filter)
-      |> Mogrify.format("webp")
-      |> Mogrify.save(path: Path.join(path, files_webp))
-    end
     content_tag :div do
       source = raw(
         "<amp-img
@@ -206,13 +162,4 @@ defmodule ThetaWeb.AmpView do
     end
   end
 
-  defp resize_img(image, filter) do
-    #    IO.inspect(filter)
-    if elem(filter, 0) == "lager" do
-      Mogrify.resize(image, "#{elem(filter, 1)}")
-    else
-      Mogrify.resize_to_fill(image, "#{elem(filter, 1)}")
-      |> Mogrify.gravity("center")
-    end
-  end
 end

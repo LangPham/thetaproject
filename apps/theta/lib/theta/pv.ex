@@ -25,7 +25,6 @@ defmodule Theta.PV do
     PathError
     |> order_by([p], desc: p.count)
     |> Repo.all()
-    |> Repo.preload(:path_alias)
   end
 
   @doc """

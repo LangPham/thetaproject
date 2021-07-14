@@ -1,14 +1,10 @@
 defmodule ThetaWeb.SessionController do
   use ThetaWeb, :controller
 
-  import Cap
   alias Theta.Account
-  alias ThetaWeb.Guardian
 
   def new(conn, _) do
-    #    user = Guardian.Plug.current_resource(conn)
-    #    user = Guardian.Plug.authenticated?(conn)
-    #    IO.inspect user
+
     conn
     |> assign(:title, "Theta - Signin")
     |> put_layout("app.html")
@@ -28,11 +24,8 @@ defmodule ThetaWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Welcome #{user.name}!")
-        |> Cap.sign_in(user)
-          #        |> put_session(:user_id, user.id)
-          #        |> Guardian.Plug.sign_in(user)
-          #        |> configure_session(renew: true)
-        |> redirect(to: "/user/me")
+        |> Cap.sign_in(user.id, user.role)
+        |> redirect(to: "/admin/index")
       {:error, :unauthorized} ->
         conn
         |> put_flash(:error, "Bad email/password combination")

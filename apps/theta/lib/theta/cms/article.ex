@@ -4,7 +4,7 @@ defmodule Theta.CMS.Article do
 
   import Ecto.Query, warn: false
 
-  alias Theta.CMS.{Author, Term, Article}
+  alias Theta.CMS.{Term, Article}
   alias Theta.PV.PathAlias
   alias Theta.Repo
 
@@ -18,7 +18,7 @@ defmodule Theta.CMS.Article do
     belongs_to :serial, Article
     has_many :section, Article, foreign_key: :serial_id
 
-    belongs_to :author, Author
+    belongs_to :user, Theta.Account.User
     belongs_to :menu, Term, type: :string
     many_to_many(
       :tag,

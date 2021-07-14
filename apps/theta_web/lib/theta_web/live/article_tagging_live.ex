@@ -10,8 +10,6 @@ defmodule ThetaWeb.ArticleTaggingLive do
   @impl true
   def mount(_params, %{"id" => article_id} = session, socket) do
     {list_tag, tagged }= fetch_register(article_id)
-    IO.inspect list_tag, label: "======LIST=====\n"
-    IO.inspect tagged, label: "======tagged=====\n"
     assigns = [
       list_tag: list_tag -- tagged,
       taggings: tagged,

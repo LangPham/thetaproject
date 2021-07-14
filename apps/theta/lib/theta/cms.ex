@@ -6,7 +6,7 @@ defmodule Theta.CMS do
   import Ecto.Query, warn: false
 
   alias Theta.{Account, PV, Repo, Upload}
-  alias Theta.CMS.{Taxonomy, Term, Author, Article, Qa, ArticleTag}
+  alias Theta.CMS.{Taxonomy, Term, Article, Qa, ArticleTag}
 
   @doc """
   Returns the list of taxonomy.
@@ -224,103 +224,6 @@ defmodule Theta.CMS do
     Term.changeset(term, %{})
   end
 
-  @doc """
-  Returns the list of author.
-
-  ## Examples
-
-      iex> list_author()
-      [%Author{}, ...]
-
-  """
-  def list_author do
-    Repo.all(Author)
-  end
-
-  @doc """
-  Gets a single author.
-
-  Raises `Ecto.NoResultsError` if the Author does not exist.
-
-  ## Examples
-
-      iex> get_author!(123)
-      %Author{}
-
-      iex> get_author!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_author!(id) do
-    Author
-    |> Repo.get!(id)
-    |> Repo.preload(user: :credential)
-  end
-
-  @doc """
-  Creates a author.
-
-  ## Examples
-
-      iex> create_author(%{field: value})
-      {:ok, %Author{}}
-
-      iex> create_author(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_author(attrs \\ %{}) do
-    %Author{}
-    |> Author.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a author.
-
-  ## Examples
-
-      iex> update_author(author, %{field: new_value})
-      {:ok, %Author{}}
-
-      iex> update_author(author, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_author(%Author{} = author, attrs) do
-    author
-    |> Author.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a author.
-
-  ## Examples
-
-      iex> delete_author(author)
-      {:ok, %Author{}}
-
-      iex> delete_author(author)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_author(%Author{} = author) do
-    Repo.delete(author)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking author changes.
-
-  ## Examples
-
-      iex> change_author(author)
-      %Ecto.Changeset{source: %Author{}}
-
-  """
-  def change_author(%Author{} = author) do
-    Author.changeset(author, %{})
-  end
 
   @doc """
   Returns the list of article.
@@ -334,11 +237,7 @@ defmodule Theta.CMS do
   def list_article do
     Article
     |> Repo.all()
-    |> Repo.preload(
-         author: [
-           user: :credential
-         ]
-       )
+    |> Repo.preload(:user)
   end
 
   def list_article_menu(slug) do
@@ -346,11 +245,8 @@ defmodule Theta.CMS do
     |> where([a], a.menu_id == ^slug)
     |> order_by([a], desc: a.inserted_at)
     |> Repo.all()
-    |> Repo.preload(
-         author: [
-           user: :credential
-         ]
-       )
+    |> Repo.preload(:user)
+
   end
 
   def list_article_serial_menu(slug) do
@@ -358,24 +254,16 @@ defmodule Theta.CMS do
     |> where([a], a.menu_id == ^slug and a.is_serial)
     |> order_by([a], desc: a.inserted_at)
     |> Repo.all()
-    |> Repo.preload(
-         author: [
-           user: :credential
-         ]
-       )
+    |> Repo.preload(:user)
+
   end
 
   def list_article_index do
     Article
     |> order_by([c], desc: c.inserted_at)
     |> Repo.all()
-    |> Repo.preload(
-         [
-           author: [
-             user: :credential
-           ],
-         ]
-       )
+    |> Repo.preload(:user)
+
   end
 
   def list_serial do
@@ -409,9 +297,7 @@ defmodule Theta.CMS do
     |> Repo.get_by!(slug: slug)
     |> Repo.preload(
          [
-           author: [
-             user: :credential
-           ],
+           user: [],
            tag: [],
            menu: [],
          ]
@@ -446,21 +332,6 @@ defmodule Theta.CMS do
     |> Article.changeset(attrs)
     |> Repo.insert()
   end
-
-  def ensure_author_exists(%Account.User{author: author} = user) when author == nil do
-    role = if user.id == 1 do
-      "root"
-    else
-      "user"
-    end
-    %Author{user_id: user.id, role: role}
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.unique_constraint(:user_id)
-    |> Repo.insert()
-    |> handle_existing_author()
-  end
-  def ensure_author_exists(%Account.User{author: _author} = user), do: user.author
-  defp handle_existing_author({:ok, author}), do: author
 
 
   @doc """
@@ -647,9 +518,7 @@ defmodule Theta.CMS do
     |> Repo.preload(
          [
            article: [
-             author: [
-               user: :credential
-             ]
+             user: []
            ]
          ]
        )

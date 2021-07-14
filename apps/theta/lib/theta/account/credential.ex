@@ -23,7 +23,7 @@ defmodule Theta.Account.Credential do
     |> put_password_hash()
   end
   defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = credential) do
-    change(credential, password: Bcrypt.hash_pwd_salt(password))
+    change(credential, password: Cap.hash_pwd(password))
   end
 
   defp put_password_hash(credential), do: credential

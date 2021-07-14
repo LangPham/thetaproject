@@ -6,7 +6,7 @@
   <% end %>
   <%= text_input_bulma f, :name %>
   <%= select_bulma(f, :taxonomy_id, Enum.map(@taxonomy, &{&1.name, &1.id}), prompt: "--Choose taxonomy--", selected: @changeset.data.taxonomy_id) %>
-
+	<%= text_input_bulma f, :description %>
   <div class="field">
     	  <div class="control">
     	    <%= submit("Save", class: "button is-link") %>

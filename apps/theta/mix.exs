@@ -40,7 +40,6 @@ defmodule Theta.MixProject do
       {:ecto_sql, "~> 3.5"},
       {:postgrex, ">= 0.15.8"},
       {:jason, "~> 1.1"},
-      {:bcrypt_elixir, "~> 2.2.0"},
       {:slugify, "~> 1.3"},
       {:oauth2, "~> 2.0"},
     ]

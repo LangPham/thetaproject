@@ -1,16 +1,17 @@
 <h1>Show Path alias</h1>
 
 <ul>
-
   <li>
     <strong>Slug:</strong>
-    <%= @path_alias.slug %>
+    <%= @path.path %>
   </li>
-
   <li>
     <strong>Type model:</strong>
-    <%= @path_alias.type_model %>
+    <%= @path.count %>
   </li>
-
+  <li>
+    <strong>Type model:</strong>
+    <%= @path.redirect %>
+  </li>
 </ul>
 

@@ -4,7 +4,7 @@ defmodule ThetaWeb.CMS.ArticleController do
   alias Theta.{CMS, Repo, CacheDB}
   alias Theta.CMS.Article
 
-  #  plug :require_existing_author
+
   #  plug :authorize_article when action in [:show, :edit, :update, :delete]
 
   def index(conn, _params) do
@@ -95,7 +95,7 @@ defmodule ThetaWeb.CMS.ArticleController do
   # Todo: delete
   def abac(id) do
     article = CMS.get_article!(id)
-    article.author_id
+    article.user_id
   end
 
 end

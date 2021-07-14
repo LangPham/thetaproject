@@ -14,7 +14,7 @@
 						<div class="subtitle is-6">
 							<i class="tti ic-user"></i>
 							<strong>
-								<%= article.author.user.name %>
+								<%= article.user.name %>
 							</strong>
 							<i class="tti ic-calendar"></i> <%=	time_translate(article.inserted_at, "vi") %>
 						</div>

@@ -51,7 +51,7 @@
 									<i class="tti ic-user"></i>
 									<span itemprop="author" itemscope itemtype="https://schema.org/Person">
 										<span itemprop="name" class="name">
-											<%=  @page.body.article.author.user.name %>
+											<%=  @page.body.article.user.name %>
 										</span>
 									</span>
 									<meta itemprop="datePublished" content="<%= datetime_iso8601 @page.body.article.inserted_at %>"/>

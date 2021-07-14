@@ -13,17 +13,9 @@ defmodule ThetaWeb.Router do
     plug :put_secure_browser_headers
   end
 
-#  pipeline :auth do
-#    plug ThetaWeb.Pipeline
-#  end
-
-#  pipeline :ensure_auth do
-#    plug Guardian.Plug.EnsureAuthenticated
-#  end
-
   pipeline :admin do
     plug :put_layout, {ThetaWeb.LayoutView, "layout_admin.html"}
-#    plug Cap
+    plug Cap
   end
 
   pipeline :api do
@@ -51,7 +43,6 @@ defmodule ThetaWeb.Router do
     get "/media", MediaController, :index
     get "/:slug", PageController, :show
     get "/tag/:slug", PageController, :show
-
   end
 
   scope "/auth", ThetaWeb do
@@ -68,8 +59,8 @@ defmodule ThetaWeb.Router do
   scope "/admin", ThetaWeb do
     pipe_through [:browser, :admin]
     resources "/users", UserController
-    resources "/alias-404", PV.PathAliasController
     resources "/config", ConfigController
+    resources "/path-error", PV.PathErrorController
     get "/index", CMS.AdminController, :index
     resources "/taxonomy", CMS.TaxonomyController
     resources "/term", CMS.TermController
@@ -90,37 +81,8 @@ defmodule ThetaWeb.Router do
     get "/article/:slug", DataController, :show
   end
 
-  defp ensure_root(conn, _) do
-    user = Guardian.Plug.current_resource(conn)
-    case user.role do
-      "ROOT" -> conn
-      _ ->
-        conn
-        |> Phoenix.Controller.put_flash(:error, "You don't have permission to access this resource!")
-        |> Phoenix.Controller.redirect(to: "/")
-        |> halt()
-    end
-  end
-#  defp cookie_test(conn, _) do
-#    put_resp_cookie(conn, "my-cookie", %{user_id: "teststststse"}, [encrypt: true, same_site: "Strict"])
-#  end
-  def handle_errors(conn, %{kind: _kind, reason: reason, stack: stack}) do
+  def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
     ThetaWeb.ErrorHandler.process_error(conn)
   end
 
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-#  if Mix.env() in [:dev, :test] do
-#    import Phoenix.LiveDashboard.Router
-#
-#    scope "/" do
-#      pipe_through :browser
-#      live_dashboard "/dashboard", metrics: ThetaWeb.Telemetry
-#    end
-#  end
 end
