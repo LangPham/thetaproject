@@ -56,7 +56,7 @@ defmodule ThetaWeb.MixProject do
 			{:cors_plug, "~> 2.0"},
 			{:rsa_ex, "~> 0.4.0"},
 #			{:cap, path: "/Volumes/Master/Git/cap"}
-			{:cap,"~> 0.1.0"}
+			{:cap,"~> 0.1.2"}
 		]
 	end
 

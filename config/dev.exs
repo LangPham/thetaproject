@@ -19,17 +19,17 @@ config :theta_web, ThetaWeb.Endpoint,
   http: [port: 4000],
   debug_errors: false,
   code_reloader: true,
-  check_origin: false,
-  watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch",
-      "--watch-options-stdin",
-      cd: Path.expand("../apps/theta_web/assets", __DIR__)
-    ]
-  ]
+  check_origin: false
+#  watchers: [
+#    node: [
+#      "node_modules/webpack/bin/webpack.js",
+#      "--mode",
+#      "development",
+#      "--watch",
+#      "--watch-options-stdin",
+#      cd: Path.expand("../apps/theta_web/assets", __DIR__)
+#    ]
+#  ]
 
 # ## SSL Support
 #

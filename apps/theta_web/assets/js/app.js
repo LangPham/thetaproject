@@ -96,15 +96,6 @@ Hooks.Top = {
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
   params: {_csrf_token: csrfToken},
-  // metadata: {
-  // 	click: (e, el) => {
-  // 		return {
-  // 			altKey: e.altKey,
-  // 			clientX: e.clientX,
-  // 			clientY: e.clientY
-  // 		}
-  // 	}
-  // }
 })
 
 
