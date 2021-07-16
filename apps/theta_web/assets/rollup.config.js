@@ -55,7 +55,11 @@ export default [
                     precss(),
                 ]
             }),
-            terser()
+            terser({
+                format: {
+                    comments: /^1/,
+                },
+            })
         ],
     },
     {
