@@ -1,6 +1,5 @@
-<ul class="sidebar">
-	<%= for m <- get_menu(@conn) do %>
-	<li><a href="<%= m.slug %>" class="navbar-item"><%= m.label %></a></li>
-	<% end %>
-</ul>
+<%= for m <- get_menu(@conn) do %>
+	<a href="<%= m.slug %>" class="uppercase font-bold p-3 lap:p-7 block m-0 border-t lap:border-0 lap:flex-1"><%= m.label %></a>
+<% end %>
+
 
