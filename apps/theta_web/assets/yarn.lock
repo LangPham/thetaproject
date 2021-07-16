@@ -1046,6 +1046,18 @@
   dependencies:
     "@types/estree" "*"
 
+"@vue/reactivity@^3.0.2":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.1.4.tgz#d926ed46fb0d48582ccf8665b062d37b5d35ba99"
+  integrity sha512-YDlgii2Cr9yAoKVZFzgY4j0mYlVT73986X3e5SPp6ifqckSEoFSUWXZK2Tb53TB/9qO29BEEbspnKD3m3wAwkA==
+  dependencies:
+    "@vue/shared" "3.1.4"
+
+"@vue/shared@3.1.4":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.4.tgz#c14c461ec42ea2c1556e86f60b0354341d91adc3"
+  integrity sha512-6O45kZAmkLvzGLToBxEz4lR2W6kXohCtebV2UxjH9GXjd8X9AhEn68FN9eNanFtWNzvgw1hqd6HkPRVQalqf7Q==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1065,6 +1077,13 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
+
+alpinejs@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-3.2.2.tgz#3feaa479671212788d9c6716c85dc19f8255c999"
+  integrity sha512-XkQKikB4tJTLIQuRUeF86CZnvmAKhjGzw5lmMri+7MTQzz77DTetuOqldBWjEgdJ/DOExXuiM57rQwWfBPdMPA==
+  dependencies:
+    "@vue/reactivity" "^3.0.2"
 
 amdefine@>=0.0.4:
   version "1.0.1"
