@@ -1,5 +1,7 @@
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import {babel} from '@rollup/plugin-babel';
-// import autoprefixer from 'autoprefixer'
+import { terser } from "rollup-plugin-terser";
 import precss from 'precss';
 import postcss from 'rollup-plugin-postcss';
 import copy from 'rollup-plugin-copy';
@@ -14,7 +16,7 @@ export default [
             format: 'iife',
         },
         plugins: [
-            babel({babelHelpers: 'bundled'}),
+            // babel({babelHelpers: 'bundled'}),
             postcss({
                 // extract: true,
                 extract: 'css/front.css',
@@ -27,7 +29,8 @@ export default [
                 targets: [
                     { src: 'static', dest: '../priv' }
                 ]
-            })
+            }),
+            terser()
         ],
     },
     {
@@ -39,6 +42,10 @@ export default [
             format: 'iife',
         },
         plugins: [
+            resolve({
+                browser: true
+            }),
+            commonjs(),
             babel({babelHelpers: 'bundled'}),
             postcss({
                 // extract: true,
@@ -47,18 +54,23 @@ export default [
                 plugins: [
                     precss(),
                 ]
-            })
+            }),
+            terser()
         ],
     },
     {
         input: 'js/editor.js',
         output: {
             dir: '../priv/static',
-            name: 'bundle_name',
+            name: 'editor',
             entryFileNames: "js/[name].js",
             format: 'iife',
         },
         plugins: [
+            resolve({
+                browser: true
+            }),
+            commonjs(),
             babel({babelHelpers: 'bundled'}),
             postcss({
                 // extract: true,
@@ -67,7 +79,8 @@ export default [
                 plugins: [
                     precss(),
                 ]
-            })
+            }),
+            terser()
         ],
     }
 ];

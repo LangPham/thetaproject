@@ -4,15 +4,6 @@
 import "../css/app.scss";
 import "../css/back.sass";
 
-// webpack automatically bundles all modules in your
-// entry points. Those entry points can be configured
-// in "webpack.config.js".
-//
-// Import deps with the dep name or local files with a relative path, for example:
-//
-//     import {Socket} from "phoenix"
-//     import socket from "./socket"
-//
 import "phoenix_html"
 import {Socket} from "phoenix"
 import topbar from "topbar"
@@ -22,11 +13,8 @@ let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("
 let Hooks = {}
 Hooks.Dir = {
   mounted() {
-    let datatest = this.el.dataset.dir;
-    // console.log(this.el.id);
     this.el.addEventListener("dblclick", e => {
       let data = this.el.dataset.dir;
-      // console.log(data);
       this.pushEvent("into", {dir: data})
     })
   }
@@ -34,20 +22,15 @@ Hooks.Dir = {
 Hooks.File = {
   mounted() {
     let queryString = window.location.search;
-    // let c = url.searchParams.get("id");
-    // console.log(queryString);
+
     let urlParams = new URLSearchParams(queryString);
     let id = urlParams.get('id')
     console.log(id);
-    let datatest = this.el.dataset.file;
-    // console.log(datatest);
+
     this.el.addEventListener("dblclick", e => {
       let data = this.el.dataset.file;
       let url = this.el.dataset.url;
-      // console.log(data);
-      // console.log(url);
       window.opener.document.getElementById(id).value = '/' + url + '/' + data;
-      // this.pushEvent("select", {file: data})
       window.close();
     })
   }

@@ -1,5 +1,6 @@
 import "../css/editor.scss";
-import EasyMDE from "easymde/dist/easymde.min.js";
+// import EasyMDE from "easymde/dist/easymde.min.js";
+import EasyMDE from "easymde";
 
 export function create_editor(option) {
 	var sim = new EasyMDE({

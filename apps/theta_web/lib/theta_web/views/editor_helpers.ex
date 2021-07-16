@@ -66,6 +66,7 @@ defmodule ThetaWeb.EditorHelpers do
         "<input style='display:none' type='text' id='imgSelect' >"
       )
       [style, text, script, script_inline, file_hidden, img_select]
+#      [style, text, file_hidden, img_select]
     end
   end
 
