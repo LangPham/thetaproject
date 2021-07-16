@@ -23,6 +23,8 @@ export default [
                 minimize: true,
                 plugins: [
                     precss(),
+                    require('tailwindcss')('./tailwind.config.js'),
+                    require('autoprefixer')
                 ]
             }),
             copy({

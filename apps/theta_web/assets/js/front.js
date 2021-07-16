@@ -1,8 +1,37 @@
-import "../css/front.sass";
+// import "../css/front.sass";
+import "../css/tailwind.pcss";
 import Alpine from 'alpinejs'
 
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
+  let is_laptop = false;
+  if (window.innerWidth > 1024) {
+    is_laptop = true;
+  }
+
+  Alpine.data('main_menu', () => ({
+
+    is_laptop: is_laptop,
+    menu_state: false,
+    dropdown_state: {},
+    // click_away() {
+    //   this.dropdown_state[id] = !this.dropdown_state[id];
+    // },
+
+    click_menu() {
+      // console.log(this.menu_open)
+      this.menu_state = !this.menu_state || is_laptop;
+    },
+    click_dropdown(id) {
+      console.log(this.dropdown_state);
+      // this.dropdown_state[id] = !this.dropdown_state[id];
+    },
+    init() {
+      this.menu_state = false || is_laptop;
+      // this.dropdown_state = [];
+    }
+  }))
+
   window.Alpine = Alpine;
 
   Alpine.start();

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        line-height: 1.5;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        color: #333333;
+    }
+
+    body {
+        @apply m-0 font-sans;
+    }
+
+    *, :before, :after {
+        border: 0 solid;
+        box-sizing: border-box;
+        border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    }
+
+    a {
+        @apply text-primary no-underline;
+    }
+
+    p {
+        @apply text-justify mt-2 mb-4;
+    }
+
+    h1 {
+        @apply text-4xl mt-2 mb-4;
+    }
+
+    h2 {
+        @apply text-3xl mt-1 mb-3;
+    }
+
+    h3 {
+        @apply text-2xl mb-2;
+    }
+
+    h4, h5 {
+        @apply text-xl mb-1;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-normal;
+    }
+
+    dd, dl, figure, picture {
+        @apply m-0 p-0;
+    }
+
+    ul, ol {
+        @apply m-0 p-0 list-none;
+    }
+
+    img {
+        @apply max-w-full;
+    }
+
+    picture img {
+        @apply h-full w-full;
+    }
+
+    audio, canvas, embed, iframe, img, object, svg, video {
+        display: block;
+        vertical-align: middle;
+    }
+
+    blockquote {
+        @apply border-l-2 border-primary p-2 bg-gray-100 my-2;
+        p {
+            @apply m-0;
+        }
+    }
+    input, textarea, select {
+        @apply border w-full leading-6 text-base p-2 bg-gray-100 font-sans;
+    }
+}
+
+@layer components {
+    .teaser {
+        h3 {
+            @apply text-2xl m-0 font-bold;
+        }
+        @apply text-second;
+        p {
+            @apply mx-2 lap:mx-0 text-justify;
+
+        }
+    }
+
+}
