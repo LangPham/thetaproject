@@ -54,8 +54,12 @@
         @apply m-0 p-0;
     }
 
-    ul, ol {
+    ul {
         @apply m-0 p-0 list-none;
+    }
+
+    ol {
+        @apply list-decimal pl-8;
     }
 
     img {
@@ -73,25 +77,94 @@
 
     blockquote {
         @apply border-l-2 border-primary p-2 bg-gray-100 my-2;
+
         p {
             @apply m-0;
         }
     }
+
+    pre {
+        @apply border-l-2 border-primary bg-gray-100 my-2 overflow-y-hidden;
+
+        code {
+            @apply block p-2 whitespace-pre;
+        }
+    }
+
     input, textarea, select {
         @apply border w-full leading-6 text-base p-2 bg-gray-100 font-sans;
     }
 }
 
 @layer components {
+    .breadcrumb {
+        @apply list-none bg-primary px-4 text-white;
+        li {
+            @apply inline-block py-4;
+        }
+
+        li + li:before {
+            content: " ";
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 2px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            position: relative;
+            bottom: 2px;
+        }
+    }
+
     .teaser {
         h3 {
             @apply text-2xl m-0 font-bold;
         }
-        @apply text-second;
-        p {
-            @apply mx-2 lap:mx-0 text-justify;
 
+        @apply text-second;
+
+        p {
+            @apply text-justify;
         }
     }
+
+    #hamburger {
+        @apply w-16 h-16 relative m-2 lap:hidden;
+
+        span {
+            @apply block absolute h-1 w-full bg-primary rounded duration-300;
+
+            &:nth-child(1) {
+                @apply top-4 ;
+            }
+
+            &:nth-child(2), &:nth-child(3) {
+                @apply top-8;
+            }
+
+            &:nth-child(4) {
+                @apply top-12;
+            }
+        }
+
+        &.is-active {
+            span {
+                &:nth-child(1), &:nth-child(4) {
+                    @apply top-8 opacity-0;
+                }
+
+                &:nth-child(2) {
+                    @apply origin-center transform rotate-45 ;
+
+                }
+
+                &:nth-child(3) {
+                    @apply origin-center transform -rotate-45;
+                }
+            }
+        }
+
+    }
+
 
 }
