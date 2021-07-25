@@ -5,7 +5,7 @@ import Alpine from 'alpinejs'
 // Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
     let is_laptop = false;
-    if (window.innerWidth > 1024) {
+    if (window.innerWidth > 1023) {
         is_laptop = true;
     }
 

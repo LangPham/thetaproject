@@ -1,135 +1,101 @@
 <% floki = md_to_floki(@page.body.article.body) %>
-<section class="section">
-	<div class="container">
-		<div class="row">
-			<div class="column column-66">
-				<ul class="breadcrumb">
-					<li>
-						<a href="<%= '#{@page.head.base}/' %>" aria-label="Theta.vn">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-								<path fill="#0069D9" d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
-							</svg>
-						</a>
-					</li>
-					<li>
-						<a href="https://theta.vn/<%= @page.body.article.menu_id %>">
-							<span><%= @page.body.article.menu.name %></span>
-						</a>
-					</li>
-				</ul>
 
-				<article class="article">
-					<section class="hero">
-						<div class="hero-body">
-							<h1 class="title is-1" itemprop="headline">
-								<%= @page.body.article.title %>
-							</h1>
+<div class="container mx-auto">
+	<div class="flex flex-col lap:flex-row gap-4">
+		<div class="lap:w-2/3">
+			<ul class="breadcrumb">
+				<li>
+					<a href="<%= '#{@page.head.base}/' %>" aria-label="Theta.vn" class="text-white">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline-block" viewBox="0 0 24 24">
+							<path fill="#ffffff" d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a  class="text-white" href="https://theta.vn/<%= @page.body.article.menu_id %>">
+						<span><%= @page.body.article.menu.name %></span>
+					</a>
+				</li>
+			</ul>
 
-							<footer class="subtitle is-6">
-								<div>
-									<i class="tti ic-user f1ar f1a-user"></i>
-									<span>
+			<article class="article p-2">
+				<h1 class="title is-1" itemprop="headline">
+					<%= @page.body.article.title %>
+				</h1>
+
+				<footer class="subtitle is-6">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24"
+						     stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+						</svg>
+						<span>
 											<%=  @page.body.article.user.name %>
 									</span>
-									<i class="tti ic-calendar"></i> <%=	time_translate(@page.body.article.inserted_at, "vi") %>
-								</div>
-
-								<%= if length(@page.body.article.tag) > 0 do %>
-								<i class="tti ic-tag"></i>
-								<%= for tag <- @page.body.article.tag do %>
-								<span class="tag is-light is-rounded">
-                  <%= link(tag.name, to: "/#{tag.id}.htm") %>
-                </span>
-								<% end %>
-								<% end %>
-								<nav class="nav-article">
-									<div class="card toc">
-										<header class="card-header">
-											<h2 class="card-header-title">
-												Mục lục
-											</h2>
-										</header>
-										<div class="card-content">
-											<ol><%= toc floki, @page.head.canonical %></ol>
-										</div>
-									</div>
-								</nav>
-							</footer>
-						</div>
-					</section>
-					<div class="content amp">
-						<div><%= @page.body.article.summary %></div>
-						<%= img_amp( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
-						<div><%= markdown floki %></div>
-
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24"
+						     stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+						</svg>
+						 <%=	time_translate(@page.body.article.inserted_at, "vi") %>
 					</div>
-				</article>
-			</div>
-			<div class="column">
-				<div class="cl-right">
-					<amp-state id="data"
-					           src="/apiv1/article/<%= '#{@page.body.article.menu_id}@#{@page.body.article.id}' %>.json">
-					</amp-state>
-					<%= if length(@page.body.serial) > 0 do %>
-					<div class="card">
-						<header class="card-header">
-							<p class="card-header-title">
-								Bài viết trong serial
-							</p>
-						</header>
-						<div class="card-content">
-							<div class="content">
-								<amp-list
-												width="auto"
-												height="20"
-												src="amp-state:data.serial"
-								>
-									<div placeholder>Tải dữ liệu ...</div>
-									<div fallback>Không có dữ liệu.</div>
 
-									<template type="amp-mustache">
-										<div class="url-entry">
-											<a href="{{url}}">{{title}}</a>
-										</div>
-									</template>
-								</amp-list>
-							</div>
-						</div>
-					</div>
-					<hr/>
+					<%= if length(@page.body.article.tag) > 0 do %>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20"
+						     fill="currentColor">
+							<path fill-rule="evenodd"
+							      d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+							      clip-rule="evenodd"/>
+						</svg>
+						<%= for tag <- @page.body.article.tag do %>
+							<span class="rounded-lg bg-tags px-2 m-1 whitespace-nowrap  inline-flex leading-8">
+	              <%= link(tag.name, to: "/#{tag.id}.htm") %>
+							</span>
+						<% end %>
 					<% end %>
-					<%= if length(@page.body.new) > 0 do %>
-					<div class="card">
-						<header class="card-header">
-							<p class="card-header-title">
-								Bài viết mới
-							</p>
-						</header>
-						<div class="card-content">
-							<div class="content">
+					<nav class="shadow">
+						<h2 class="p-2 bg-primary text-white m-0">Mục lục</h2>
+						<ol><%= toc floki, @page.head.canonical %></ol>
+					</nav>
+				</footer>
+				<div class="content amp">
+					<div><%= @page.body.article.summary %></div>
+					<%= img_amp( Routes.static_path(@conn, @page.body.article.photo), "lager", @page.body.article.title) %>
+					<div><%= markdown floki %></div>
 
-								<amp-list
-												width="auto"
-												height="20"
-												src="amp-state:data.new"
-								>
-									<div placeholder>Tải dữ liệu ...</div>
-									<div fallback>Không có dữ liệu.</div>
-
-									<template type="amp-mustache">
-
-										<div class="url-entry">
-											<a href="{{url}}">{{title}}</a>
-										</div>
-									</template>
-								</amp-list>
-
-							</div>
-						</div>
-					</div>
-					<% end %>
 				</div>
+			</article>
+		</div>
+		<div class="lap:w-1/3">
+			<div class="cl-right">
+				<amp-state id="data"
+				           src="/apiv1/article/<%= '#{@page.body.article.menu_id}@#{@page.body.article.id}' %>.json">
+				</amp-state>
+				<%= if length(@page.body.serial) > 0 do %>
+					<div class="shadow">
+						<h2 class="p-2 bg-primary text-white m-0">
+							Bài viết trong serial
+						</h2>
+						<div class="content">
+							<amp-list
+											width="auto"
+											height="20"
+											src="amp-state:data.serial"
+							>
+								<div placeholder>Tải dữ liệu ...</div>
+								<div fallback>Không có dữ liệu.</div>
+
+								<template type="amp-mustache">
+									<div class="block border-t p-2">
+										<a href="{{url}}">{{title}}</a>
+									</div>
+								</template>
+							</amp-list>
+						</div>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
