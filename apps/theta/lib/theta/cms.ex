@@ -135,6 +135,7 @@ defmodule Theta.CMS do
   def list_term_menu do
     taxonomy_id = "main-menu"
     Term
+    |> order_by([t], asc: t.inserted_at)
     |> where([t], t.taxonomy_id == ^taxonomy_id)
     |> Repo.all()
 
@@ -216,7 +217,7 @@ defmodule Theta.CMS do
 
   ## Examples
 
-      iex> change_term(term)
+      iex> change_term(term)|> order_by([a], desc: a.inserted_at)
       %Ecto.Changeset{source: %Term{}}
 
   """

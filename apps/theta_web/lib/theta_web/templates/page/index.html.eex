@@ -10,7 +10,7 @@
 				<%= render(ThetaWeb.Component.SearchView, "search_box.html") %>
 				<%= if length(@page.body.serial_menu) > 0 do %>
 				<div class="shadow">
-					<h2 class="p-2 bg-primary text-white m-0">
+					<h2 class="p-2 bg-black text-white m-0">
 						Serial mới
 					</h2>
 					<ul>

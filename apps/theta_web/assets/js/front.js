@@ -1,38 +1,28 @@
-// import "../css/front.sass";
 import "../css/tailwind.pcss";
-import Alpine from 'alpinejs'
+// import Alpine from 'alpinejs'
 
-// Bulma navbar
 document.addEventListener('DOMContentLoaded', () => {
     let is_laptop = false;
     if (window.innerWidth > 1023) {
         is_laptop = true;
     }
 
-    Alpine.data('main_menu', () => ({
-        is_laptop: is_laptop,
-        menu_state: false,
-        dropdown_state: {},
-        // click_away() {
-        //   this.dropdown_state[id] = !this.dropdown_state[id];
-        // },
-
-        click_menu() {
-
-            this.menu_state = !this.menu_state || is_laptop;
-        },
-
-        init() {
-            this.menu_state = false || is_laptop;
-
-        }
-    }))
-
-    window.Alpine = Alpine;
-
-    Alpine.start();
-
-    // ALPINE ===============================================================|^|
+    // Alpine.data('main_menu', () => ({
+    //     is_laptop: is_laptop,
+    //     menu_state: false,
+    //     dropdown_state: {},
+    //     click_menu() {
+    //         this.menu_state = !this.menu_state || is_laptop;
+    //     },
+    //     init() {
+    //         this.menu_state = false || is_laptop;
+    //
+    //     }
+    // }))
+    //
+    // window.Alpine = Alpine;
+    //
+    // Alpine.start();
 
     function check_webp_feature(feature, callback) {
         var kTestImages = {
@@ -61,11 +51,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Get all "navbar-burger" elements
-    let hamburger = document.getElementById('hamburger')
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('is-active');
-    });
+    //Button TOP:
+    if (!!document.getElementById("topBtn")){
+        let topBtn = document.getElementById("topBtn");
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+        topBtn.addEventListener("click", function (){
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+    }
+
+    // Hamburger
+    if (!!document.getElementById("hamburger")){
+        let hamburger = document.getElementById("hamburger");
+        hamburger.addEventListener("click", function (){
+            hamburger.classList.toggle("is-active");
+            let menu = document.getElementById(hamburger.dataset.target);
+            menu.classList.toggle("-translate-x-full");
+        })
+
+
+
+    }
 
 });
 

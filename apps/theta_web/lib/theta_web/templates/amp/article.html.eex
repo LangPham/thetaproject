@@ -55,7 +55,7 @@
 						<% end %>
 					<% end %>
 					<nav class="shadow">
-						<h2 class="p-2 bg-primary text-white m-0">Mục lục</h2>
+						<h2 class="p-2 bg-black text-white m-0">Mục lục</h2>
 						<ol><%= toc floki, @page.head.canonical %></ol>
 					</nav>
 				</footer>
@@ -74,7 +74,7 @@
 				</amp-state>
 				<%= if length(@page.body.serial) > 0 do %>
 					<div class="shadow">
-						<h2 class="p-2 bg-primary text-white m-0">
+						<h2 class="p-2 bg-black text-white m-0">
 							Bài viết trong serial
 						</h2>
 						<div class="content">

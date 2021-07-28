@@ -36,62 +36,61 @@ export default [
                 browser: true
             }),
              commonjs(),
-
              terser()
         ],
     },
-    // {
-    //     input: 'js/app.js',
-    //     output: {
-    //         dir: '../priv/static',
-    //         name: 'bundle_name',
-    //         entryFileNames: "js/[name].js",
-    //         format: 'iife',
-    //     },
-    //     plugins: [
-    //         resolve({
-    //             browser: true
-    //         }),
-    //         commonjs(),
-    //         babel({babelHelpers: 'bundled'}),
-    //         postcss({
-    //             // extract: true,
-    //             extract: 'css/app.css',
-    //             minimize: true,
-    //             plugins: [
-    //                 precss(),
-    //             ]
-    //         }),
-    //         terser({
-    //             format: {
-    //                 comments: /^1/,
-    //             },
-    //         })
-    //     ],
-    // },
-    // {
-    //     input: 'js/editor.js',
-    //     output: {
-    //         dir: '../priv/static',
-    //         name: 'editor',
-    //         entryFileNames: "js/[name].js",
-    //         format: 'iife',
-    //     },
-    //     plugins: [
-    //         resolve({
-    //             browser: true
-    //         }),
-    //         commonjs(),
-    //         babel({babelHelpers: 'bundled'}),
-    //         postcss({
-    //             // extract: true,
-    //             extract: 'css/editor.css',
-    //             minimize: true,
-    //             plugins: [
-    //                 precss(),
-    //             ]
-    //         }),
-    //         terser()
-    //     ],
-    // }
+    {
+        input: 'js/app.js',
+        output: {
+            dir: '../priv/static',
+            name: 'bundle_name',
+            entryFileNames: "js/[name].js",
+            format: 'iife',
+        },
+        plugins: [
+            resolve({
+                browser: true
+            }),
+            commonjs(),
+            babel({babelHelpers: 'bundled'}),
+            postcss({
+                // extract: true,
+                extract: 'css/app.css',
+                minimize: true,
+                plugins: [
+                    precss(),
+                ]
+            }),
+            terser({
+                format: {
+                    comments: /^1/,
+                },
+            })
+        ],
+    },
+    {
+        input: 'js/editor.js',
+        output: {
+            dir: '../priv/static',
+            name: 'editor',
+            entryFileNames: "js/[name].js",
+            format: 'iife',
+        },
+        plugins: [
+            resolve({
+                browser: true
+            }),
+            commonjs(),
+            babel({babelHelpers: 'bundled'}),
+            postcss({
+                // extract: true,
+                extract: 'css/editor.css',
+                minimize: true,
+                plugins: [
+                    precss(),
+                ]
+            }),
+            terser()
+        ],
+    }
 ];
