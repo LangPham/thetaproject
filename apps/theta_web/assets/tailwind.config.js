@@ -3,7 +3,7 @@ module.exports = {
     // important: false,
     purge: {
         //   preserveHtmlElements: false,
-        // enabled: true, // Remove or change to `true` to enable purging.
+        enabled: true, // Remove or change to `true` to enable purging.
         mode: 'layers',
         content: [
             '../lib/**/*.ex',
