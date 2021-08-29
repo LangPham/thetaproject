@@ -3,7 +3,7 @@
   "description": "Theta.vn",
   "license": "MIT",
   "scripts": {
-    "deploy": "webpack --mode production",
+    "deploy": "rollup -c",
     "dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "roll": "rollup -c"
@@ -29,7 +29,6 @@
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "alpinejs": "^3.2.2",
     "autoprefixer": "^10.3.1",
-    "bulma": "^0.9.3",
     "node-sass": "^6.0.1",
     "postcss": "^8.3.5",
     "precss": "^4.0.0",
