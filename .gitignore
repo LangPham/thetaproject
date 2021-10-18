@@ -20,11 +20,10 @@ erl_crash.dump
 *.ez
 /.idea/
 /.DS_Store/
-/uploads/
-/old_uploads/
 /config/*
 !/config/config.exs
 !/config/dev.exs
 !/config/test.exs
 bash_release
+*.zip
 *.service
