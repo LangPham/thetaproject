@@ -4,7 +4,11 @@ defmodule ThetaWeb.Cms.QaControllerTest do
   alias Theta.Cms
 
   @create_attrs %{answer: "some answer", question: "some question", tag: "some tag"}
-  @update_attrs %{answer: "some updated answer", question: "some updated question", tag: "some updated tag"}
+  @update_attrs %{
+    answer: "some updated answer",
+    question: "some updated question",
+    tag: "some updated tag"
+  }
   @invalid_attrs %{answer: nil, question: nil, tag: nil}
 
   def fixture(:qa) do
@@ -75,6 +79,7 @@ defmodule ThetaWeb.Cms.QaControllerTest do
     test "deletes chosen qa", %{conn: conn, qa: qa} do
       conn = delete(conn, Routes.cms_qa_path(conn, :delete, qa))
       assert redirected_to(conn) == Routes.cms_qa_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.cms_qa_path(conn, :show, qa))
       end

@@ -21,12 +21,12 @@ defmodule Theta.CMS.Taxonomy do
     |> validate_required([:name])
   end
 
-  defp put_slug_id(%Ecto.Changeset{valid?: true,changes: %{name: name }} = changeset ,attrs) do
+  defp put_slug_id(%Ecto.Changeset{valid?: true, changes: %{name: name}} = changeset, attrs) do
     case changeset.data.id do
       nil -> change(changeset, id: Slug.slugify(String.downcase(name)))
       _ -> changeset
     end
   end
-  defp put_slug_id(changeset ,_), do: changeset
 
+  defp put_slug_id(changeset, _), do: changeset
 end

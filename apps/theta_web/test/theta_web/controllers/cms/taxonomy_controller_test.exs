@@ -64,7 +64,9 @@ defmodule ThetaWeb.CMS.TaxonomyControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, taxonomy: taxonomy} do
-      conn = put(conn, Routes.cms_taxonomy_path(conn, :update, taxonomy), taxonomy: @invalid_attrs)
+      conn =
+        put(conn, Routes.cms_taxonomy_path(conn, :update, taxonomy), taxonomy: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "Edit Taxonomy"
     end
   end
@@ -75,6 +77,7 @@ defmodule ThetaWeb.CMS.TaxonomyControllerTest do
     test "deletes chosen taxonomy", %{conn: conn, taxonomy: taxonomy} do
       conn = delete(conn, Routes.cms_taxonomy_path(conn, :delete, taxonomy))
       assert redirected_to(conn) == Routes.cms_taxonomy_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.cms_taxonomy_path(conn, :show, taxonomy))
       end

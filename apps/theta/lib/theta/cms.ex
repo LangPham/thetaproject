@@ -134,11 +134,11 @@ defmodule Theta.CMS do
   """
   def list_term_menu do
     taxonomy_id = "main-menu"
+
     Term
     |> order_by([t], asc: t.inserted_at)
     |> where([t], t.taxonomy_id == ^taxonomy_id)
     |> Repo.all()
-
   end
 
   @doc """
@@ -188,8 +188,8 @@ defmodule Theta.CMS do
 
   """
   def update_term(%Term{} = term, attrs) do
-
     attrs = Map.put_new(attrs, "action", "update")
+
     term
     |> Term.changeset(attrs)
     |> Repo.update()
@@ -208,7 +208,6 @@ defmodule Theta.CMS do
 
   """
   def delete_term(%Term{} = term) do
-
     Repo.delete(term)
   end
 
@@ -224,7 +223,6 @@ defmodule Theta.CMS do
   def change_term(%Term{} = term) do
     Term.changeset(term, %{})
   end
-
 
   @doc """
   Returns the list of article.
@@ -247,7 +245,6 @@ defmodule Theta.CMS do
     |> order_by([a], desc: a.inserted_at)
     |> Repo.all()
     |> Repo.preload(:user)
-
   end
 
   def list_article_serial_menu(slug) do
@@ -256,7 +253,6 @@ defmodule Theta.CMS do
     |> order_by([a], desc: a.inserted_at)
     |> Repo.all()
     |> Repo.preload(:user)
-
   end
 
   def list_article_index do
@@ -264,7 +260,6 @@ defmodule Theta.CMS do
     |> order_by([c], desc: c.inserted_at)
     |> Repo.all()
     |> Repo.preload(:user)
-
   end
 
   def list_serial do
@@ -297,21 +292,21 @@ defmodule Theta.CMS do
     Article
     |> Repo.get_by!(slug: slug)
     |> Repo.preload(
-         [
-           user: [],
-           tag: [],
-           menu: [],
-         ]
-       )
+      user: [],
+      tag: [],
+      menu: []
+    )
   end
 
   def get_article_serial!(id) do
     article_main = get_article!(id)
+
     article_sub =
       Article
       |> where([a], a.serial_id == ^id)
       |> order_by([a], asc: a.id)
       |> Repo.all()
+
     [article_main | article_sub]
   end
 
@@ -333,7 +328,6 @@ defmodule Theta.CMS do
     |> Article.changeset(attrs)
     |> Repo.insert()
   end
-
 
   @doc """
   Updates a article.
@@ -385,19 +379,21 @@ defmodule Theta.CMS do
   def get_serial(id) do
     article = get_article!(id)
 
-    serial = Repo.preload(
-      article,
-      [
+    serial =
+      Repo.preload(
+        article,
         path_alias: [],
         section: [:path_alias]
-      ]
-    )
+      )
+
     fist = %{id: serial.id, slug: serial.path_alias.slug, title: serial.title}
+
     list =
       for section <- serial.section do
         %{id: section.id, slug: section.path_alias.slug, title: section.title}
       end
-    list = Enum.sort_by(list, &(&1.id))
+
+    list = Enum.sort_by(list, & &1.id)
     [fist | list]
   end
 
@@ -421,13 +417,14 @@ defmodule Theta.CMS do
   end
 
   def list_tag_have_qa() do
-    query = from(
-      q in Qa,
-      distinct: [q.tag],
-      select: q.tag
-    )
-    Repo.all(query)
+    query =
+      from(
+        q in Qa,
+        distinct: [q.tag],
+        select: q.tag
+      )
 
+    Repo.all(query)
   end
 
   @doc """
@@ -517,12 +514,9 @@ defmodule Theta.CMS do
     |> where([a], a.term_id == ^tag)
     |> Repo.all()
     |> Repo.preload(
-         [
-           article: [
-             user: []
-           ]
-         ]
-       )
+      article: [
+        user: []
+      ]
+    )
   end
-
 end

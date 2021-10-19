@@ -19,7 +19,9 @@ defmodule Theta.Configuration do
   """
   def list_config do
     case Theta.CacheDB.get("config") do
-      {:ok, var} -> var
+      {:ok, var} ->
+        var
+
       {:error, _} ->
         list = Repo.all(Config)
         Theta.CacheDB.set("config", list)
@@ -45,11 +47,12 @@ defmodule Theta.Configuration do
 
   def get_config_by_key(key) do
     var = Theta.Configuration.list_config()
-    config_list = Enum.filter(var, fn x -> x.key == key  end)
+    config_list = Enum.filter(var, fn x -> x.key == key end)
     config = Enum.at(config_list, 0)
+
     case config do
-       nil -> ""
-       conf -> conf.value
+      nil -> ""
+      conf -> conf.value
     end
   end
 
@@ -107,7 +110,6 @@ defmodule Theta.Configuration do
     config
     |> Repo.delete()
     |> update_cache("config")
-
   end
 
   @doc """
@@ -128,7 +130,9 @@ defmodule Theta.Configuration do
       {:ok, _} ->
         Theta.CacheDB.delete(key)
         result
-      {_, _} -> result
+
+      {_, _} ->
+        result
     end
   end
 end

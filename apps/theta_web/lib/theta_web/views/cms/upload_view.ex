@@ -6,5 +6,4 @@ defmodule ThetaWeb.CMS.UploadView do
     uri = param.uri
     %{data: "#{tmp.filename}", uri: uri}
   end
-
 end

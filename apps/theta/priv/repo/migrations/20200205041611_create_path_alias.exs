@@ -8,6 +8,7 @@ defmodule Theta.Repo.Migrations.CreatePathAlias do
 
       timestamps()
     end
+
     create unique_index(:path_alias, [:slug])
   end
 end

@@ -56,7 +56,9 @@ defmodule ThetaWeb.PV.PathAliasControllerTest do
     setup [:create_path_alias]
 
     test "redirects when data is valid", %{conn: conn, path_alias: path_alias} do
-      conn = put(conn, Routes.pv_path_alias_path(conn, :update, path_alias), path_alias: @update_attrs)
+      conn =
+        put(conn, Routes.pv_path_alias_path(conn, :update, path_alias), path_alias: @update_attrs)
+
       assert redirected_to(conn) == Routes.pv_path_alias_path(conn, :show, path_alias)
 
       conn = get(conn, Routes.pv_path_alias_path(conn, :show, path_alias))
@@ -64,7 +66,9 @@ defmodule ThetaWeb.PV.PathAliasControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, path_alias: path_alias} do
-      conn = put(conn, Routes.pv_path_alias_path(conn, :update, path_alias), path_alias: @invalid_attrs)
+      conn =
+        put(conn, Routes.pv_path_alias_path(conn, :update, path_alias), path_alias: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "Edit Path alias"
     end
   end
@@ -75,6 +79,7 @@ defmodule ThetaWeb.PV.PathAliasControllerTest do
     test "deletes chosen path_alias", %{conn: conn, path_alias: path_alias} do
       conn = delete(conn, Routes.pv_path_alias_path(conn, :delete, path_alias))
       assert redirected_to(conn) == Routes.pv_path_alias_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.pv_path_alias_path(conn, :show, path_alias))
       end

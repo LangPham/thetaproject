@@ -18,12 +18,12 @@ defmodule ThetaWeb.ErrorView do
   def render("500.html", _assigns) do
     "Server internal error"
   end
-#  def render("403.html", _assigns) do
-#    "KIem tra 403"
-#  end
+
+  #  def render("403.html", _assigns) do
+  #    "KIem tra 403"
+  #  end
 
   def template_not_found(template, _assigns) do
     Phoenix.Controller.status_message_from_template(template)
   end
-
 end

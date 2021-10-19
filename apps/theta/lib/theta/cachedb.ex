@@ -7,7 +7,7 @@ defmodule Theta.CacheDB do
   alias :ets, as: Ets
 
   # 1 ngay
-  #@expired_after 60 * 60 * 24
+  # @expired_after 60 * 60 * 24
 
   def start_link(args \\ []) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
@@ -26,22 +26,34 @@ defmodule Theta.CacheDB do
   end
 
   def get(key, time \\ 0) do
-    rs = Ets.lookup(:db_cache, key)
-         |> List.first()
+    rs =
+      Ets.lookup(:db_cache, key)
+      |> List.first()
 
     if rs == nil do
       {:error, :not_found}
     else
       expired_at = elem(rs, 2)
+
       cond do
-        time == 0 -> {:ok, elem(rs, 1)}
-        is_number(time) -> if NaiveDateTime.diff(NaiveDateTime.utc_now(), NaiveDateTime.add(expired_at,time*60, :second)) >= 0 do
-                             {:error, :expired}
-                           else
-                             {:ok, elem(rs, 1)}
-                           end
-        NaiveDateTime.diff(time, expired_at) >= 0 -> {:error, :expired}
-        true -> {:ok, elem(rs, 1)}
+        time == 0 ->
+          {:ok, elem(rs, 1)}
+
+        is_number(time) ->
+          if NaiveDateTime.diff(
+               NaiveDateTime.utc_now(),
+               NaiveDateTime.add(expired_at, time * 60, :second)
+             ) >= 0 do
+            {:error, :expired}
+          else
+            {:ok, elem(rs, 1)}
+          end
+
+        NaiveDateTime.diff(time, expired_at) >= 0 ->
+          {:error, :expired}
+
+        true ->
+          {:ok, elem(rs, 1)}
       end
     end
   end
@@ -60,25 +72,24 @@ defmodule Theta.CacheDB do
     {:ok, state}
   end
 
-#  @doc """
-#  Default TTL
-#  """
-#  def handle_cast({:set, key, val}, state) do
-#    #    expired_at =
-#    #      NaiveDateTime.utc_now()
-#    #      |> NaiveDateTime.add(@expired_after, :second)
-#
-#    #    Ets.insert(:db_cache, {key, val, expired_at})
-#    Ets.insert(:db_cache, {key, val, true})
-#    {:noreply, state}
-#  end
+  #  @doc """
+  #  Default TTL
+  #  """
+  #  def handle_cast({:set, key, val}, state) do
+  #    #    expired_at =
+  #    #      NaiveDateTime.utc_now()
+  #    #      |> NaiveDateTime.add(@expired_after, :second)
+  #
+  #    #    Ets.insert(:db_cache, {key, val, expired_at})
+  #    Ets.insert(:db_cache, {key, val, true})
+  #    {:noreply, state}
+  #  end
 
   @doc """
   Custom TTL
   """
   def handle_cast({:set, key, val}, state) do
-    inserted_at =
-      NaiveDateTime.utc_now()
+    inserted_at = NaiveDateTime.utc_now()
     #      |> NaiveDateTime.add(ttl, :second)
 
     Ets.insert(:db_cache, {key, val, inserted_at})
@@ -90,5 +101,4 @@ defmodule Theta.CacheDB do
     Ets.delete(:db_cache, key)
     {:noreply, state}
   end
-
 end

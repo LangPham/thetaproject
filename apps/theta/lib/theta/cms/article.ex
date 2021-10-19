@@ -20,6 +20,7 @@ defmodule Theta.CMS.Article do
 
     belongs_to :user, Theta.Account.User
     belongs_to :menu, Term, type: :string
+
     many_to_many(
       :tag,
       Term,
@@ -52,11 +53,14 @@ defmodule Theta.CMS.Article do
       nil ->
         navDT =
           NaiveDateTime.local_now()
-          |> NaiveDateTime.to_string
+          |> NaiveDateTime.to_string()
           |> Slug.slugify(truncate: 14, separator: "")
+
         slug = Slug.slugify(String.downcase(title)) <> "-#{navDT}.html"
         change(changeset, slug: slug)
-      _ -> changeset
+
+      _ ->
+        changeset
     end
   end
 
@@ -67,7 +71,7 @@ defmodule Theta.CMS.Article do
     list_tag = String.split(tags, [","], trim: true)
     list_id = Enum.map(list_tag, fn tag -> create_tag(tag) end)
     list_path_query = check_list_tag(list_id)
-    Ecto.Changeset.put_assoc(struct, :tag,  list_path_query)
+    Ecto.Changeset.put_assoc(struct, :tag, list_path_query)
   end
 
   defp put_tags(struct, _attrs), do: struct

@@ -7,7 +7,6 @@ defmodule Theta.Upload do
   @dir "uploads"
 
   def file_upload(upload, uri) do
-
     extension = Path.extname(upload.filename)
     rootname = Path.rootname(upload.filename)
     rootname = Slug.slugify("#{rootname}")
@@ -21,5 +20,4 @@ defmodule Theta.Upload do
 
     %{filename: pipeFile}
   end
-
 end

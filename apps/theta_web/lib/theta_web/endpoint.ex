@@ -10,8 +10,8 @@ defmodule ThetaWeb.Endpoint do
     encryption_salt: "cookie store encryption salt",
     signing_salt: "cookie store signing salt",
     key_length: 64,
-    #		same_site: "Strict",
-    #		secure: true,
+    # 		same_site: "Strict",
+    # 		secure: true,
     log: :debug
   ]
 
@@ -34,15 +34,15 @@ defmodule ThetaWeb.Endpoint do
   # when deploying your static files in production.
 
   plug Plug.Static,
-       at: "/",
-       from: :theta_web,
-       gzip: true,
-       only: ~w(css fonts images js favicon.ico robots.txt),
-       cache_control_for_etags: "max-age=315360000, public"
+    at: "/",
+    from: :theta_web,
+    gzip: true,
+    only: ~w(css fonts images js favicon.ico robots.txt),
+    cache_control_for_etags: "max-age=315360000, public"
 
   plug Plug.Static,
-       at: "/uploads",
-       from: "uploads"
+    at: "/uploads",
+    from: "uploads"
 
   plug CORSPlug
 
@@ -56,16 +56,16 @@ defmodule ThetaWeb.Endpoint do
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
-       param_key: "request_logger",
-       cookie_key: "request_logger"
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
-       parsers: [:urlencoded, :multipart, :json],
-       pass: ["*/*"],
-       json_decoder: Phoenix.json_library()
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"],
+    json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head

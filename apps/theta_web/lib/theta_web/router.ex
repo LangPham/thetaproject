@@ -1,7 +1,7 @@
 defmodule ThetaWeb.Router do
   use ThetaWeb, :router
   # Todo: enable Plug.ErrorHandler
-   use Plug.ErrorHandler
+  use Plug.ErrorHandler
 
   import Phoenix.LiveDashboard.Router
 
@@ -84,5 +84,4 @@ defmodule ThetaWeb.Router do
   def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
     ThetaWeb.ErrorHandler.process_error(conn)
   end
-
 end

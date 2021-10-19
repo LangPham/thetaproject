@@ -19,6 +19,7 @@ defmodule ThetaWeb.ConfigController do
     case Configuration.create_config(config_params) do
       {:ok, config} ->
         Theta.CacheDB.delete("config")
+
         conn
         |> put_flash(:info, "Config created successfully.")
         |> redirect(to: Routes.config_path(conn, :show, config))
@@ -45,6 +46,7 @@ defmodule ThetaWeb.ConfigController do
     case Configuration.update_config(config, config_params) do
       {:ok, config} ->
         Theta.CacheDB.delete("config")
+
         conn
         |> put_flash(:info, "Config updated successfully.")
         |> redirect(to: Routes.config_path(conn, :show, config))
@@ -58,6 +60,7 @@ defmodule ThetaWeb.ConfigController do
     config = Configuration.get_config!(id)
     {:ok, _config} = Configuration.delete_config(config)
     Theta.CacheDB.delete("config")
+
     conn
     |> put_flash(:info, "Config deleted successfully.")
     |> redirect(to: Routes.config_path(conn, :index))

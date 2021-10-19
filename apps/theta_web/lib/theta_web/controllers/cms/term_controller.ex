@@ -19,6 +19,7 @@ defmodule ThetaWeb.CMS.TermController do
     case CMS.create_term(term_params) do
       {:ok, term} ->
         if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
+
         conn
         |> put_flash(:info, "Term created successfully.")
         |> redirect(to: Routes.term_path(conn, :show, term))
@@ -30,19 +31,16 @@ defmodule ThetaWeb.CMS.TermController do
   end
 
   def show(conn, %{"id" => id}) do
-#    term = CMS.get_term!(id)
-#    render(conn, "show.html", term: term)
+    #    term = CMS.get_term!(id)
+    #    render(conn, "show.html", term: term)
+    # lấy nội dung post từ cache
     term =
-      # lấy nội dung post từ cache
       case CacheDB.get("term-#{id}") do
         # Nếu có ròi thì khỏi cần đọc DB
         {:ok, term} ->
-          IO.puts("HIT TERM")
-#          IO.inspect term
           term
 
         {:error, _} ->
-          IO.puts("MISS")
           # Chưa cache thì đọc từ DB
           term = CMS.get_term!(id)
 
@@ -67,6 +65,7 @@ defmodule ThetaWeb.CMS.TermController do
     case CMS.update_term(term, term_params) do
       {:ok, term} ->
         if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
+
         conn
         |> put_flash(:info, "Term updated successfully.")
         |> redirect(to: Routes.term_path(conn, :show, term))
@@ -80,6 +79,7 @@ defmodule ThetaWeb.CMS.TermController do
     term = CMS.get_term!(id)
     {:ok, _term} = CMS.delete_term(term)
     if term.taxonomy_id == 1, do: CacheDB.delete("menu-main")
+
     conn
     |> put_flash(:info, "Term deleted successfully.")
     |> redirect(to: Routes.term_path(conn, :index))
@@ -87,7 +87,6 @@ defmodule ThetaWeb.CMS.TermController do
 
   def abac(id) do
     term = CMS.get_term!(id)
-    IO.inspect term, label: "TERM IN ABAC"
 
     true
   end

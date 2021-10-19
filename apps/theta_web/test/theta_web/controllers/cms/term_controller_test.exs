@@ -75,6 +75,7 @@ defmodule ThetaWeb.CMS.TermControllerTest do
     test "deletes chosen term", %{conn: conn, term: term} do
       conn = delete(conn, Routes.cms_term_path(conn, :delete, term))
       assert redirected_to(conn) == Routes.cms_term_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.cms_term_path(conn, :show, term))
       end

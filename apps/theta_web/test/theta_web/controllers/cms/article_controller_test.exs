@@ -4,7 +4,11 @@ defmodule ThetaWeb.CMS.ArticleControllerTest do
   alias Theta.CMS
 
   @create_attrs %{body: "some body", summary: "some summary", title: "some title"}
-  @update_attrs %{body: "some updated body", summary: "some updated summary", title: "some updated title"}
+  @update_attrs %{
+    body: "some updated body",
+    summary: "some updated summary",
+    title: "some updated title"
+  }
   @invalid_attrs %{body: nil, summary: nil, title: nil}
 
   def fixture(:article) do
@@ -75,6 +79,7 @@ defmodule ThetaWeb.CMS.ArticleControllerTest do
     test "deletes chosen article", %{conn: conn, article: article} do
       conn = delete(conn, Routes.cms_article_path(conn, :delete, article))
       assert redirected_to(conn) == Routes.cms_article_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.cms_article_path(conn, :show, article))
       end

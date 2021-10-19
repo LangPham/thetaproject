@@ -18,7 +18,8 @@ defmodule ThetaWeb.Page do
               # meta title og:title
               title: "Trang chủ",
               # meta description og:description
-              description: "Góc chia sẽ kiến thức công nghệ thông tin, lưu giữ những bài viết hướng dẫn cài đặt cấu hình, sử hiệu quả tài nguyên ngành công nghệ thông tin!",
+              description:
+                "Góc chia sẽ kiến thức công nghệ thông tin, lưu giữ những bài viết hướng dẫn cài đặt cấu hình, sử hiệu quả tài nguyên ngành công nghệ thông tin!",
               # link canonical og:url
               canonical: "",
               meta: [],
@@ -27,7 +28,6 @@ defmodule ThetaWeb.Page do
               base: "",
               ld_json: %{},
               img_article: ""
-
             },
             body: %{},
             footer: %{}
@@ -36,16 +36,18 @@ defmodule ThetaWeb.Page do
     domain = Application.get_env(:theta_web, :root_url)
 
     this = put_in(%__MODULE__{}.head.base, domain)
-    this = put_in(
-      this.head.og,
-      [
-        %{property: "og:image:secure_url", content: domain <> "/images/logo.png"},
-        %{property: "og:image", content: domain <> "/images/logo.png"},
-        %{property: "og:type", content: "website"}
-      ]
-    )
-    put_in(this.head.canonical, domain)
-    #%{ %__MODULE__{} | uri:  URI.parse(ThetaWeb.Endpoint.url)}
-  end
 
+    this =
+      put_in(
+        this.head.og,
+        [
+          %{property: "og:image:secure_url", content: domain <> "/images/logo.png"},
+          %{property: "og:image", content: domain <> "/images/logo.png"},
+          %{property: "og:type", content: "website"}
+        ]
+      )
+
+    put_in(this.head.canonical, domain)
+    # %{ %__MODULE__{} | uri:  URI.parse(ThetaWeb.Endpoint.url)}
+  end
 end

@@ -180,12 +180,15 @@ defmodule Theta.CMSTest do
     end
   end
 
-
   describe "article" do
     alias Theta.CMS.Article
 
     @valid_attrs %{body: "some body", summary: "some summary", title: "some title"}
-    @update_attrs %{body: "some updated body", summary: "some updated summary", title: "some updated title"}
+    @update_attrs %{
+      body: "some updated body",
+      summary: "some updated summary",
+      title: "some updated title"
+    }
     @invalid_attrs %{body: nil, summary: nil, title: nil}
 
     def article_fixture(attrs \\ %{}) do
@@ -248,7 +251,11 @@ defmodule Theta.CMSTest do
     alias Theta.Cms.Qa
 
     @valid_attrs %{answer: "some answer", question: "some question", tag: "some tag"}
-    @update_attrs %{answer: "some updated answer", question: "some updated question", tag: "some updated tag"}
+    @update_attrs %{
+      answer: "some updated answer",
+      question: "some updated question",
+      tag: "some updated tag"
+    }
     @invalid_attrs %{answer: nil, question: nil, tag: nil}
 
     def qa_fixture(attrs \\ %{}) do

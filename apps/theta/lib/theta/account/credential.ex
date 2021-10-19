@@ -14,7 +14,6 @@ defmodule Theta.Account.Credential do
 
   @doc false
   def changeset(credential, attrs) do
-
     credential
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
@@ -22,7 +21,10 @@ defmodule Theta.Account.Credential do
     |> unique_constraint(:email)
     |> put_password_hash()
   end
-  defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = credential) do
+
+  defp put_password_hash(
+         %Ecto.Changeset{valid?: true, changes: %{password: password}} = credential
+       ) do
     change(credential, password: Cap.hash_pwd(password))
   end
 

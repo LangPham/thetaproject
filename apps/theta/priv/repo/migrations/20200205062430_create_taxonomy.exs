@@ -8,6 +8,5 @@ defmodule Theta.Repo.Migrations.CreateTaxonomy do
 
       timestamps()
     end
-
   end
 end

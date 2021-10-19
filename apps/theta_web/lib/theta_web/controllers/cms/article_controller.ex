@@ -4,14 +4,12 @@ defmodule ThetaWeb.CMS.ArticleController do
   alias Theta.{CMS, Repo, CacheDB}
   alias Theta.CMS.Article
 
-
   #  plug :authorize_article when action in [:show, :edit, :update, :delete]
 
   def index(conn, _params) do
-
     article =
       CMS.list_article()
-      |> Enum.sort_by(&(&1.updated_at), :desc)
+      |> Enum.sort_by(& &1.updated_at, :desc)
 
     render(conn, "index.html", article: article)
   end
@@ -24,7 +22,6 @@ defmodule ThetaWeb.CMS.ArticleController do
   end
 
   def create(conn, %{"article" => article_params}) do
-
     #    case CMS.create_article("conn.assigns.current_author", article_params) do
     case CMS.create_article(article_params) do
       {:ok, article} ->
@@ -35,7 +32,6 @@ defmodule ThetaWeb.CMS.ArticleController do
         |> redirect(to: Routes.article_path(conn, :show, article))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-
         menu = CMS.list_term_menu()
         serial = CMS.list_serial()
         render(conn, "new.html", changeset: changeset, menu: menu, serial: serial)
@@ -43,7 +39,6 @@ defmodule ThetaWeb.CMS.ArticleController do
   end
 
   def show(conn, %{"id" => id}) do
-    IO.inspect conn, label: "SHOW COON"
     article = CMS.get_article!(id)
     render(conn, "show.html", article: article)
   end
@@ -59,6 +54,7 @@ defmodule ThetaWeb.CMS.ArticleController do
 
   def update(conn, %{"id" => id, "article" => article_params}) do
     article = CMS.get_article!(id)
+
     case CMS.update_article(article, article_params) do
       {:ok, article} ->
         conn
@@ -72,7 +68,6 @@ defmodule ThetaWeb.CMS.ArticleController do
     end
   end
 
-
   def delete(conn, %{"id" => id}) do
     article = CMS.get_article!(id)
     {:ok, _article} = CMS.delete_article(article)
@@ -81,7 +76,6 @@ defmodule ThetaWeb.CMS.ArticleController do
     |> put_flash(:info, "Article deleted successfully.")
     |> redirect(to: Routes.article_path(conn, :index))
   end
-
 
   #  defp require_existing_author(conn, _) do
 
@@ -97,5 +91,4 @@ defmodule ThetaWeb.CMS.ArticleController do
     article = CMS.get_article!(id)
     article.user_id
   end
-
 end

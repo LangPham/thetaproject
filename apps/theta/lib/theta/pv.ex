@@ -47,6 +47,7 @@ defmodule Theta.PV do
     PathError
     |> Repo.get_by(path: path)
   end
+
   @doc """
   Creates a path_error.
 
@@ -111,5 +112,4 @@ defmodule Theta.PV do
   def change_path_error(%PathError{} = path_error) do
     PathError.changeset(path_error, %{})
   end
-
 end

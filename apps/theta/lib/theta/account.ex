@@ -139,7 +139,8 @@ defmodule Theta.Account do
   """
   def get_credential!(id), do: Repo.get!(Credential, id)
 
-  def get_credential_by_google_email(google_email), do: Repo.get_by(Credential, email: google_email)
+  def get_credential_by_google_email(google_email),
+    do: Repo.get_by(Credential, email: google_email)
 
   @doc """
   Creates a credential.
@@ -209,19 +210,22 @@ defmodule Theta.Account do
   def authenticate_by_email_password(email, password) do
     query =
       from u in User,
-           inner_join: c in assoc(u, :credential),
-           where: c.email == ^email
+        inner_join: c in assoc(u, :credential),
+        where: c.email == ^email
 
     case Repo.one(query) do
       %User{} = user ->
         us = Repo.preload(user, :credential)
         store_hash = us.credential.password
+
         if Cap.verify_pwd(password, store_hash) do
           {:ok, user}
         else
           {:error, :unauthorized}
         end
-      nil -> {:error, :unauthorized}
+
+      nil ->
+        {:error, :unauthorized}
     end
   end
 end

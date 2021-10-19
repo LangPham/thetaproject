@@ -20,6 +20,7 @@ config :theta_web, ThetaWeb.Endpoint,
   debug_errors: false,
   code_reloader: true,
   check_origin: false
+
 #  watchers: [
 #    node: [
 #      "node_modules/webpack/bin/webpack.js",
@@ -78,7 +79,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix, :stacktrace_depth, 20
 
 config :theta_web,
-       root_url: "http://localhost:4000"
+  root_url: "http://localhost:4000"
 
 config :theta,
        Google,

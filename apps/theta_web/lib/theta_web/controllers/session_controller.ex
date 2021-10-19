@@ -4,7 +4,6 @@ defmodule ThetaWeb.SessionController do
   alias Theta.Account
 
   def new(conn, _) do
-
     conn
     |> assign(:title, "Theta - Signin")
     |> put_layout("app.html")
@@ -26,6 +25,7 @@ defmodule ThetaWeb.SessionController do
         |> put_flash(:info, "Welcome #{user.name}!")
         |> Cap.sign_in(user.id, user.role)
         |> redirect(to: "/admin/index")
+
       {:error, :unauthorized} ->
         conn
         |> put_flash(:error, "Bad email/password combination")

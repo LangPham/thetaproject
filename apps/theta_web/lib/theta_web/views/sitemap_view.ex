@@ -12,7 +12,6 @@ defmodule ThetaWeb.SitemapView do
   end
 
   def date(time) do
-    NaiveDateTime.to_date time
+    NaiveDateTime.to_date(time)
   end
-
 end

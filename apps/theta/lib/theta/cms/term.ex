@@ -11,7 +11,7 @@ defmodule Theta.CMS.Term do
     field :name, :string
     field :description, :string
     belongs_to :taxonomy, Taxonomy, type: :string
-#    belongs_to :path_alias, PathAlias
+    #    belongs_to :path_alias, PathAlias
     has_many :article, Article, foreign_key: :menu_id
 
     timestamps()
@@ -23,14 +23,14 @@ defmodule Theta.CMS.Term do
     |> cast(attrs, [:name, :taxonomy_id, :description])
     |> validate_required([:name, :taxonomy_id])
     |> put_slug_id(attrs)
-
   end
 
-  defp put_slug_id(%Ecto.Changeset{valid?: true,changes: %{name: name }} = changeset ,attrs) do
+  defp put_slug_id(%Ecto.Changeset{valid?: true, changes: %{name: name}} = changeset, attrs) do
     case changeset.data.id do
       nil -> change(changeset, id: Slug.slugify(String.downcase(name)))
       _ -> changeset
     end
   end
-  defp put_slug_id(changeset ,_), do: changeset
+
+  defp put_slug_id(changeset, _), do: changeset
 end

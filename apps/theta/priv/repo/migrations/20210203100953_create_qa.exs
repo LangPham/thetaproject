@@ -9,6 +9,5 @@ defmodule Theta.Repo.Migrations.CreateQa do
 
       timestamps()
     end
-
   end
 end

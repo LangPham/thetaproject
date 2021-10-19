@@ -26,7 +26,6 @@ defmodule ThetaWeb.AmpController do
   end
 
   def index(conn, _params) do
-
     page = Page.new(conn)
     list_article = CMS.list_article_index()
 
@@ -45,7 +44,6 @@ defmodule ThetaWeb.AmpController do
   end
 
   def show(conn, %{"slug" => slug}) do
-
     cond do
       Regex.match?(~r/.html/, slug) -> show_article(conn, slug)
       Regex.match?(~r/.htm/, slug) -> show_tag(conn, slug)
@@ -59,6 +57,7 @@ defmodule ThetaWeb.AmpController do
     article = Theta.CMS.get_article_by_slug!(slug)
     serial_id = article.serial_id || article.id
     serial_all = Theta.CMS.get_article_serial!(serial_id)
+
     serial =
       if length(serial_all) < 2 do
         []
@@ -71,14 +70,16 @@ defmodule ThetaWeb.AmpController do
     page = put_in(page.head.description, article.summary)
     page = put_in(page.head.canonical, article.slug)
     page = put_in(page.head.ld_json, %{article: "article"})
-    page = put_in(
-      page.head.og,
-      [
-        %{property: "og:image:secure_url", content: page.head.base <> article.photo},
-        %{property: "og:image", content: page.head.base <> article.photo},
-        %{property: "og:type", content: "article"}
-      ]
-    )
+
+    page =
+      put_in(
+        page.head.og,
+        [
+          %{property: "og:image:secure_url", content: page.head.base <> article.photo},
+          %{property: "og:image", content: page.head.base <> article.photo},
+          %{property: "og:type", content: "article"}
+        ]
+      )
 
     list_article = Theta.CMS.list_article_menu(article.menu_id)
     list_serial = for article <- serial_all, do: article.id
@@ -86,6 +87,7 @@ defmodule ThetaWeb.AmpController do
     new = Enum.take(new_exclude_serial, 5)
 
     page = Map.put(page, :body, %{article: article, serial: serial, new: new})
+
     conn
     |> render("article.html", page: page)
   end
@@ -103,27 +105,27 @@ defmodule ThetaWeb.AmpController do
     page = put_in(page.head.canonical, term.id)
     page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
     page = Map.put(page, :body, %{list_article: list_article, serial_menu: serial_menu})
+
     conn
     |> render("main_menu.html", page: page)
   end
 
   defp show_tag(conn, slug) do
     page = Page.new(conn)
-    tag = String.split(slug, ".") |> List.first
+    tag = String.split(slug, ".") |> List.first()
     list_article = CMS.list_article_by_tag(tag)
 
     term = CMS.get_term!(tag)
     all_tag = CMS.list_tag()
     list_qa = CMS.list_qa_by_tag(tag)
 
-
     page = put_in(page.head.title, term.name)
     page = put_in(page.head.description, term.description)
     page = put_in(page.head.canonical, term.id)
     page = put_in(page.head.ld_json, %{main_menu: "main_menu"})
     page = Map.put(page, :body, %{list_article: list_article, all_tag: all_tag, list_qa: list_qa})
+
     conn
     |> render("tag.html", page: page)
   end
-
 end

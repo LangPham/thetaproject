@@ -11,13 +11,13 @@ use Mix.Config
 
 # Configure Mix tasks and generators
 config :theta,
-       ecto_repos: [Theta.Repo]
+  ecto_repos: [Theta.Repo]
 
 config :theta_web,
-       ecto_repos: [Theta.Repo],
-       generators: [
-         context_app: :theta
-       ]
+  ecto_repos: [Theta.Repo],
+  generators: [
+    context_app: :theta
+  ]
 
 # Configures the endpoint
 config :theta_web,
@@ -36,7 +36,7 @@ config :theta_web,
          signing_salt: "UnOlvZWl"
        ]
 
-config :theta_web, env: Mix.env
+config :theta_web, env: Mix.env()
 
 # Configures Elixir's Logger
 config :logger,
@@ -47,8 +47,7 @@ config :logger,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :phoenix, :template_engines,
-       md: PhoenixMarkdown.Engine
+config :phoenix, :template_engines, md: PhoenixMarkdown.Engine
 
 config :mime, :types, %{
   "application/xml" => ["xml"]
@@ -57,34 +56,34 @@ config :mime, :types, %{
 config :theta_web,
        ThetaWeb.Guardian,
        issuer: "theta_web",
-       secret_key: "liowth" # put the result of the mix command above here
+       # put the result of the mix command above here
+       secret_key: "liowth"
 
 # Configure Mix tasks and generators
 config :theta_media,
-       storage: Path.join([Path.dirname(__DIR__), "uploads"])
+  storage: Path.join([Path.dirname(__DIR__), "uploads"])
 
 config :theta_web, ThetaWeb.Gettext, locales: ~w(en vi), default_locale: "vi"
 
 config :cors_plug,
-       origin: ["https://theta-vn.cdn.ampproject.org"],
-       max_age: 86400,
-       methods: ["GET"]
+  origin: ["https://theta-vn.cdn.ampproject.org"],
+  max_age: 86400,
+  methods: ["GET"]
 
 config :cap,
-       effect: :deny,
-       exception: :root,
-       policy: %{
-         nil: %{
-           :* => :*
-         },
-         admin: %{
-           ThetaWeb.CMS.ArticleController => :*
-         },
-         mod: %{
-           ThetaWeb.CMS.ArticleController => :update
-         }
-       },
-       secret_key: "AMlTnnYyOp3EWUbwSTawScMyF9IQoVYs"
-
+  effect: :deny,
+  exception: :root,
+  policy: %{
+    nil: %{
+      :* => :*
+    },
+    admin: %{
+      ThetaWeb.CMS.ArticleController => :*
+    },
+    mod: %{
+      ThetaWeb.CMS.ArticleController => :update
+    }
+  },
+  secret_key: "AMlTnnYyOp3EWUbwSTawScMyF9IQoVYs"
 
 import_config "#{Mix.env()}.exs"

@@ -75,6 +75,7 @@ defmodule ThetaWeb.ConfigControllerTest do
     test "deletes chosen config", %{conn: conn, config: config} do
       conn = delete(conn, Routes.config_path(conn, :delete, config))
       assert redirected_to(conn) == Routes.config_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.config_path(conn, :show, config))
       end

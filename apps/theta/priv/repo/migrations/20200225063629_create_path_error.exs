@@ -9,6 +9,5 @@ defmodule Theta.Repo.Migrations.CreatePathError do
 
       timestamps()
     end
-
   end
 end
