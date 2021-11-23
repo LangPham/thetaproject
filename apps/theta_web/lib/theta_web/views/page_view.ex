@@ -92,11 +92,11 @@ defmodule ThetaWeb.PageView do
           }
         {"a", [{"href", href}], _children} ->
           href_edit =
-          case Regex.named_captures(~r/https:\/\/theta\.vn(?<request>[[:print:]]+)/, href) do
+          case Regex.named_captures(~r/https:\/\/theta\.vn\/(?<request>[[:print:]]+)/, href) do
             nil -> href
             %{"request" => request} ->
                      root_url = Application.get_env(:theta_web, :root_url)
-                     "#{root_url}/request"
+                     "#{root_url}/#{request}"
           end
           {"a", [{"href", href_edit}], _children}
         tag ->
