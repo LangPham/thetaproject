@@ -69,7 +69,7 @@ defmodule ThetaWeb.AmpController do
     page = put_in(page.head.img_article, article.photo)
     page = put_in(page.head.description, article.summary)
     page = put_in(page.head.canonical, article.slug)
-    page = put_in(page.head.ld_json, %{article: "article"})
+    page = put_in(page.head.ld_json, %{amp_article: article})
 
     page =
       put_in(
