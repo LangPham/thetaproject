@@ -12,7 +12,7 @@
 					</a>
 				</li>
 				<li>
-					<a  class="text-white" href="https://theta.vn/<%= @page.body.article.menu_id %>">
+					<a  class="text-white" href='<%= "#{@page.head.base}/#{@page.body.article.menu_id}" %>'>
 						<span><%= @page.body.article.menu.name %></span>
 					</a>
 				</li>

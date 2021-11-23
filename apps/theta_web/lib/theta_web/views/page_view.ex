@@ -7,6 +7,7 @@ defmodule ThetaWeb.PageView do
     |> Floki.parse_fragment!()
     |> update_picture()
     |> add_id_header()
+#    |> IO.inspect(label: "Floki======\n")
   end
 
   def markdown(floki) do
@@ -89,7 +90,15 @@ defmodule ThetaWeb.PageView do
               {"img", attrs, []}
             ]
           }
-
+        {"a", [{"href", href}], _children} ->
+          href_edit =
+          case Regex.named_captures(~r/https:\/\/theta\.vn(?<request>[[:print:]]+)/, href) do
+            nil -> href
+            %{"request" => request} ->
+                     root_url = Application.get_env(:theta_web, :root_url)
+                     "#{root_url}/request"
+          end
+          {"a", [{"href", href_edit}], _children}
         tag ->
           tag
       end

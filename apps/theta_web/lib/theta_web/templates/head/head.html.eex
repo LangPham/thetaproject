@@ -20,10 +20,10 @@
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		"@id": "<%= '#{@head.base}/#webSite' %>",
-		"url": "https://theta.vn/",
+		"url": "https://www.theta.vn/",
 		"potentialAction": {
 			"@type": "SearchAction",
-			"target": "https://theta.vn/search?q={search_term_string}",
+			"target": "https://www.theta.vn/search?q={search_term_string}",
 			"query-input": "required name=search_term_string"
 		}
 	}
@@ -36,10 +36,10 @@
 	{
 		"@context": "https://schema.org",
 		"@type": "WebSite",
-		"url": "https://theta.vn/",
+		"url": "https://www.theta.vn/",
 		"potentialAction": {
 			"@type": "SearchAction",
-			"target": "https://theta.vn/search?q={search_term_string}",
+			"target": "https://www.theta.vn/search?q={search_term_string}",
 			"query-input": "required name=search_term_string"
 		}
 	}
@@ -66,7 +66,7 @@
 				"@type": "Organization",
 				"logo": {
 					"@type": "ImageObject",
-					"url": "https://theta.vn/images/logo.png",
+					"url": "https://www.theta.vn/images/logo.png",
 					"width": "820",
 					"height": "312"
 				},
@@ -120,7 +120,7 @@
 			"@type": "Organization",
 			"logo": {
 				"@type": "ImageObject",
-				"url": "https://theta.vn/images/logo_160x60.png",
+				"url": "https://www.theta.vn/images/logo_160x60.png",
 				"width": "160",
 				"height": "60"
 			},

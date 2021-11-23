@@ -29,9 +29,9 @@ defmodule ThetaWeb.Api.DataController do
     list_serial = for article <- serial_all, do: article.id
     new_exclude_serial = for article <- list_article, article.id not in list_serial, do: article
     new = Enum.take(new_exclude_serial, 5)
-
-    serial = Enum.map(serial, fn a -> %{title: a.title, url: "https://theta.vn/#{a.slug}"} end)
-    new = Enum.map(new, fn a -> %{title: a.title, url: "https://theta.vn/#{a.slug}"} end)
+    root_url = Application.get_env(:theta_web, :root_url)
+    serial = Enum.map(serial, fn a -> %{title: a.title, url: "#{root_url}/#{a.slug}"} end)
+    new = Enum.map(new, fn a -> %{title: a.title, url: "#{root_url}/#{a.slug}"} end)
     pages = %{new: new, serial: serial}
 
     render(conn, "show.json", pages: pages)
