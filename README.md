@@ -1,5 +1,5 @@
 # Theta Elixir
-Project web blog for https://theta.vn
+Project web blog for https://www.theta.vn
 
 ## Getting started
 Create project Phoenixframework with --umbrella --database=postgres
