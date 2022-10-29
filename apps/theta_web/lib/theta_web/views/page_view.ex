@@ -45,27 +45,11 @@ defmodule ThetaWeb.PageView do
         text = Floki.text(children)
         {"h2", [{"id", Slug.slugify(text)}], children}
 
-      #           {"h3", attrs, children} ->
-      #             text = Floki.text(children)
-      #             {"h3", [{"id", Slug.slugify(text)}], children}
       tag ->
         tag
     end)
   end
 
-  defp filter_html(floki, list_filter) do
-    count = length(list_filter)
-
-    case count do
-      0 ->
-        floki
-
-      _ ->
-        {list_split, list_filter} = Enum.split(list_filter, 1)
-        floki = Floki.filter_out(floki, Enum.at(list_split, 0))
-        filter_html(floki, list_filter)
-    end
-  end
 
   defp update_picture(floki) do
     Floki.traverse_and_update(
@@ -92,7 +76,7 @@ defmodule ThetaWeb.PageView do
             ]
           }
 
-        {"a", [{"href", href}], _children} ->
+        {"a", [{"href", href}], children} ->
           href_edit =
             case Regex.named_captures(~r/https:\/\/theta\.vn\/(?<request>[[:print:]]+)/, href) do
               nil ->
@@ -103,7 +87,7 @@ defmodule ThetaWeb.PageView do
                 "#{root_url}/#{request}"
             end
 
-          {"a", [{"href", href_edit}], _children}
+          {"a", [{"href", href_edit}], children}
 
         tag ->
           tag

@@ -37,8 +37,8 @@ defmodule ThetaWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.8"},
-      {:phoenix_ecto, "~> 4.1"},
+      {:phoenix, "~> 1.5.14"},
+      {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 2.14"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4.0"},
@@ -49,7 +49,7 @@ defmodule ThetaWeb.MixProject do
       {:theta, in_umbrella: true},
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.3"},
-      {:floki, "~> 0.27.0"},
+      {:floki, "~> 0.30.0"},
       {:earmark, "~> 1.4.14"},
       {:theta_media, "~>0.1.0"},
       {:gi, "~> 0.1.1"},
