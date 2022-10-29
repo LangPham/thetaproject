@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :theta, Theta.Repo,
   username: "postgres",
-  password: "08635653",
+  password: "postgres",
   database: "thetaproject_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -16,7 +16,10 @@ config :theta, Theta.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :theta_web, ThetaWeb.Endpoint,
-  http: [port: 4000],
+  http: [
+    port: 4000,
+    compress: true
+  ],
   debug_errors: false,
   code_reloader: true,
   check_origin: false

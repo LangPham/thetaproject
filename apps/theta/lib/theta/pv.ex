@@ -5,7 +5,6 @@ defmodule Theta.PV do
 
   import Ecto.Query, warn: false
   alias Theta.Repo
-  alias Theta.CacheDB
   alias Theta.PV.PathError
 
   def get_path_error_by_path(path) do

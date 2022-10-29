@@ -2,9 +2,6 @@ defmodule Theta.Upload do
   @moduledoc """
   The Upload context.
   """
-  alias Ecto.Changeset
-
-  @dir "uploads"
 
   def file_upload(upload, uri) do
     extension = Path.extname(upload.filename)

@@ -41,7 +41,8 @@ defmodule Theta.MixProject do
       {:postgrex, ">= 0.15.8"},
       {:jason, "~> 1.1"},
       {:slugify, "~> 1.3"},
-      {:oauth2, "~> 2.0"}
+      {:oauth2, "~> 2.0"},
+      {:cap, "~> 0.1.2"}
     ]
   end
 
